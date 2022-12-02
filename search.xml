@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title></title>
+      <link href="/2022/11/30/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%87%E8%80%83/"/>
+      <url>/2022/11/30/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%8A%80%E6%9C%AF%E5%A4%87%E8%80%83/</url>
+      
+        <content type="html"><![CDATA[<hr><p>title:大数据存储技术备考<br>data:2022-11-30<br>updated:2022-11-30</p><hr><h1 id="大数据存储技术（《深入分布式缓存：从原理到实践》）"><a href="#大数据存储技术（《深入分布式缓存：从原理到实践》）" class="headerlink" title="大数据存储技术（《深入分布式缓存：从原理到实践》）"></a>大数据存储技术（《深入分布式缓存：从原理到实践》）</h1><h4 id="一、CAP理论"><a href="#一、CAP理论" class="headerlink" title="一、CAP理论"></a>一、CAP理论</h4><h6 id="分布式系统的三个特性"><a href="#分布式系统的三个特性" class="headerlink" title="分布式系统的三个特性"></a>分布式系统的三个特性</h6><ul><li>一致性【Consistency】：在分布式系统中的所有数据备份，在<strong>同一时刻</strong>是否有同样的值。（等同于所有节点访问同一份最新的数据副本）</li><li>可用性【Availability】：在集群中一部分<strong>节点故障</strong>后，集群整体是否还能响应客户端的读写请求。（对数据更新具备高可用性）</li><li>分区容忍性【Partition tolerance】：以实际效果而言，分区相当于对通信的<strong>时限要求</strong>。系统如果不能在一定时间内达成数据一致性，就意味着发生了分区的情况，必须就当前操作在C和A之间做出选择。</li></ul><p>高可用、数据一致是很多系统设计的目标，但是分区又是不可避免地事情，由此引出了以下几种选择：</p><h6 id="（1）CA-without-P"><a href="#（1）CA-without-P" class="headerlink" title="（1）CA without P"></a>（1）CA without P</h6><p>如果不要求P（不允许分区），则C（强一致性）和A（可用性）是可以保证的。但其实分区不是你想不想的问题，而是始终会存在，因此<strong>CA的系统更多的是允许分区后各子系统依然保持CA</strong>。</p><p>典型放弃分区容忍性的例子有<strong>关系型数据库、LDAP</strong>等。</p><h6 id="（2）CP-without-A"><a href="#（2）CP-without-A" class="headerlink" title="（2）CP without A"></a>（2）CP without A</h6><p>如果不要求A（可用性），相当于<strong>每个请求都需要在Server 之间强一致，而P（分区）会导致同步时间无限延长</strong>，如此CP也是可以保证的。很多<strong>传统的数据库</strong>分布式事务都属于这种模式，分布式锁也属于此种情况。</p><h6 id="（3）AP-without-C"><a href="#（3）AP-without-C" class="headerlink" title="（3）AP without C"></a>（3）AP without C</h6><p>要高可用并允许分区，则需放弃一致性。一旦分区发生，节点之间可能会失去联系，为了高可用，每个节点只能用本地数据提供服务，而这样会导致全局数据的不一致性。现在众多的NoSQL都属于此类。</p><p>该理论由brewer提出，2002年Lynch与其他人证明了Brewer猜想，从而把CAP上升为一个Lynch定理。</p><p>Lynch的证明采用<strong>反证法</strong>，如果三者可同时满足，则因为允许P的存在，一定存在Server之间的丢包，如此则不能保证C。在该证明中，Lynch对CAP定义进行了更加明确的声明。</p><h6 id="更加明确的CAP声明（圣经）"><a href="#更加明确的CAP声明（圣经）" class="headerlink" title="更加明确的CAP声明（圣经）"></a>更加明确的CAP声明（圣经）</h6><ul><li>C：一致性被称为<strong>原子对象</strong>，任何的读写都应该看起来是“原子”的，或串行的。</li><li>A：对任何非失败节点都应该在有限的时间内给出请求的回应。（请求的可终止性）</li><li>P：允许节点之间丢失任意多的消息，当网络分区发生时，节点之间的消息可能会完全丢失。</li></ul><p><strong>（没有一个软件系统同时满足CAP。这里的C指的是强一致性。针对分布式系统而言，一定满足P，即存在网络分区【网络延时】）</strong></p><hr><h4 id="二、Raft算法"><a href="#二、Raft算法" class="headerlink" title="二、Raft算法"></a>二、Raft算法</h4><h4 id="三、Nginx负载均衡策略"><a href="#三、Nginx负载均衡策略" class="headerlink" title="三、Nginx负载均衡策略"></a>三、Nginx负载均衡策略</h4><h4 id="四、一致性Hash算法"><a href="#四、一致性Hash算法" class="headerlink" title="四、一致性Hash算法"></a>四、一致性Hash算法</h4><h4 id="五、全局ID生成算法"><a href="#五、全局ID生成算法" class="headerlink" title="五、全局ID生成算法"></a>五、全局ID生成算法</h4><h4 id="六、设计一个缓存框架（参考课本或者课件都可以）"><a href="#六、设计一个缓存框架（参考课本或者课件都可以）" class="headerlink" title="六、设计一个缓存框架（参考课本或者课件都可以）"></a>六、设计一个缓存框架（参考课本或者课件都可以）</h4><h4 id="七、缓存击穿、穿透、雪崩现象及解决办法"><a href="#七、缓存击穿、穿透、雪崩现象及解决办法" class="headerlink" title="七、缓存击穿、穿透、雪崩现象及解决办法"></a>七、缓存击穿、穿透、雪崩现象及解决办法</h4><h4 id="八、Ehcache的注解"><a href="#八、Ehcache的注解" class="headerlink" title="八、Ehcache的注解"></a>八、Ehcache的注解</h4><h4 id="九、Memcached的内存管理机制"><a href="#九、Memcached的内存管理机制" class="headerlink" title="九、Memcached的内存管理机制"></a>九、Memcached的内存管理机制</h4><h4 id="十、关系型数据库和非关系型数据库的优缺点分析"><a href="#十、关系型数据库和非关系型数据库的优缺点分析" class="headerlink" title="十、关系型数据库和非关系型数据库的优缺点分析"></a>十、关系型数据库和非关系型数据库的优缺点分析</h4><h4 id="十一、Redis的数据结构"><a href="#十一、Redis的数据结构" class="headerlink" title="十一、Redis的数据结构"></a>十一、Redis的数据结构</h4><h4 id="十二、Redis的持久化方式"><a href="#十二、Redis的持久化方式" class="headerlink" title="十二、Redis的持久化方式"></a>十二、Redis的持久化方式</h4><h4 id="十三、Redis集群的演进"><a href="#十三、Redis集群的演进" class="headerlink" title="十三、Redis集群的演进"></a>十三、Redis集群的演进</h4><h4 id="十四、综合系统设计"><a href="#十四、综合系统设计" class="headerlink" title="十四、综合系统设计"></a>十四、综合系统设计</h4>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2022/11/29/hello-world/"/>
+      <url>/2022/11/29/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
