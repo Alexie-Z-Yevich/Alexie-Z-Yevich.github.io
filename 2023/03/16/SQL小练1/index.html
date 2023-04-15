@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>SQL小练1 | New Try &amp;&amp; New Life</title><meta name="author" content="Alexie-Z-Yevich"><meta name="copyright" content="Alexie-Z-Yevich"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言： 这是一个快失业的大学牲为了在简历上写熟练使用SQL而做的简单练习，越写感觉自己越菜。。。很多常见的语法根本不会，所以借由New Bing进行学习记录。主要采用记录我用的很少&#x2F;没用过的关键词为主，同时记录了我遇到的不错的SQL题。因为篇幅不宜过长，所以SQL小练不会超过10个一文。 改文记录如下： （1）CASE （2）UNION （3）CONCAT &amp;&amp; CON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL小练1">
+<meta property="og:url" content="https://www.fenrisx.icu/2023/03/16/SQL%E5%B0%8F%E7%BB%831/index.html">
+<meta property="og:site_name" content="New Try &amp;&amp; New Life">
+<meta property="og:description" content="前言： 这是一个快失业的大学牲为了在简历上写熟练使用SQL而做的简单练习，越写感觉自己越菜。。。很多常见的语法根本不会，所以借由New Bing进行学习记录。主要采用记录我用的很少&#x2F;没用过的关键词为主，同时记录了我遇到的不错的SQL题。因为篇幅不宜过长，所以SQL小练不会超过10个一文。 改文记录如下： （1）CASE （2）UNION （3）CONCAT &amp;&amp; CON">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.fenrisx.icu/images/head.jpg">
+<meta property="article:published_time" content="2023-03-16T14:17:20.000Z">
+<meta property="article:modified_time" content="2023-03-29T14:18:42.744Z">
+<meta property="article:author" content="Alexie-Z-Yevich">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.fenrisx.icu/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.fenrisx.icu/2023/03/16/SQL%E5%B0%8F%E7%BB%831/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alexie-Z-Yevich","link":"链接: ","source":"来源: New Try && New Life","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SQL小练1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-29 22:18:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="New Try &amp;&amp; New Life"><span class="site-name">New Try &amp;&amp; New Life</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SQL小练1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-16T14:17:20.000Z" title="发表于 2023-03-16 22:17:20">2023-03-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-29T14:18:42.744Z" title="更新于 2023-03-29 22:18:42">2023-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Little-Tips/">Little Tips</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SQL小练1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p><strong>前言：</strong></p>
+<p>这是一个快失业的大学牲为了在简历上写熟练使用SQL而做的简单练习，越写感觉自己越菜。。。很多常见的语法根本不会，所以借由New Bing进行学习记录。主要采用记录我用的很少&#x2F;没用过的关键词为主，同时记录了我遇到的不错的SQL题。因为篇幅不宜过长，所以SQL小练不会超过10个一文。</p>
+<p>改文记录如下：</p>
+<p>（1）CASE</p>
+<p>（2）UNION</p>
+<p>（3）CONCAT &amp;&amp; CONCAT_WS</p>
+<p>（4）COLLECT &amp;&amp; COLLECT_SET 【Hive SQL】</p>
+<p>（5）CAST</p>
+<p>（6）ROW_NUMBER</p>
+<p>（7）ROUND()</p>
+<p>（8）LAG() &amp;&amp; LEAD()</p>
+<p>（9）LATERAL VIEW</p>
+<p>（10）UDTF简述</p>
+</blockquote>
+<h4 id="1、SQL语法case的具体操作"><a href="#1、SQL语法case的具体操作" class="headerlink" title="1、SQL语法case的具体操作"></a>1、SQL语法case的具体操作</h4><p>SQL语法case的具体操作是一种条件表达式，用于根据条件执行不同的操作。SQL语法case有两种形式：简单的case和搜索的case。</p>
+<p>简单的case是将一个表达式与一组简单表达式进行比较以确定结果。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CASE</span> 表达式</span><br><span class="line">  <span class="keyword">WHEN</span> 值<span class="number">1</span> <span class="keyword">THEN</span> 结果<span class="number">1</span></span><br><span class="line">  <span class="keyword">WHEN</span> 值<span class="number">2</span> <span class="keyword">THEN</span> 结果<span class="number">2</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">ELSE</span> 结果N</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+
+<p>搜索的case是计算一组布尔表达式以确定结果¹²。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CASE</span> </span><br><span class="line">  <span class="keyword">WHEN</span> 条件<span class="number">1</span> <span class="keyword">THEN</span> 结果<span class="number">1</span></span><br><span class="line">  <span class="keyword">WHEN</span> 条件<span class="number">2</span> <span class="keyword">THEN</span> 结果<span class="number">2</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">ELSE</span> 结果N</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+
+<p>以下是两个例子：</p>
+<ul>
+<li>在OrderDetails表中，根据Quantity的大小返回不同的文本¹</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> OrderID, Quantity,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line">  <span class="keyword">WHEN</span> Quantity <span class="operator">&gt;</span> <span class="number">30</span> <span class="keyword">THEN</span> <span class="string">&#x27;The quantity is greater than 30&#x27;</span></span><br><span class="line">  <span class="keyword">WHEN</span> Quantity <span class="operator">=</span> <span class="number">30</span> <span class="keyword">THEN</span> <span class="string">&#x27;The quantity is 30&#x27;</span></span><br><span class="line">  <span class="keyword">ELSE</span> <span class="string">&#x27;The quantity is under 30&#x27;</span></span><br><span class="line"><span class="keyword">END</span> <span class="keyword">AS</span> QuantityText </span><br><span class="line"><span class="keyword">FROM</span> OrderDetails;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Customers表中，按照City排序，如果City为空，则按照Country排序¹</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CustomerName, City, Country </span><br><span class="line"><span class="keyword">FROM</span> Customers </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> (<span class="keyword">CASE</span> </span><br><span class="line">            <span class="keyword">WHEN</span> City <span class="keyword">IS</span> <span class="keyword">NULL</span> <span class="keyword">THEN</span> Country </span><br><span class="line">            <span class="keyword">ELSE</span> City </span><br><span class="line">          <span class="keyword">END</span>);</span><br></pre></td></tr></table></figure>
+
+<p>(1) SQL CASE Expression - W3Schools. <a target="_blank" rel="noopener" href="https://www.w3schools.com/sql/sql_case.asp">https://www.w3schools.com/sql/sql_case.asp</a></p>
+<p>(2) SQL CASE 语句. <a target="_blank" rel="noopener" href="https://www.w3schools.cn/sql/sql_case.asp">https://www.w3schools.cn/sql/sql_case.asp</a></p>
+<p>(3) CASE statement in SQL - SQL Shack. <a target="_blank" rel="noopener" href="https://www.sqlshack.com/case-statement-in-sql/">https://www.sqlshack.com/case-statement-in-sql/</a></p>
+<p>(4) SQL CASE - 1Keydata SQL 語法教學. <a target="_blank" rel="noopener" href="https://www.1keydata.com/tw/sql/sql-case.html">https://www.1keydata.com/tw/sql/sql-case.html</a></p>
+<hr>
+<h4 id="2、SQL语法UNION的具体操作"><a href="#2、SQL语法UNION的具体操作" class="headerlink" title="2、SQL语法UNION的具体操作"></a>2、SQL语法UNION的具体操作</h4><p>SQL语法Union的具体操作是一种集合运算符，用于合并两个或多个SELECT语句的结果集。SQL语法Union有两种形式：Union和Union All。</p>
+<p>Union是将两个或多个SELECT语句的结果集合并起来，并去除重复的记录。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 列名 <span class="keyword">FROM</span> 表名<span class="number">1</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> 列名 <span class="keyword">FROM</span> 表名<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>请注意，Union内部的每个SELECT语句必须拥有相同数量的列，列也必须拥有相似的数据类型，同时，每条SELECT语句中的列的顺序必须相同。</p>
+<p>Union All是将两个或多个SELECT语句的结果集合并起来，并保留重复的记录¹²。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 列名 <span class="keyword">FROM</span> 表名<span class="number">1</span></span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> 列名 <span class="keyword">FROM</span> 表名<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>以下是两个例子：</p>
+<ul>
+<li>在Websites表和apps表中，选取所有不同的country</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> country <span class="keyword">FROM</span> Websites </span><br><span class="line"><span class="keyword">UNION</span> </span><br><span class="line"><span class="keyword">SELECT</span> country <span class="keyword">FROM</span> apps </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> country;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Websites表和apps表中，选取所有中国(CN)的数据，并保留重复值</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> country, name <span class="keyword">FROM</span> Websites </span><br><span class="line"><span class="keyword">WHERE</span> country<span class="operator">=</span><span class="string">&#x27;CN&#x27;</span> </span><br><span class="line"><span class="keyword">UNION</span> <span class="keyword">ALL</span> </span><br><span class="line"><span class="keyword">SELECT</span> country, app_name <span class="keyword">FROM</span> apps </span><br><span class="line"><span class="keyword">WHERE</span> country<span class="operator">=</span><span class="string">&#x27;CN&#x27;</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> country;</span><br></pre></td></tr></table></figure>
+
+<p>(1) SQL UNION 操作符 | 菜鸟教程. <a target="_blank" rel="noopener" href="https://www.runoob.com/sql/sql-union.html">https://www.runoob.com/sql/sql-union.html</a></p>
+<p>(2) SQL UNION 和 UNION ALL 操作符. <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_union.asp">https://www.w3school.com.cn/sql/sql_union.asp</a></p>
+<p>(3) SQL UNION - 1Keydata SQL 語法教學. <a target="_blank" rel="noopener" href="https://www.1keydata.com/tw/sql/sqlunion.html">https://www.1keydata.com/tw/sql/sqlunion.html</a></p>
+<hr>
+<h4 id="3、SQL语法concat和concat-ws的区别和具体操作"><a href="#3、SQL语法concat和concat-ws的区别和具体操作" class="headerlink" title="3、SQL语法concat和concat_ws的区别和具体操作"></a>3、SQL语法concat和concat_ws的区别和具体操作</h4><p>SQL语法concat和concat_ws的区别和具体操作是：</p>
+<ul>
+<li>concat函数是将多个字符串连接成一个字符串，如果有任何一个参数为null，则返回值为null。其语法如下：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONCAT(string1, string2, ..., stringN)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>concat_ws函数是一种特殊形式的concat函数，也是将多个字符串连接成一个字符串，但是可以一次性指定分隔符（concat_ws就是concat with separator）。其语法如下：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONCAT_WS(separator, string1, string2, ..., stringN)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，concat_ws函数的第一个参数是其它参数间的分隔符，不能为null，如果为null，则返回值为null。</p>
+<p>以下是两个例子：</p>
+<ul>
+<li>在employee_tbl表中，选取id和name列，并用空格连接起来，使用concat函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(id,<span class="string">&#x27; &#x27;</span>,name) <span class="keyword">AS</span> id_name <span class="keyword">FROM</span> employee_tbl;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在employee_tbl表中，选取id和name列，并用空格连接起来，使用concat_ws函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT_WS(<span class="string">&#x27; &#x27;</span>,id,name) <span class="keyword">AS</span> id_name <span class="keyword">FROM</span> employee_tbl;</span><br></pre></td></tr></table></figure>
+
+<p>(1) SQL里的concat() 以及concat_ws() 函数的使用_concat_ws函数_一个学习Java的小菜鸟的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48633655/article/details/106838028">https://blog.csdn.net/weixin_48633655/article/details/106838028</a></p>
+<p>(2) concat和 concat_ws 区别以及踩出来的坑骑白马de图图的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/liusuoyin/article/details/108110718">https://blog.csdn.net/liusuoyin/article/details/108110718</a></p>
+<p>(3) MySQL中concat()、concat_ws()、group_concat()函数使用技巧与心得 - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/257399676">https://zhuanlan.zhihu.com/p/257399676</a></p>
+<hr>
+<h4 id="4、Hive-SQL语法collect和collect-set的区别和具体操作"><a href="#4、Hive-SQL语法collect和collect-set的区别和具体操作" class="headerlink" title="4、Hive SQL语法collect和collect_set的区别和具体操作"></a>4、Hive SQL语法collect和collect_set的区别和具体操作</h4><p>SQL语法collect和collect_set的区别和具体操作是：</p>
+<ul>
+<li>collect函数是一个Hive函数，用于将分组中的某列转为一个数组返回。其语法如下：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COLLECT</span>(<span class="keyword">column</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>collect_set函数也是一个Hive函数，用于将分组中的某列转为一个数组返回，但是会去除重复的值。其语法如下：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COLLECT_SET(<span class="keyword">column</span>)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，collect函数和collect_set函数一般搭配group by使用，并且可以和concat_ws函数连用，以指定分隔符。</p>
+<p>以下是两个例子：</p>
+<ul>
+<li>在student表中，按照class分组，将每个班级的name列转为一个数组，并用逗号连接起来，使用collect函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> class, CONCAT_WS(<span class="string">&#x27;,&#x27;</span>, <span class="keyword">COLLECT</span>(name)) <span class="keyword">AS</span> names <span class="keyword">FROM</span> student <span class="keyword">GROUP</span> <span class="keyword">BY</span> class;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在student表中，按照class分组，将每个班级的name列转为一个数组，并用逗号连接起来，使用collect_set函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> class, CONCAT_WS(<span class="string">&#x27;,&#x27;</span>, COLLECT_SET(name)) <span class="keyword">AS</span> names <span class="keyword">FROM</span> student <span class="keyword">GROUP</span> <span class="keyword">BY</span> class;</span><br></pre></td></tr></table></figure>
+
+<p>(1) 数仓工具—Hive语法之collect_set 和 collect_list(17)浊酒南街的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43597208/article/details/117450304">https://blog.csdn.net/weixin_43597208/article/details/117450304</a></p>
+<p>(2) SQL小知识点系列-3-collect_list&#x2F;collect_set（列转行） - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/440574505">https://zhuanlan.zhihu.com/p/440574505</a></p>
+<p>(3) Spark SQL里concat_ws和collect_set的作用 - 大葱拌豆腐 - 博客园. <a target="_blank" rel="noopener" href="https://www.cnblogs.com/itboys/p/11217815.html">https://www.cnblogs.com/itboys/p/11217815.html</a></p>
+<hr>
+<h4 id="5、SQL语法cast的具体操作"><a href="#5、SQL语法cast的具体操作" class="headerlink" title="5、SQL语法cast的具体操作"></a>5、SQL语法cast的具体操作</h4><p>SQL语法cast的具体操作是：</p>
+<ul>
+<li>cast函数用于将某种数据类型的表达式显式转换为另一种数据类型。其语法如下：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CAST</span>(expression <span class="keyword">AS</span> data_type)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，expression可以是任何有效的SQL表达式，data_type可以是以下类型之一：BINARY，CHAR，DATE，DATETIME，TIME，DECIMAL，SIGNED，UNSIGNED。</p>
+<p>以下是两个例子：</p>
+<ul>
+<li>将文本字符串’12’转换为整型</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(<span class="string">&#x27;12&#x27;</span> <span class="keyword">AS</span> <span class="type">INT</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将日期时间2021-01-01 12:34:56转换为日期</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CAST</span>(<span class="string">&#x27;2021-01-01 12:34:56&#x27;</span> <span class="keyword">AS</span> <span class="type">DATE</span>);</span><br></pre></td></tr></table></figure>
+
+<p>(1) SQL之CAST函数用法-百度经验. <a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/90808022fab5dbfd91c80f35.html">https://jingyan.baidu.com/article/90808022fab5dbfd91c80f35.html</a></p>
+<p>(2) SQL CAST() - SQL. <a target="_blank" rel="noopener" href="https://sql.sh/fonctions/cast">https://sql.sh/fonctions/cast</a></p>
+<p>(3) SQL Server CAST() Function - W3Schools. <a target="_blank" rel="noopener" href="https://www.w3schools.com/sql/func_sqlserver_cast.asp">https://www.w3schools.com/sql/func_sqlserver_cast.asp</a></p>
+<p>(4) SQL-cast()函数 - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/343703794">https://zhuanlan.zhihu.com/p/343703794</a></p>
+<p>(5) MySQL cast()函数 - MySQL教程. <a target="_blank" rel="noopener" href="https://www.yiibai.com/mysql/cast.html">https://www.yiibai.com/mysql/cast.html</a></p>
+<p>(6) sql CAST用法 - 水狼一族 - 博客园. <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shuilangyizu/p/5952526.html">https://www.cnblogs.com/shuilangyizu/p/5952526.html</a></p>
+<hr>
+<h4 id="6、SQL语法row-number-的具体操作"><a href="#6、SQL语法row-number-的具体操作" class="headerlink" title="6、SQL语法row_number()的具体操作"></a>6、SQL语法row_number()的具体操作</h4><p>row_number()是一个窗口函数，它为查询结果集中的每一行分配一个连续的整数。它的语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> <span class="keyword">column</span> <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">column</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中，partition by子句用于指定分组依据，order by子句用于指定排序依据。如果没有partition by子句，则对整个结果集进行编号；如果没有order by子句，则按照任意顺序进行编号。</p>
+<p>以下是两个例子：</p>
+<ul>
+<li>例1：从employee表中选择name、salary、department三列，并按照department分组，在每个分组内按照salary降序排序，给每一行添加一个序号rank。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, salary, department, <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> department <span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> rank</span><br><span class="line"><span class="keyword">from</span> employee;</span><br></pre></td></tr></table></figure>
+
+<p>这样就会得到类似如下的表格：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>salary</th>
+<th>department</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alice</td>
+<td>8000</td>
+<td>IT</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>7000</td>
+<td>IT</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Cathy</td>
+<td>6000</td>
+<td>IT</td>
+<td>3</td>
+</tr>
+<tr>
+<td>David</td>
+<td>9000</td>
+<td>HR</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Eva</td>
+<td>8000</td>
+<td>HR</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Frank</td>
+<td>7000</td>
+<td>HR</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<ul>
+<li>例2：从student表中选择name、score、class三列，并按照class分组，在每个分组内按照score降序排序，给每一行添加一个序号rank。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, score, class, <span class="built_in">row_number</span>() <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> class <span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">desc</span>) <span class="keyword">as</span> rank</span><br><span class="line"><span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure>
+
+<p>这样就会得到类似如下的表格：</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>score</th>
+<th>class</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Amy</td>
+<td>95</td>
+<td>A</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Ben</td>
+<td>90</td>
+<td>A</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Carl</td>
+<td>85</td>
+<td>A</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Dan</td>
+<td>80</td>
+<td>A</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Eve</td>
+<td>75</td>
+<td>A</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Fay</td>
+<td>92</td>
+<td>B</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Glen</td>
+<td>88</td>
+<td>B</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Hank</td>
+<td>84</td>
+<td>B</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Iris</td>
+<td>80</td>
+<td>B</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Jack</td>
+<td>76</td>
+<td>B</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>(1) SQL ROW_NUMBER() Function - SQL Tutorial. <a target="_blank" rel="noopener" href="https://www.sqltutorial.org/sql-window-functions/sql-row_number/">https://www.sqltutorial.org/sql-window-functions/sql-row_number/</a></p>
+<p>(2) SQL Server Row_number()函数 - SQL Server教程. <a target="_blank" rel="noopener" href="https://www.yiibai.com/sqlserver/sql-server-row_number-function.html">https://www.yiibai.com/sqlserver/sql-server-row_number-function.html</a></p>
+<p>(3) 【SQL】連番を振るROW_NUMBER関数を解説！一番よく使う順位付け関数をマスターしよう | ポテパンスタイル. <a target="_blank" rel="noopener" href="https://style.potepan.com/articles/23566.html">https://style.potepan.com/articles/23566.html</a></p>
+<p>(4) ROW_NUMBER (Transact-SQL) - SQL Server | Microsoft Learn. <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sql/t-sql/functions/row-number-transact-sql?view=sql-server-ver16">https://learn.microsoft.com/en-us/sql/t-sql/functions/row-number-transact-sql?view=sql-server-ver16</a></p>
+<p>(5) SQL中row_number函数用法_sql的rownumber_sharon@zhang的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/baidu_41797613/article/details/120489521">https://blog.csdn.net/baidu_41797613/article/details/120489521</a></p>
+<hr>
+<h4 id="7、SQL语法round-的具体操作"><a href="#7、SQL语法round-的具体操作" class="headerlink" title="7、SQL语法round()的具体操作"></a>7、SQL语法round()的具体操作</h4><p>SQL round()函数用于把数值字段舍入为指定的小数位数。它的语法是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">round(number, decimals [, operation])</span><br></pre></td></tr></table></figure>
+
+<p>其中，number是要舍入的数值，decimals是要保留的小数位数，operation是可选的参数，表示是否进行截断而不是四舍五入。如果operation为0或省略，则进行四舍五入；如果operation为非0，则进行截断。</p>
+<p>举两个例子：</p>
+<ul>
+<li>如果要把3.14159舍入为两位小数，可以使用：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> round(<span class="number">3.14159</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结果是3.14。</p>
+<ul>
+<li>如果要把1234.5678截断为个位数，可以使用：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> round(<span class="number">1234.5678</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结果是1230。</p>
+<p>(1) SQL ROUND() 函数. <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_func_round.asp">https://www.w3school.com.cn/sql/sql_func_round.asp</a></p>
+<p>(2) SQL Server ROUND() Function - W3Schools. <a target="_blank" rel="noopener" href="https://www.w3schools.com/SQL/func_sqlserver_round.asp">https://www.w3schools.com/SQL/func_sqlserver_round.asp</a></p>
+<p>(3) SQL Server ROUND() Function - TutorialsTeacher. <a target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/sqlserver/round-function">https://www.tutorialsteacher.com/sqlserver/round-function</a></p>
+<p>(4) How to Use the ROUND() Function in SQL | LearnSQL.com. <a target="_blank" rel="noopener" href="https://learnsql.com/blog/round-function-sql/">https://learnsql.com/blog/round-function-sql/</a></p>
+<p>(5) SQL ROUND() 函數 &#x2F; Function - SQL 語法教學 Tutorial. <a target="_blank" rel="noopener" href="https://www.fooish.com/sql/round-function.html">https://www.fooish.com/sql/round-function.html</a></p>
+<p>(6) ROUND (Transact-SQL) - SQL Server | Microsoft Learn. <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sql/t-sql/functions/round-transact-sql?view=sql-server-ver16">https://learn.microsoft.com/en-us/sql/t-sql/functions/round-transact-sql?view=sql-server-ver16</a></p>
+<hr>
+<h4 id="8、SQL语法lag-和lead-的具体操作"><a href="#8、SQL语法lag-和lead-的具体操作" class="headerlink" title="8、SQL语法lag()和lead()的具体操作"></a>8、SQL语法lag()和lead()的具体操作</h4><p>SQL语法中的lag()和lead()函数是两种窗口分析函数，可以在同一次查询中取出同一字段的前N行的数据(Lag)和后N行的数据(Lead)作为独立的列。这两个函数有三个参数，第一个参数是列名，第二个参数是偏移的行数，第三个参数是超出记录窗口时的默认值。</p>
+<p>举两个例子：</p>
+<ol>
+<li>查询每个员工的姓名、部门、工资以及比他工资高的下一个员工的姓名和工资。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, dept, salary,</span><br><span class="line"><span class="built_in">lead</span>(name) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> dept <span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> next_name,</span><br><span class="line"><span class="built_in">lead</span>(salary) <span class="keyword">over</span> (<span class="keyword">partition</span> <span class="keyword">by</span> dept <span class="keyword">order</span> <span class="keyword">by</span> salary <span class="keyword">desc</span>) <span class="keyword">as</span> next_salary</span><br><span class="line"><span class="keyword">from</span> employee;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查询每个商品的名称、价格以及与上一个商品价格的差异。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> product, price,</span><br><span class="line">price <span class="operator">-</span> <span class="built_in">lag</span>(price) <span class="keyword">over</span> (<span class="keyword">order</span> <span class="keyword">by</span> price <span class="keyword">asc</span>) <span class="keyword">as</span> diff</span><br><span class="line"><span class="keyword">from</span> goods;</span><br></pre></td></tr></table></figure>
+
+<p>(1) 关于SQL的LAG()和LEAD()函数_lag sql_一碗烫烫的汤圆的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/a5276957/article/details/103808997">https://blog.csdn.net/a5276957/article/details/103808997</a></p>
+<p>(2) Sql窗口分析函数【lead、lag详解】 - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/466752301">https://zhuanlan.zhihu.com/p/466752301</a></p>
+<p>(3) lag lead分析函数 - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/347444265">https://zhuanlan.zhihu.com/p/347444265</a></p>
+<p>(4) SQL中lag()和lead()函数使用_lag函数_Schafferyy的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/Schaffer_W/article/details/109029630">https://blog.csdn.net/Schaffer_W/article/details/109029630</a></p>
+<hr>
+<h4 id="9、SQL语法lateral-view的具体操作"><a href="#9、SQL语法lateral-view的具体操作" class="headerlink" title="9、SQL语法lateral view的具体操作"></a>9、SQL语法lateral view的具体操作</h4><p>SQL语法中的lateral view子句是用于和split、explode等UDTF（用户自定义表生成函数）一起使用的，它能够将一行数据拆成多行数据，在此基础上可以对拆分后的数据进行聚合。lateral view首先为原始表的每行调用UDTF，UTDF会把一行拆分成一或者多行，lateral view再把结果组合，产生一个支持别名表的虚拟表。</p>
+<p>举两个例子：</p>
+<ol>
+<li>查询每个学生的姓名、年龄以及选修的课程名称。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, age, course</span><br><span class="line"><span class="keyword">from</span> student</span><br><span class="line"><span class="keyword">lateral</span> <span class="keyword">view</span> explode(split(courses, <span class="string">&#x27;,&#x27;</span>)) t <span class="keyword">as</span> course;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>查询每个订单的编号、金额以及包含的商品名称和数量。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> order_id, amount, product, quantity</span><br><span class="line"><span class="keyword">from</span> <span class="keyword">order</span></span><br><span class="line"><span class="keyword">lateral</span> <span class="keyword">view</span> explode(items) t <span class="keyword">as</span> item</span><br><span class="line"><span class="keyword">lateral</span> <span class="keyword">view</span> explode(map_keys(item)) k <span class="keyword">as</span> product</span><br><span class="line"><span class="keyword">lateral</span> <span class="keyword">view</span> explode(map_values(item)) v <span class="keyword">as</span> quantity;</span><br></pre></td></tr></table></figure>
+
+<p>(1) SQL 之 lateral view explode()_hankl1990的博客-CSDN博客. <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36630761/article/details/76146842">https://blog.csdn.net/weixin_36630761/article/details/76146842</a></p>
+<p>(2) Lateral View语法 - 简书. <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4804db6a3677">https://www.jianshu.com/p/4804db6a3677</a></p>
+<p>(3) LATERAL VIEW 子句 - Azure Databricks - Databricks SQL. <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/azure/databricks/sql/language-manual/sql-ref-syntax-qry-select-lateral-view">https://learn.microsoft.com/zh-cn/azure/databricks/sql/language-manual/sql-ref-syntax-qry-select-lateral-view</a></p>
+<p>(4) SQL: lateral view &amp; explode &amp; split (分割&amp;侧视图) - 知乎. <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/538641683">https://zhuanlan.zhihu.com/p/538641683</a></p>
+<p>(5) LATERAL VIEW clause - Azure Databricks - Databricks SQL. <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-syntax-qry-select-lateral-view">https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-syntax-qry-select-lateral-view</a></p>
+<hr>
+<h4 id="10、SQL-UDTF-常见操作"><a href="#10、SQL-UDTF-常见操作" class="headerlink" title="10、SQL UDTF 常见操作"></a>10、SQL UDTF 常见操作</h4><p>SQL UDTF（用户自定义表值函数）是一种可以返回多行数据的函数，它可以接受0个、1个或多个标量值作为输入参数。UDTF可以在查询的FROM子句中使用，也可以和lateral view子句结合使用。</p>
+<p>举两个例子：</p>
+<ol>
+<li>创建一个UDTF，用于将一个字符串按照指定的分隔符拆分成多行。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> split_string(str string, sep string)</span><br><span class="line"><span class="keyword">returns</span> <span class="keyword">table</span> (word string)</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">select</span> <span class="keyword">value</span> <span class="keyword">as</span> word <span class="keyword">from</span> <span class="built_in">unnest</span>(string_to_array(str, sep));</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>创建一个UDTF，用于将一个日期范围转换成每一天的日期。</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> date_range(start_date <span class="type">date</span>, end_date <span class="type">date</span>)</span><br><span class="line"><span class="keyword">returns</span> <span class="keyword">table</span> (<span class="keyword">day</span> <span class="type">date</span>)</span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">select</span> generate_series(start_date, end_date, <span class="type">interval</span> <span class="string">&#x27;1 day&#x27;</span>)::<span class="type">date</span> <span class="keyword">as</span> <span class="keyword">day</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(1) Flink自定义表值函数UDTF开发、注册和使用流程_实时计算 Flink版-阿里云帮助中心. <a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/188055.html">https://help.aliyun.com/document_detail/188055.html</a></p>
+<p>(2) Tabular SQL UDFs (UDTFs) | Snowflake Documentation. <a target="_blank" rel="noopener" href="https://docs.snowflake.com/en/developer-guide/udf/sql/udf-sql-tabular-functions">https://docs.snowflake.com/en/developer-guide/udf/sql/udf-sql-tabular-functions</a></p>
+<p>(3) mySql的UDF是什么 - 洪福必成 - 博客园. <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ghc666/p/8609067.html">https://www.cnblogs.com/ghc666/p/8609067.html</a></p>
+<p>(4) Udf in SQL Server: Create UDF (User Defined Function) in SQL Database. <a target="_blank" rel="noopener" href="https://www.webtrainingroom.com/sql/udf">https://www.webtrainingroom.com/sql/udf</a></p>
+<p>(5) User-Defined Functions - SQL Server | Microsoft Learn. <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sql/relational-databases/user-defined-functions/user-defined-functions?view=sql-server-ver16">https://learn.microsoft.com/en-us/sql/relational-databases/user-defined-functions/user-defined-functions?view=sql-server-ver16</a></p>
+<hr>
+<h4 id="课后小练"><a href="#课后小练" class="headerlink" title="课后小练"></a>课后小练</h4><h6 id="（1）常见SQL——行列转换"><a href="#（1）常见SQL——行列转换" class="headerlink" title="（1）常见SQL——行列转换"></a>（1）常见SQL——行列转换</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">描述：表中记录了各年份各部门的平均绩效考核成绩。 </span><br><span class="line">表名：t1 </span><br><span class="line">表结构： a <span class="comment">-- 年份 </span></span><br><span class="line">        b <span class="comment">-- 部门 </span></span><br><span class="line">        c <span class="comment">-- 绩效得分 </span></span><br><span class="line">表内容： a  b  c </span><br><span class="line">      <span class="number">2014</span> B  <span class="number">9</span> </span><br><span class="line">      <span class="number">2015</span> A  <span class="number">8</span> </span><br><span class="line">      <span class="number">2014</span> A  <span class="number">10</span> </span><br><span class="line">      <span class="number">2015</span> B  <span class="number">7</span> </span><br><span class="line">问题一：多行转多列 </span><br><span class="line">问题描述：将上述表内容转为如下输出结果所示： </span><br><span class="line">     a col_A col_B </span><br><span class="line">   <span class="number">2014</span>   <span class="number">10</span>   <span class="number">9</span> </span><br><span class="line">   <span class="number">2015</span>   <span class="number">8</span>    <span class="number">7</span> </span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">参考答案： </span><br><span class="line"><span class="keyword">select</span> a, </span><br><span class="line">       <span class="built_in">max</span>(<span class="keyword">case</span> <span class="keyword">when</span> b<span class="operator">=</span>&quot;A&quot; <span class="keyword">then</span> c <span class="keyword">end</span>) col_A, </span><br><span class="line">       <span class="built_in">max</span>(<span class="keyword">case</span> <span class="keyword">when</span> b<span class="operator">=</span>&quot;B&quot; <span class="keyword">then</span> c <span class="keyword">end</span>) col_B</span><br><span class="line"><span class="keyword">from</span> t1 </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（2）多行转多列（背景和第一题相同）"><a href="#（2）多行转多列（背景和第一题相同）" class="headerlink" title="（2）多行转多列（背景和第一题相同）"></a>（2）多行转多列（背景和第一题相同）</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">问题描述：<span class="number">2014</span> 年公司组织架构调整，导致部门出现多个绩效，业务及人员不同，</span><br><span class="line">无法合并算绩效，源表内容如下：</span><br><span class="line">    <span class="number">2014</span> B <span class="number">9</span></span><br><span class="line">    <span class="number">2015</span> A <span class="number">8</span></span><br><span class="line">    <span class="number">2014</span> A <span class="number">10</span></span><br><span class="line">    <span class="number">2015</span> B <span class="number">7</span></span><br><span class="line">    <span class="number">2014</span> B <span class="number">6</span></span><br><span class="line">输出结果如下所示：</span><br><span class="line">    a col_A col_B</span><br><span class="line">   <span class="number">2014</span> <span class="number">10</span>  <span class="number">6</span>,<span class="number">9</span></span><br><span class="line">   <span class="number">2015</span>  <span class="number">8</span>   <span class="number">7</span></span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">参考答案:</span><br><span class="line"><span class="keyword">select</span> a,</span><br><span class="line">       <span class="built_in">max</span>(<span class="keyword">case</span> <span class="keyword">when</span> b<span class="operator">=</span>&quot;A&quot; <span class="keyword">then</span> c <span class="keyword">end</span>) col_A,</span><br><span class="line">       <span class="built_in">max</span>(<span class="keyword">case</span> <span class="keyword">when</span> b<span class="operator">=</span>&quot;B&quot; <span class="keyword">then</span> c <span class="keyword">end</span>) col_B</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">       <span class="keyword">select</span> a, b,</span><br><span class="line">              concat_ws(&quot;,&quot;,collect_set(<span class="built_in">cast</span>(c <span class="keyword">as</span> string))) <span class="keyword">as</span> c       # 将相同部门数字转换为字符串后进行拼接</span><br><span class="line">       <span class="keyword">from</span> t1</span><br><span class="line">       <span class="keyword">group</span> <span class="keyword">by</span> a,b</span><br><span class="line">)tmp</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（3）按a分组取b字段排最小时对应的c字段"><a href="#（3）按a分组取b字段排最小时对应的c字段" class="headerlink" title="（3）按a分组取b字段排最小时对应的c字段"></a>（3）按a分组取b字段排最小时对应的c字段</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">表名：t2</span><br><span class="line">表字段及内容：</span><br><span class="line">    a   b  c</span><br><span class="line">  <span class="number">2014</span>  A  <span class="number">3</span></span><br><span class="line">  <span class="number">2014</span>  B  <span class="number">1</span></span><br><span class="line">  <span class="number">2014</span>  C  <span class="number">2</span></span><br><span class="line">  <span class="number">2015</span>  A  <span class="number">4</span></span><br><span class="line">  <span class="number">2015</span>  D  <span class="number">3</span></span><br><span class="line">问题一：按 a 分组取 b 字段最小时对应的 c 字段</span><br><span class="line">输出结果如下所示：</span><br><span class="line">   a   min_c</span><br><span class="line">  <span class="number">2014</span>   <span class="number">3</span></span><br><span class="line">  <span class="number">2015</span>   <span class="number">4</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">参考答案:</span><br><span class="line"><span class="keyword">select</span> a, c <span class="keyword">as</span> min_c</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">       <span class="keyword">select</span> a, b, c,</span><br><span class="line">              <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b) <span class="keyword">as</span> rn</span><br><span class="line">       <span class="keyword">from</span> t2</span><br><span class="line">) a</span><br><span class="line"><span class="keyword">where</span> rn <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span>解释：</span><br><span class="line">从t2表中选择a、b、c三列，按照a列进行分组，然后在每个分组内按照b列进行排序，给每一行添加一个序号rn。然后从这个结果中选择a、c两列，并将c列重命名为min_c。最后只保留rn等于<span class="number">1</span>的行，也就是每个分组内b列最小的那一行。</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（4）按a分组按b字段排序，对b取累计排名比例"><a href="#（4）按a分组按b字段排序，对b取累计排名比例" class="headerlink" title="（4）按a分组按b字段排序，对b取累计排名比例"></a>（4）按a分组按b字段排序，对b取累计排名比例</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">表名：t3</span><br><span class="line">表字段及内容：</span><br><span class="line">    a   b   c</span><br><span class="line">  <span class="number">2014</span>  A   <span class="number">3</span></span><br><span class="line">  <span class="number">2014</span>  B   <span class="number">1</span></span><br><span class="line">  <span class="number">2014</span>  C   <span class="number">2</span></span><br><span class="line">  <span class="number">2015</span>  A   <span class="number">4</span></span><br><span class="line">  <span class="number">2015</span>  D   <span class="number">7</span></span><br><span class="line">输出结果如下所示：</span><br><span class="line">    a  b  ratio_c</span><br><span class="line">  <span class="number">2014</span> A   <span class="number">0.33</span></span><br><span class="line">  <span class="number">2014</span> B   <span class="number">0.67</span></span><br><span class="line">  <span class="number">2014</span> C   <span class="number">1.00</span></span><br><span class="line">  <span class="number">2015</span> A   <span class="number">0.50</span></span><br><span class="line">  <span class="number">2015</span> D   <span class="number">1.00</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">参考答案：</span><br><span class="line"><span class="keyword">select</span> a, b,</span><br><span class="line">       round(<span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b) </span><br><span class="line">             <span class="operator">/</span> (<span class="built_in">count</span>(c) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a)),<span class="number">2</span>) <span class="keyword">as</span> ratio_c</span><br><span class="line"><span class="keyword">from</span> t3</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a,b</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span>解释：</span><br><span class="line">从t3表中选择a、b两列，并计算一个新的列ratio_c，它表示每个a分组内的行号与该分组内c列的总数的比值，保留两位小数。然后按照a、b两列进行排序。</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（5）按a分组按b字段排序，对c取平均值"><a href="#（5）按a分组按b字段排序，对c取平均值" class="headerlink" title="（5）按a分组按b字段排序，对c取平均值"></a>（5）按a分组按b字段排序，对c取平均值</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">表名：t4</span><br><span class="line">表字段及内容：</span><br><span class="line">    a   b   c</span><br><span class="line">   <span class="number">2014</span> A   <span class="number">3</span></span><br><span class="line">   <span class="number">2014</span> B   <span class="number">1</span></span><br><span class="line">   <span class="number">2014</span> C   <span class="number">2</span></span><br><span class="line">   <span class="number">2015</span> A   <span class="number">4</span></span><br><span class="line">   <span class="number">2015</span> D   <span class="number">3</span></span><br><span class="line">问题描述：前一行与当前行的均值！</span><br><span class="line">输出结果如下所示：</span><br><span class="line">    a   b avg_c</span><br><span class="line">   <span class="number">2014</span> A   <span class="number">3</span></span><br><span class="line">   <span class="number">2014</span> B   <span class="number">2</span></span><br><span class="line">   <span class="number">2014</span> C  <span class="number">1.5</span></span><br><span class="line">   <span class="number">2015</span> A   <span class="number">4</span></span><br><span class="line">   <span class="number">2015</span> D  <span class="number">3.5</span></span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">参考答案：</span><br><span class="line"><span class="keyword">select</span> a, b,</span><br><span class="line">       <span class="keyword">case</span> <span class="keyword">when</span> lag_c <span class="keyword">is</span> <span class="keyword">null</span> <span class="keyword">then</span> c</span><br><span class="line">       <span class="keyword">else</span> (c<span class="operator">+</span>lag_c)<span class="operator">/</span><span class="number">2</span> <span class="keyword">end</span> <span class="keyword">as</span> avg_c</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">       <span class="keyword">select</span> a, b, c,</span><br><span class="line">              <span class="built_in">lag</span>(c,<span class="number">1</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> a <span class="keyword">order</span> <span class="keyword">by</span> b) <span class="keyword">as</span> lag_c</span><br><span class="line">       <span class="keyword">from</span> t4</span><br><span class="line">)temp;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu">Alexie-Z-Yevich</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu/2023/03/16/SQL%E5%B0%8F%E7%BB%831/">https://www.fenrisx.icu/2023/03/16/SQL%E5%B0%8F%E7%BB%831/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fenrisx.icu" target="_blank">New Try && New Life</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SQL/">SQL</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/15/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" title="数据库系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-15</div><div class="title">数据库系统</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Alexie-Z-Yevich</div><div class="author-info__description">hello</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alexie-Z-Yevich"><i></i><span>前往我的Github...</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Alexie-Z-Yevich" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1213791406@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名：<br><a href="https://www.fenrisx.icu"><b><font color="#5ea6e5">fenrisx.icu</font></b></a><br>其他项目：<br><a target="_blank" rel="noopener" href="http://www.fenrisx.top"><b><font color="#5ea6e5">fenrisx.top</font></b></a><br>📬：<b><font color="#a591e0">1213791406@qq.com</font></b></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81SQL%E8%AF%AD%E6%B3%95case%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">1、SQL语法case的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81SQL%E8%AF%AD%E6%B3%95UNION%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">2、SQL语法UNION的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81SQL%E8%AF%AD%E6%B3%95concat%E5%92%8Cconcat-ws%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">3、SQL语法concat和concat_ws的区别和具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81Hive-SQL%E8%AF%AD%E6%B3%95collect%E5%92%8Ccollect-set%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">4、Hive SQL语法collect和collect_set的区别和具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81SQL%E8%AF%AD%E6%B3%95cast%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">5、SQL语法cast的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81SQL%E8%AF%AD%E6%B3%95row-number-%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">6、SQL语法row_number()的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7%E3%80%81SQL%E8%AF%AD%E6%B3%95round-%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">7、SQL语法round()的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8%E3%80%81SQL%E8%AF%AD%E6%B3%95lag-%E5%92%8Clead-%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">8、SQL语法lag()和lead()的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9%E3%80%81SQL%E8%AF%AD%E6%B3%95lateral-view%E7%9A%84%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-text">9、SQL语法lateral view的具体操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10%E3%80%81SQL-UDTF-%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C"><span class="toc-text">10、SQL UDTF 常见操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%BE%E5%90%8E%E5%B0%8F%E7%BB%83"><span class="toc-text">课后小练</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%B8%B8%E8%A7%81SQL%E2%80%94%E2%80%94%E8%A1%8C%E5%88%97%E8%BD%AC%E6%8D%A2"><span class="toc-text">（1）常见SQL——行列转换</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%A4%9A%E8%A1%8C%E8%BD%AC%E5%A4%9A%E5%88%97%EF%BC%88%E8%83%8C%E6%99%AF%E5%92%8C%E7%AC%AC%E4%B8%80%E9%A2%98%E7%9B%B8%E5%90%8C%EF%BC%89"><span class="toc-text">（2）多行转多列（背景和第一题相同）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%8C%89a%E5%88%86%E7%BB%84%E5%8F%96b%E5%AD%97%E6%AE%B5%E6%8E%92%E6%9C%80%E5%B0%8F%E6%97%B6%E5%AF%B9%E5%BA%94%E7%9A%84c%E5%AD%97%E6%AE%B5"><span class="toc-text">（3）按a分组取b字段排最小时对应的c字段</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E6%8C%89a%E5%88%86%E7%BB%84%E6%8C%89b%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%AF%B9b%E5%8F%96%E7%B4%AF%E8%AE%A1%E6%8E%92%E5%90%8D%E6%AF%94%E4%BE%8B"><span class="toc-text">（4）按a分组按b字段排序，对b取累计排名比例</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E6%8C%89a%E5%88%86%E7%BB%84%E6%8C%89b%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%AF%B9c%E5%8F%96%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="toc-text">（5）按a分组按b字段排序，对c取平均值</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0.7)"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Alexie-Z-Yevich</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async src="/js/title.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>

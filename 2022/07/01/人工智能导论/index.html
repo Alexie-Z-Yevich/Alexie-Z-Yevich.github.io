@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>人工智能导论 | New Try &amp;&amp; New Life</title><meta name="author" content="Alexie-Z-Yevich"><meta name="copyright" content="Alexie-Z-Yevich"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="人工智能导论 前言： 文档完善于考试之后，考试之前天真的认为东西没有多少，所以文档只做了我觉得重点的一小部分，但是考试的时候被噗噗噗打脸了：大题全在我的掌握之中，但是30分选择题真的一个不会，所以在放假初决定还是把这个文档完善一下。但是写到一半发现如果真的全写完实在是太多了，很多东西需要手敲太花时间了，如果不想敲直接贴图又太没有诚意了，所以只完善前五章的内容。之后的内容会在附录中附上页码供大家自行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能导论">
+<meta property="og:url" content="https://www.fenrisx.icu/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/index.html">
+<meta property="og:site_name" content="New Try &amp;&amp; New Life">
+<meta property="og:description" content="人工智能导论 前言： 文档完善于考试之后，考试之前天真的认为东西没有多少，所以文档只做了我觉得重点的一小部分，但是考试的时候被噗噗噗打脸了：大题全在我的掌握之中，但是30分选择题真的一个不会，所以在放假初决定还是把这个文档完善一下。但是写到一半发现如果真的全写完实在是太多了，很多东西需要手敲太花时间了，如果不想敲直接贴图又太没有诚意了，所以只完善前五章的内容。之后的内容会在附录中附上页码供大家自行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.fenrisx.icu/images/head.jpg">
+<meta property="article:published_time" content="2022-07-01T09:14:52.000Z">
+<meta property="article:modified_time" content="2023-03-30T13:26:52.834Z">
+<meta property="article:author" content="Alexie-Z-Yevich">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="人工智能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.fenrisx.icu/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.fenrisx.icu/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alexie-Z-Yevich","link":"链接: ","source":"来源: New Try && New Life","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '人工智能导论',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-30 21:26:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="New Try &amp;&amp; New Life"><span class="site-name">New Try &amp;&amp; New Life</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">人工智能导论</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-01T09:14:52.000Z" title="发表于 2022-07-01 17:14:52">2022-07-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-30T13:26:52.834Z" title="更新于 2023-03-30 21:26:52">2023-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6/">我的大学</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6/%E5%A4%A7%E4%BA%8C%E4%B8%8B%E5%AD%A6%E6%9C%9F/">大二下学期</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="人工智能导论"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="人工智能导论"><a href="#人工智能导论" class="headerlink" title="人工智能导论"></a>人工智能导论</h1><blockquote>
+<p><strong>前言：</strong></p>
+<p>文档完善于考试之后，考试之前天真的认为东西没有多少，所以文档只做了我觉得重点的一小部分，但是考试的时候被噗噗噗打脸了：大题全在我的掌握之中，但是30分选择题真的一个不会，所以在放假初决定还是把这个文档完善一下。但是写到一半发现如果真的全写完实在是太多了，很多东西需要手敲太花时间了，如果不想敲直接贴图又太没有诚意了，所以只完善前五章的内容。之后的内容会在附录中附上页码供大家自行学习参考。——By Alexie-Z-Yevich 2022.7.1</p>
+</blockquote>
+<h2 id="第一章-概述与工具"><a href="#第一章-概述与工具" class="headerlink" title="第一章 概述与工具"></a>第一章 概述与工具</h2><h4 id="1、什么是人工智能？人工智能得研究意义、目标和策略是什么？"><a href="#1、什么是人工智能？人工智能得研究意义、目标和策略是什么？" class="headerlink" title="1、什么是人工智能？人工智能得研究意义、目标和策略是什么？"></a>1、什么是人工智能？人工智能得研究意义、目标和策略是什么？</h4><ul>
+<li><p>概念</p>
+<p>人工智能就是人造智能。具体来讲，目前“人工智能”一词是指用计算机模拟或实现的智能。因此，人工智能又称机器智能。</p>
+</li>
+<li><p>研究目标</p>
+<p>研究目标是制造智能机器和智能系统，实现智能化社会，使计算机不仅具有脑智能和群智能，还要具有看、听、说、写等感知、理解和交流能力。要使计算机具有自主发现规律、解决问题和发明创造的能力，从而大大扩展和延伸人的智能，实现人类社会的全面智能化。</p>
+</li>
+<li><p>研究策略</p>
+<p>先部分地或某种程度地实现机器的智能，并运用智能技术解决各种实际问题特别是工程问题，从而使现有的计算机更灵活、更好用和更有用，成为人类的智能化信息处理工具，进而逐步扩展和延伸人的智能，实现智能化。</p>
+</li>
+</ul>
+<hr>
+<h4 id="2、人工智能有哪些研究途径和方法？他们的关系如何？"><a href="#2、人工智能有哪些研究途径和方法？他们的关系如何？" class="headerlink" title="2、人工智能有哪些研究途径和方法？他们的关系如何？"></a>2、人工智能有哪些研究途径和方法？他们的关系如何？</h4><ul>
+<li><p>研究途径和方法<br>基于脑智能的符号智能和基于群智能的计算智能是人工智能的两种研究途径与方法，但仍可细分：</p>
+<ul>
+<li>心理模拟，符号推演：从人脑的宏观心理层面入手，以智能行为的心理模型为依据，将问题或知识表示成某种逻辑网络，采用符号推演的方法，模拟人脑的逻辑思维过程，实现人工智能。</li>
+<li>生物模拟，神经计算：从人脑的生理层面，即微观结构和工作机理入手，以智能行为的生理模型为依据，采用数值计算的方法，模拟脑神经网络工作的过程，实现人工智能。人工神经网络作为信息和知识的载体，用称为神经计算的数值计算方法来实现网络的学习、记忆、联想、识别和推理等功能。</li>
+<li>行为模拟，控制进化：模拟人和动物在与环境的交互、控制过程中的智能活动和行为特性，如反应、适应、学习、寻优等，来研究和实现人工智能。</li>
+<li>群体模拟，仿生计算：模拟生物群落的群体智能行为，从而实现人工智能。</li>
+<li>博采广鉴，自然计算：模拟自然智能。</li>
+<li>着眼数据，统计建模：着眼于事务或问题的外部表现和关系，收集、采集、整理相关信息并做成样本数据，然后基于样本数据用统计学、概率论和其他数学理论和方法建立数学模型，并采用适当的算法和策略进行计算，以期从事务外在表现的样本数据中推测事物的内在模式或规律，并用之于解决相关实际问题。</li>
+</ul>
+</li>
+<li><p>关系</p>
+<p>并不能互相取代，而是并存和互补的关系。</p>
+</li>
+</ul>
+<hr>
+<h4 id="3、人工智能有哪些研究内容？（考试简答5分）"><a href="#3、人工智能有哪些研究内容？（考试简答5分）" class="headerlink" title="3、人工智能有哪些研究内容？（考试简答5分）"></a>3、人工智能有哪些研究内容？（考试简答5分）</h4><p>研究内容归纳为：搜索与求解、知识与推理、学习和发现、发明和创造、感知与相应、理解与交流、记忆与联想、竞争与协作、</p>
+<p>系统与建造、应用与工程等十个方面。（具体内容书P8-P11）</p>
+<hr>
+<h4 id="4、人工智能有哪些分支领域和研究方向？"><a href="#4、人工智能有哪些分支领域和研究方向？" class="headerlink" title="4、人工智能有哪些分支领域和研究方向？"></a>4、人工智能有哪些分支领域和研究方向？</h4><p>从研究内容上看，人工智能可分为搜索与求解、知识与推理、学习和发现等十大分支领域（它们构成了人工智能学科的总体方向）。</p>
+<p>从研究途径和智能层次来看，人工智能可分为符号智能、计算智能、统计智能和交互智能等四大分支领域。</p>
+<hr>
+<h4 id="5、人工智能有哪些应用领域或课题？"><a href="#5、人工智能有哪些应用领域或课题？" class="headerlink" title="5、人工智能有哪些应用领域或课题？"></a>5、人工智能有哪些应用领域或课题？</h4><ul>
+<li>难题求解</li>
+<li>自动规划、调度与配置</li>
+<li>机器博弈</li>
+<li>机器翻译与机器写作</li>
+<li>机器定理证明</li>
+<li>自动程序设计</li>
+<li>智能控制</li>
+<li>智能管理</li>
+<li>智能决策</li>
+<li>智能通信</li>
+<li>智能预测</li>
+<li>智能仿真</li>
+<li>智能设计与制造</li>
+<li>智能车辆与智能交通</li>
+<li>智能诊断与治疗</li>
+<li>智能生物信息处理</li>
+<li>智能教育</li>
+<li>智能人-机接口</li>
+<li>模式识别</li>
+<li>智能机器人</li>
+<li>数据挖掘与知识发现</li>
+<li>计算机辅助创新</li>
+<li>计算机文艺创作</li>
+</ul>
+<hr>
+<h4 id="6、简述人工智能的发展概况"><a href="#6、简述人工智能的发展概况" class="headerlink" title="6、简述人工智能的发展概况"></a>6、简述人工智能的发展概况</h4><ul>
+<li><p>孕育与诞生</p>
+<p>正式诞生于1956年。</p>
+</li>
+<li><p>符号主义先声夺人</p>
+<p>1956年，逻辑理论机的计算机程序系统，模拟了人用数理逻辑证明定理时的思维逻辑规律；研制成功具有自学习、自组织、自适应能力的跳棋程序；</p>
+<p>1959年，证明平面几何问题的程序；模式识别程序；</p>
+<p>1960年，通用问题求解程序；面向人工智能程序设计的表处理语言LISP；</p>
+<p>1965年，可以分辨积木构造的程序；消解原理；基于领域知识和专家知识的名为DENDRL的程序系统（专家系统）</p>
+</li>
+<li><p>连接主义不畏坎坷</p>
+<p>1943年，形式神经元的数学模型（MP模型）；</p>
+<p>1944年，改变神经元连接强度的Hebb规则；</p>
+<p>1957年，称为感知器的单层神经网络；</p>
+<p>1962年，自适应线性元件；</p>
+<p>1985年，开发了名为NETtalk英语读音学习用的神经网络处理器；</p>
+<p>1987年6月，第一届国际神经网络会议召开。</p>
+</li>
+<li><p>计算智能异军突起</p>
+<p>1962年，进化程序设计（进化规划的概念和方法）；</p>
+<p>1964年，进化策略的搜索算法；</p>
+<p>1967年，遗传算法的初步思想；</p>
+<p>1975年，遗传算法的理论基础；</p>
+<p>1980年，实现基于遗传算法的机器学习系统——分类器系统；</p>
+<p>1994年，首届计算智能大会。</p>
+</li>
+<li><p>统计智能默默奉献</p>
+</li>
+<li><p>智能主体一统江湖，Agent&amp;Robot</p>
+</li>
+<li><p>知识工程东山再起，机器学习领衔高歌</p>
+</li>
+<li><p>现状与趋势</p>
+<ul>
+<li>多种方法齐头并进，多种方法协作互补</li>
+<li>新思想、新技术不断涌现，新领域、新方向不断开拓</li>
+<li>理论研究更加深入，应用研究愈发广泛</li>
+<li>企业公司进军AI，协作竞争你追我赶</li>
+<li>研究队伍日益壮大，AI教育蔚然成风</li>
+<li>各类活动空前活跃，社会影响与日俱增</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="第三章-图搜索于问题求解"><a href="#第三章-图搜索于问题求解" class="headerlink" title="第三章 图搜索于问题求解"></a>第三章 图搜索于问题求解</h2><p>下文所提到的OPEN表和CLOSE表样式：</p>
+<ul>
+<li>OPEN表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">节点</th>
+<th align="center">父节点编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>CLOSE表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">编号</th>
+<th align="center">节点</th>
+<th align="center">父节点编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="1、状态图搜索"><a href="#1、状态图搜索" class="headerlink" title="1、状态图搜索"></a>1、状态图搜索</h4><h6 id="（1）树式搜索算法"><a href="#（1）树式搜索算法" class="headerlink" title="（1）树式搜索算法"></a>（1）树式搜索算法</h6><p>【1】把初始节点S0放入OPEN表中。</p>
+<p>【2】若OPEN表为空，则搜索失败，退出。</p>
+<p>【3】移出OPEN表中的第一个节点N放入CLOSE表中，并冠以顺序序号n。</p>
+<p>【4】若目标节点Sg &#x3D; N，则搜索成功，结束。</p>
+<p>【5】若N不可扩展，则转【2】。</p>
+<p>【6】扩展N，生成一组子节点，对这组子节点做如下处理：</p>
+<ul>
+<li>删除N的先辈节点（如果有的话）。</li>
+<li>对已存在OPEN表的节点（如果有的话）也删除之；但删除之前要比较其返回初始节点的新路径与原路径，如果新路径”短“，则修改这些节点在OPEN表中的原返回指针，使其沿新路径返回。</li>
+<li>对已存在于CLOSE表中的节点（如果有的话）做与上面一样的处理，并且再将其移出CLOSE表，放入OPEN表重新扩展（为了重新计算代价）。</li>
+<li>对其余子节点配上指向N的返回指针后放入OPEN表中某处，或对OPEN表进行重新排序，转【2】.</li>
+</ul>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E7%8A%B6%E6%80%81%E5%9B%BE%E6%90%9C%E7%B4%A2%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BF%AE%E6%94%B9%E8%BF%94%E5%9B%9E%E6%8C%87%E9%92%88%E7%A4%BA%E4%BE%8B.jpg" alt="状态图搜索过程中修改返回指针示例"></p>
+<p><strong>说明：</strong></p>
+<p>【1】这里的返回指针也就是父节点在CLOSE表中的编号。</p>
+<p>【2】步骤【6】中修改返回指针的原因是，这些节点又被二次生成，所以他们返回初始路径的节点已有两条，但这两条路径的”长度“可能不同。当新路径短时就会走新路径。</p>
+<p>【3】这里路径的长短是按路径上的节点数来衡量的,后面将会看到路径的长短也可以按其“代价”(如距离﹑费用,时间等)衡量。若按其代价衡量,则在需修改返回指针的同时修改相应的代价值,或者不修改返回指针但要修改代价值(为了实现代价小者优先扩展)。</p>
+<h6 id="（2）不回溯的线式搜索"><a href="#（2）不回溯的线式搜索" class="headerlink" title="（2）不回溯的线式搜索"></a>（2）不回溯的线式搜索</h6><p>【1】把初始节点S0。放入CLOSED表中。</p>
+<p>【2】令N&#x3D;S0。</p>
+<p>【3】若N是目标节点,则搜索成功,结束。</p>
+<p>【4】若N不可扩展,则搜索失败,退出。</p>
+<p>【5】扩展N,选取其一个未在CLOSED表中出现过的子节点N1放入CLOSED表中,令N&#x3D;N1，转步骤【3】。</p>
+<h6 id="（3）可回溯的线式搜索"><a href="#（3）可回溯的线式搜索" class="headerlink" title="（3）可回溯的线式搜索"></a>（3）可回溯的线式搜索</h6><p>【1】把初始节点S0。放入CLOSED表中。</p>
+<p>【2】令N&#x3D;S0。</p>
+<p>【3】若N是目标节点,则搜索成功,结束。</p>
+<p>【4】若N不可扩展,则移出CLOSED表的末端节点Ne,若Ne&#x3D;S0,则搜索失败,退出。否则,以CLOSED表新的末端节点N。作为N,即令N&#x3D;Ne。,转步骤(3)。</p>
+<p>【5】扩展N,选取其一个未在CLOSED表中出现过的子节点N,,放人CLOSED 表中,令N&#x3D;N1，转步骤【3】。</p>
+<h6 id="（4）广度优先搜索算法"><a href="#（4）广度优先搜索算法" class="headerlink" title="（4）广度优先搜索算法"></a>（4）广度优先搜索算法</h6><p>【1】把初始节点S0放入OPEN表中。</p>
+<p>【2】若OPEN表为空，则搜索失败，退出。</p>
+<p>【3】移出OPEN表中的第一个节点N放入CLOSE表中，并冠以顺序序号n。</p>
+<p>【4】若目标节点Sg &#x3D; N，则搜索成功，结束。</p>
+<p>【5】若N不可扩展，则转【2】。</p>
+<p>【6】扩展N，将其所有的子节点配上指向N的指针依次放入OPEN表尾部，转步骤【2】。</p>
+<h6 id="（5）深度优先搜索"><a href="#（5）深度优先搜索" class="headerlink" title="（5）深度优先搜索"></a>（5）深度优先搜索</h6><p>【1】把初始节点S0放入OPEN表中。</p>
+<p>【2】若OPEN表为空，则搜索失败，退出。</p>
+<p>【3】移出OPEN表中的第一个节点N放入CLOSE表中，并冠以顺序序号n。</p>
+<p>【4】若目标节点Sg &#x3D; N，则搜索成功，结束。</p>
+<p>【5】若N不可扩展，则转【2】。</p>
+<p>【6】扩展N，将其所有的子节点配上指向N的返回指针依次放入OPEN表的首部，转步骤【2】。</p>
+<h6 id="（6）有界深度优先搜索"><a href="#（6）有界深度优先搜索" class="headerlink" title="（6）有界深度优先搜索"></a>（6）有界深度优先搜索</h6><p>【1】把初始节点S0放入OPEN表中，置S0的深度d（S0）&#x3D;0。</p>
+<p>【2】若OPEN表为空，则搜索失败，退出。</p>
+<p>【3】移出OPEN表中的第一个节点N放入CLOSE表中，并冠以顺序序号n。</p>
+<p>【4】若目标节点Sg &#x3D; N，则搜索成功，结束。</p>
+<p>【5】若N的深度d（N）&#x3D; dm（深度限制值），或者N无子节点，则转【2】。</p>
+<p>【6】扩展N，将其所有的子节点配上指向N的返回指针依次放入OPEN表中前部，置d（Ni） &#x3D; d（N）+ 1，转步骤【2】。</p>
+<hr>
+<h4 id="2、启发式搜索"><a href="#2、启发式搜索" class="headerlink" title="2、启发式搜索"></a>2、启发式搜索</h4><h6 id="（1）全局择优搜索（考试大题10分）"><a href="#（1）全局择优搜索（考试大题10分）" class="headerlink" title="（1）全局择优搜索（考试大题10分）"></a>（1）全局择优搜索（考试大题10分）</h6><p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E5%85%A8%E5%B1%80%E6%8B%A9%E4%BC%98%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95.png" alt="全局择优搜索算法"></p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E5%A4%A7%E9%A2%981.png" alt="大题1"></p>
+<h6 id="（2）A算法"><a href="#（2）A算法" class="headerlink" title="（2）A算法"></a>（2）A算法</h6><p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/A%E7%AE%97%E6%B3%951.png" alt="A算法1"></p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/A%E7%AE%97%E6%B3%952.png" alt="A算法2"></p>
+<hr>
+<h2 id="第四章-基于遗传算法的随即优化搜索"><a href="#第四章-基于遗传算法的随即优化搜索" class="headerlink" title="第四章 基于遗传算法的随即优化搜索"></a>第四章 基于遗传算法的随即优化搜索</h2><h4 id="1、基本遗传算法"><a href="#1、基本遗传算法" class="headerlink" title="1、基本遗传算法"></a>1、基本遗传算法</h4><h6 id="（1）流程图"><a href="#（1）流程图" class="headerlink" title="（1）流程图"></a>（1）流程图</h6><p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="基本遗传算法流程图"></p>
+<h6 id="（2）具体描述"><a href="#（2）具体描述" class="headerlink" title="（2）具体描述"></a>（2）具体描述</h6><p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%85%B7%E4%BD%93%E6%8F%8F%E8%BF%B0.png" alt="基本遗传算法具体描述"></p>
+<h6 id="（3）具体实例"><a href="#（3）具体实例" class="headerlink" title="（3）具体实例"></a>（3）具体实例</h6><p>详情见书P90-P93例题4-1、4-2，要求理解两个例题的具体步骤，实操要求在老师上机课时基本了解数据集内容以及调用库作用。</p>
+<hr>
+<h2 id="第五章-基于一阶谓词的机器推理"><a href="#第五章-基于一阶谓词的机器推理" class="headerlink" title="第五章 基于一阶谓词的机器推理"></a>第五章 基于一阶谓词的机器推理</h2><p>基于一阶谓词的机器推理也称自动推理，它是早期人工智能的主要研究内容之一。一阶谓词是一种表达力很强的形式语言，而且这种语言很适合数字计算机处理，因而称为知识表示的首选。</p>
+<p>简单的知识介绍还请各位参照书本，这里不做过多讲解。</p>
+<h4 id="1、常用逻辑等价式"><a href="#1、常用逻辑等价式" class="headerlink" title="1、常用逻辑等价式"></a>1、常用逻辑等价式</h4><p>$$<br>\begin{align}<br>(1) &amp;\neg \neg P \Leftrightarrow P 【双重否定律】 \<br>(2) &amp;P \land Q \Leftrightarrow Q \land P \<br>&amp;P \lor Q \Leftrightarrow Q \lor P 【交换律】\<br>(3) &amp; P \land (Q \lor R) \Leftrightarrow (P \land Q) \lor (P \land R) \<br>&amp; P \lor (Q \land R) \Leftrightarrow (P \lor Q) \land (P \lor R) 【分配律】\<br>(4) &amp; \neg (P \land Q) \Leftrightarrow \neg P \lor \neg Q \<br>&amp; \neg (P \lor Q) \Leftrightarrow \neg P \land \neg Q 【摩根律】\<br>(5) &amp; P \longrightarrow Q \Leftrightarrow \neg P \lor Q 【蕴含表达式】\<br>(6) &amp; P \longrightarrow Q \Leftrightarrow \neg Q \longrightarrow \neg P 【逆否式】\<br>(7) &amp; \forall x (A(x) \land B(x)) \Leftrightarrow \forall x A(x) \land \forall x B(x) \<br>&amp; \exists x (A(x) \lor B(x)) \Leftrightarrow \exists x A(x) \lor \exists x B(x) 【量词分配律】\<br>(8) &amp; \neg \forall xA(x) \Leftrightarrow \exists x \neg A(x) \<br>&amp; \neg \exists xA(x) \Leftrightarrow \forall x \neg A(x) 【量词转换律】\<br>\end{align}<br>$$</p>
+<p>具体的使用参见书上例题5-5~5-7（<strong>一定要看</strong>）</p>
+<hr>
+<h4 id="2、归结演绎推理"><a href="#2、归结演绎推理" class="headerlink" title="2、归结演绎推理"></a>2、归结演绎推理</h4><h6 id="1、子句与子句集"><a href="#1、子句与子句集" class="headerlink" title="1、子句与子句集"></a>1、子句与子句集</h6><p>原子谓词公式及其否定称为文字，若干个文字的一个析取式称为一个子句，由r个文字组成的子句叫r-文字子句，l-文字子句叫单元子句，不含任何文字的子句称为空子句，记为□或NIL。</p>
+<p>对一个谓词公式G，通过一下步骤得到的子句集和S称为G的子句集：</p>
+<p>【1】消去蕴含式→和等值词↔。<strong>（去箭头）</strong></p>
+<p>【2】缩小否定词的作用范围，直到其仅作用于原子公式。<strong>（消括号&amp;将┐放在存在量词和全称量词里面）</strong></p>
+<p>【3】适当改名，使量词间不含同名指导变元和约束变元。<br>【4】消去存在量词。</p>
+<p>【5】消去所有全称量词。</p>
+<p>【6】化公式为合取范式。</p>
+<p>【7】适当改名，使子句间无同名变元。</p>
+<p>【8】消去合取词∧，以子句为元素组成一个集合S。</p>
+<h6 id="2、归结原理"><a href="#2、归结原理" class="headerlink" title="2、归结原理"></a>2、归结原理</h6><p>归结演绎推理是基于一种称为归结原理（也称为消解原理）的推理规则的推理方法。它是谓词逻辑中一个相当有效的机械化推理方法。归结原理的出现，被认为是自动推理，特别是定理机器证明领域的重大突破。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h4 id="大题部分（考试前参考）"><a href="#大题部分（考试前参考）" class="headerlink" title="大题部分（考试前参考）"></a>大题部分（考试前参考）</h4><h6 id="1、遗传算法（参照P90例4-1）（考试大题10分）"><a href="#1、遗传算法（参照P90例4-1）（考试大题10分）" class="headerlink" title="1、遗传算法（参照P90例4-1）（考试大题10分）"></a>1、遗传算法（参照P90例4-1）（考试大题10分）</h6><ul>
+<li>适应度计算（根据公式）</li>
+<li>选择-复制（根据概率）、交叉（交换部分）、变异（变化部分）</li>
+</ul>
+<h6 id="2、一阶谓词推理（考试大题20分）"><a href="#2、一阶谓词推理（考试大题20分）" class="headerlink" title="2、一阶谓词推理（考试大题20分）"></a>2、一阶谓词推理（考试大题20分）</h6><p>详见第五章部分内容，例题可以参考课后习题。</p>
+<ul>
+<li>将句子用一阶谓词表示；</li>
+<li>求解谓词公式的子句集；</li>
+<li>利用归结原理证明。</li>
+</ul>
+<h6 id="3、产生式规则"><a href="#3、产生式规则" class="headerlink" title="3、产生式规则"></a>3、产生式规则</h6><p>简单概率问题，能看懂图会画就行。</p>
+<h6 id="4、决策树（P210）（考试大题15分）"><a href="#4、决策树（P210）（考试大题15分）" class="headerlink" title="4、决策树（P210）（考试大题15分）"></a>4、决策树（P210）（考试大题15分）</h6><ul>
+<li>信息熵和条件熵公式</li>
+</ul>
+<h6 id="5、K-均值聚类算法（P261-P268）（考试大题5分）"><a href="#5、K-均值聚类算法（P261-P268）（考试大题5分）" class="headerlink" title="5、K-均值聚类算法（P261-P268）（考试大题5分）"></a>5、K-均值聚类算法（P261-P268）（考试大题5分）</h6><h4 id="未补全章节"><a href="#未补全章节" class="headerlink" title="未补全章节"></a>未补全章节</h4><h5 id="第七章-几种结构化知识表示及其推理"><a href="#第七章-几种结构化知识表示及其推理" class="headerlink" title="第七章 几种结构化知识表示及其推理"></a>第七章 几种结构化知识表示及其推理</h5><h6 id="1、元组的概念（P143）"><a href="#1、元组的概念（P143）" class="headerlink" title="1、元组的概念（P143）"></a>1、元组的概念（P143）</h6><h6 id="2、框架的概念（P144）"><a href="#2、框架的概念（P144）" class="headerlink" title="2、框架的概念（P144）"></a>2、框架的概念（P144）</h6><hr>
+<h5 id="第八章-不确定和不确定性知识的表示与推理"><a href="#第八章-不确定和不确定性知识的表示与推理" class="headerlink" title="第八章 不确定和不确定性知识的表示与推理"></a>第八章 不确定和不确定性知识的表示与推理</h5><h6 id="基于贝叶斯网络的概率推理（P172-P176）"><a href="#基于贝叶斯网络的概率推理（P172-P176）" class="headerlink" title="基于贝叶斯网络的概率推理（P172-P176）"></a>基于贝叶斯网络的概率推理（P172-P176）</h6><p>重点在于P175的诊断推理中的计算：（考试原题）</p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C1.png" alt="贝叶斯网络1"></p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C2.png" alt="贝叶斯网络2"></p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C3.png" alt="贝叶斯网络2"></p>
+<hr>
+<h5 id="第九章-机器学习：符号学习与交互学习"><a href="#第九章-机器学习：符号学习与交互学习" class="headerlink" title="第九章 机器学习：符号学习与交互学习"></a>第九章 机器学习：符号学习与交互学习</h5><h6 id="决策树学习（P205-P212）"><a href="#决策树学习（P205-P212）" class="headerlink" title="决策树学习（P205-P212）"></a>决策树学习（P205-P212）</h6><p>重点在于P210决策树的ID3算法，需要了解整个流程，能够独立写出P211的所有内容并得出最终结论。</p>
+<hr>
+<h5 id="第十二章-数据挖掘与知识发现"><a href="#第十二章-数据挖掘与知识发现" class="headerlink" title="第十二章 数据挖掘与知识发现"></a>第十二章 数据挖掘与知识发现</h5><h6 id="k-均值聚类算法（P261关联规则开始到P268）"><a href="#k-均值聚类算法（P261关联规则开始到P268）" class="headerlink" title="k-均值聚类算法（P261关联规则开始到P268）"></a>k-均值聚类算法（P261关联规则开始到P268）</h6><p>重点不在书本上，建议自学的话直接在B站上搜索k-均值聚类算法。推荐一个我当时学习的视频：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1py4y1r7DN?spm_id_from=333.337.search-card.all.click&vd_source=a81ef8427e696b92de364d833142bd10">https://www.bilibili.com/video/BV1py4y1r7DN?spm_id_from=333.337.search-card.all.click&amp;vd_source=a81ef8427e696b92de364d833142bd10</a></p>
+<p><img src="/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/k-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E8%A7%86%E9%A2%91%E6%8E%A8%E8%8D%90.png" alt="k-均值聚类算法视频推荐"></p>
+<p>笔记鲨UP主的这一系列非常适合算法类（单指人工智能导论中常用的几个）的入门，有时间的话可以都看一下，讲的比较简单也十分容易懂，完成考试内容是完全没有问题的。</p>
+<p>k-均值聚类算法主要还是了解一下算法的具体流程以及簇心的更新、选择流程，考试中占的分值并不大。</p>
+<hr>
+<h5 id="第十六章-专家（知识）系统"><a href="#第十六章-专家（知识）系统" class="headerlink" title="第十六章 专家（知识）系统"></a>第十六章 专家（知识）系统</h5><p>这里我的建议是都看，选择题至少出了三个专家系统，包括专家系统的概念结构、黑板模型等一系列问题，因为我只是粗略的看了下所以考试时选择题基本都不会，全靠大题拉分。所以我的建议是All In。专家系统也是很多学科都会介绍的内容，这里多看点，深入了解绝对不亏的啦！</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu">Alexie-Z-Yevich</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/">https://www.fenrisx.icu/2022/07/01/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fenrisx.icu" target="_blank">New Try && New Life</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a><a class="post-meta__tags" href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/23/%E8%85%BE%E8%AE%AF%E9%9F%B3%E4%B9%90%E6%B5%B7%E7%AC%94%E5%A4%8D%E7%9B%98/" title="22腾讯音乐暑期实习海笔复盘"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-23</div><div class="title">22腾讯音乐暑期实习海笔复盘</div></div></a></div><div><a href="/2022/07/01/%E8%AE%A1%E7%AE%97%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA/" title="计算智能导论"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-01</div><div class="title">计算智能导论</div></div></a></div><div><a href="/2022/06/12/%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" title="算法设计与分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-12</div><div class="title">算法设计与分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Alexie-Z-Yevich</div><div class="author-info__description">hello</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alexie-Z-Yevich"><i></i><span>前往我的Github...</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Alexie-Z-Yevich" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1213791406@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名：<br><a href="https://www.fenrisx.icu"><b><font color="#5ea6e5">fenrisx.icu</font></b></a><br>其他项目：<br><a target="_blank" rel="noopener" href="http://www.fenrisx.top"><b><font color="#5ea6e5">fenrisx.top</font></b></a><br>📬：<b><font color="#a591e0">1213791406@qq.com</font></b></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AF%BC%E8%AE%BA"><span class="toc-text">人工智能导论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%B7%A5%E5%85%B7"><span class="toc-text">第一章 概述与工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%EF%BC%9F%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%BE%97%E7%A0%94%E7%A9%B6%E6%84%8F%E4%B9%89%E3%80%81%E7%9B%AE%E6%A0%87%E5%92%8C%E7%AD%96%E7%95%A5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">1、什么是人工智能？人工智能得研究意义、目标和策略是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%A0%94%E7%A9%B6%E9%80%94%E5%BE%84%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%9F%E4%BB%96%E4%BB%AC%E7%9A%84%E5%85%B3%E7%B3%BB%E5%A6%82%E4%BD%95%EF%BC%9F"><span class="toc-text">2、人工智能有哪些研究途径和方法？他们的关系如何？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9%EF%BC%9F%EF%BC%88%E8%80%83%E8%AF%95%E7%AE%80%E7%AD%945%E5%88%86%EF%BC%89"><span class="toc-text">3、人工智能有哪些研究内容？（考试简答5分）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E6%94%AF%E9%A2%86%E5%9F%9F%E5%92%8C%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91%EF%BC%9F"><span class="toc-text">4、人工智能有哪些分支领域和研究方向？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%BA%94%E7%94%A8%E9%A2%86%E5%9F%9F%E6%88%96%E8%AF%BE%E9%A2%98%EF%BC%9F"><span class="toc-text">5、人工智能有哪些应用领域或课题？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E7%AE%80%E8%BF%B0%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E5%8F%91%E5%B1%95%E6%A6%82%E5%86%B5"><span class="toc-text">6、简述人工智能的发展概况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%9B%BE%E6%90%9C%E7%B4%A2%E4%BA%8E%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3"><span class="toc-text">第三章 图搜索于问题求解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E7%8A%B6%E6%80%81%E5%9B%BE%E6%90%9C%E7%B4%A2"><span class="toc-text">1、状态图搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%A0%91%E5%BC%8F%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">（1）树式搜索算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%B8%8D%E5%9B%9E%E6%BA%AF%E7%9A%84%E7%BA%BF%E5%BC%8F%E6%90%9C%E7%B4%A2"><span class="toc-text">（2）不回溯的线式搜索</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%8F%AF%E5%9B%9E%E6%BA%AF%E7%9A%84%E7%BA%BF%E5%BC%8F%E6%90%9C%E7%B4%A2"><span class="toc-text">（3）可回溯的线式搜索</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">（4）广度优先搜索算法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="toc-text">（5）深度优先搜索</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%886%EF%BC%89%E6%9C%89%E7%95%8C%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2"><span class="toc-text">（6）有界深度优先搜索</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2"><span class="toc-text">2、启发式搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%85%A8%E5%B1%80%E6%8B%A9%E4%BC%98%E6%90%9C%E7%B4%A2%EF%BC%88%E8%80%83%E8%AF%95%E5%A4%A7%E9%A2%9810%E5%88%86%EF%BC%89"><span class="toc-text">（1）全局择优搜索（考试大题10分）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89A%E7%AE%97%E6%B3%95"><span class="toc-text">（2）A算法</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%9F%BA%E4%BA%8E%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84%E9%9A%8F%E5%8D%B3%E4%BC%98%E5%8C%96%E6%90%9C%E7%B4%A2"><span class="toc-text">第四章 基于遗传算法的随即优化搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%9F%BA%E6%9C%AC%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95"><span class="toc-text">1、基本遗传算法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">（1）流程图</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%85%B7%E4%BD%93%E6%8F%8F%E8%BF%B0"><span class="toc-text">（2）具体描述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%85%B7%E4%BD%93%E5%AE%9E%E4%BE%8B"><span class="toc-text">（3）具体实例</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E5%9F%BA%E4%BA%8E%E4%B8%80%E9%98%B6%E8%B0%93%E8%AF%8D%E7%9A%84%E6%9C%BA%E5%99%A8%E6%8E%A8%E7%90%86"><span class="toc-text">第五章 基于一阶谓词的机器推理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%B8%B8%E7%94%A8%E9%80%BB%E8%BE%91%E7%AD%89%E4%BB%B7%E5%BC%8F"><span class="toc-text">1、常用逻辑等价式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%BD%92%E7%BB%93%E6%BC%94%E7%BB%8E%E6%8E%A8%E7%90%86"><span class="toc-text">2、归结演绎推理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%E3%80%81%E5%AD%90%E5%8F%A5%E4%B8%8E%E5%AD%90%E5%8F%A5%E9%9B%86"><span class="toc-text">1、子句与子句集</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%E3%80%81%E5%BD%92%E7%BB%93%E5%8E%9F%E7%90%86"><span class="toc-text">2、归结原理</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A7%E9%A2%98%E9%83%A8%E5%88%86%EF%BC%88%E8%80%83%E8%AF%95%E5%89%8D%E5%8F%82%E8%80%83%EF%BC%89"><span class="toc-text">大题部分（考试前参考）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%E3%80%81%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%EF%BC%88%E5%8F%82%E7%85%A7P90%E4%BE%8B4-1%EF%BC%89%EF%BC%88%E8%80%83%E8%AF%95%E5%A4%A7%E9%A2%9810%E5%88%86%EF%BC%89"><span class="toc-text">1、遗传算法（参照P90例4-1）（考试大题10分）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%E3%80%81%E4%B8%80%E9%98%B6%E8%B0%93%E8%AF%8D%E6%8E%A8%E7%90%86%EF%BC%88%E8%80%83%E8%AF%95%E5%A4%A7%E9%A2%9820%E5%88%86%EF%BC%89"><span class="toc-text">2、一阶谓词推理（考试大题20分）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3%E3%80%81%E4%BA%A7%E7%94%9F%E5%BC%8F%E8%A7%84%E5%88%99"><span class="toc-text">3、产生式规则</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4%E3%80%81%E5%86%B3%E7%AD%96%E6%A0%91%EF%BC%88P210%EF%BC%89%EF%BC%88%E8%80%83%E8%AF%95%E5%A4%A7%E9%A2%9815%E5%88%86%EF%BC%89"><span class="toc-text">4、决策树（P210）（考试大题15分）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5%E3%80%81K-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%EF%BC%88P261-P268%EF%BC%89%EF%BC%88%E8%80%83%E8%AF%95%E5%A4%A7%E9%A2%985%E5%88%86%EF%BC%89"><span class="toc-text">5、K-均值聚类算法（P261-P268）（考试大题5分）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E8%A1%A5%E5%85%A8%E7%AB%A0%E8%8A%82"><span class="toc-text">未补全章节</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E5%87%A0%E7%A7%8D%E7%BB%93%E6%9E%84%E5%8C%96%E7%9F%A5%E8%AF%86%E8%A1%A8%E7%A4%BA%E5%8F%8A%E5%85%B6%E6%8E%A8%E7%90%86"><span class="toc-text">第七章 几种结构化知识表示及其推理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1%E3%80%81%E5%85%83%E7%BB%84%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%88P143%EF%BC%89"><span class="toc-text">1、元组的概念（P143）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2%E3%80%81%E6%A1%86%E6%9E%B6%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%88P144%EF%BC%89"><span class="toc-text">2、框架的概念（P144）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E4%B8%8D%E7%A1%AE%E5%AE%9A%E5%92%8C%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%9F%A5%E8%AF%86%E7%9A%84%E8%A1%A8%E7%A4%BA%E4%B8%8E%E6%8E%A8%E7%90%86"><span class="toc-text">第八章 不确定和不确定性知识的表示与推理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BD%91%E7%BB%9C%E7%9A%84%E6%A6%82%E7%8E%87%E6%8E%A8%E7%90%86%EF%BC%88P172-P176%EF%BC%89"><span class="toc-text">基于贝叶斯网络的概率推理（P172-P176）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%9A%E7%AC%A6%E5%8F%B7%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BA%A4%E4%BA%92%E5%AD%A6%E4%B9%A0"><span class="toc-text">第九章 机器学习：符号学习与交互学习</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E5%AD%A6%E4%B9%A0%EF%BC%88P205-P212%EF%BC%89"><span class="toc-text">决策树学习（P205-P212）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E4%B8%8E%E7%9F%A5%E8%AF%86%E5%8F%91%E7%8E%B0"><span class="toc-text">第十二章 数据挖掘与知识发现</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#k-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%EF%BC%88P261%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E5%BC%80%E5%A7%8B%E5%88%B0P268%EF%BC%89"><span class="toc-text">k-均值聚类算法（P261关联规则开始到P268）</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E4%B8%93%E5%AE%B6%EF%BC%88%E7%9F%A5%E8%AF%86%EF%BC%89%E7%B3%BB%E7%BB%9F"><span class="toc-text">第十六章 专家（知识）系统</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0.7)"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Alexie-Z-Yevich</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async src="/js/title.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>

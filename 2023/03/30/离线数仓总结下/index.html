@@ -1,0 +1,558 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>离线数仓总结（下） | New Try &amp;&amp; New Life</title><meta name="author" content="Alexie-Z-Yevich"><meta name="copyright" content="Alexie-Z-Yevich"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第三章 电商业务介绍1、简介电商的业务流程可以以一个普通用户的浏览足迹为例进行说明，用户点开电商首页开始浏览，可能会通过分类查询也可能通过全文搜索寻找自己中意的商品，这些商品无疑都是存储在后台的管理系统中的。 当用户寻找到自己中意的商品，可能会想要购买，将商品添加到购物车后发现需要登录，登录后对商品进行结算，这时候购物车的管理和商品订单信息的生成都会对业务数据库产生影响，会生成相应的订单数据和支付">
+<meta property="og:type" content="article">
+<meta property="og:title" content="离线数仓总结（下）">
+<meta property="og:url" content="https://www.fenrisx.icu/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/index.html">
+<meta property="og:site_name" content="New Try &amp;&amp; New Life">
+<meta property="og:description" content="第三章 电商业务介绍1、简介电商的业务流程可以以一个普通用户的浏览足迹为例进行说明，用户点开电商首页开始浏览，可能会通过分类查询也可能通过全文搜索寻找自己中意的商品，这些商品无疑都是存储在后台的管理系统中的。 当用户寻找到自己中意的商品，可能会想要购买，将商品添加到购物车后发现需要登录，登录后对商品进行结算，这时候购物车的管理和商品订单信息的生成都会对业务数据库产生影响，会生成相应的订单数据和支付">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.fenrisx.icu/images/head.jpg">
+<meta property="article:published_time" content="2023-03-30T11:57:26.000Z">
+<meta property="article:modified_time" content="2023-03-30T12:16:37.491Z">
+<meta property="article:author" content="Alexie-Z-Yevich">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="大数据组件">
+<meta property="article:tag" content="数据仓库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.fenrisx.icu/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.fenrisx.icu/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alexie-Z-Yevich","link":"链接: ","source":"来源: New Try && New Life","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '离线数仓总结（下）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-30 20:16:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="New Try &amp;&amp; New Life"><span class="site-name">New Try &amp;&amp; New Life</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">离线数仓总结（下）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-30T11:57:26.000Z" title="发表于 2023-03-30 19:57:26">2023-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-30T12:16:37.491Z" title="更新于 2023-03-30 20:16:37">2023-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Little-Tips/">Little Tips</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="离线数仓总结（下）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="第三章-电商业务介绍"><a href="#第三章-电商业务介绍" class="headerlink" title="第三章 电商业务介绍"></a>第三章 电商业务介绍</h2><h4 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h4><p>电商的业务流程可以以一个普通用户的浏览足迹为例进行说明，用户点开电商首页开始浏览，可能会通过分类查询也可能通过全文搜索寻找自己中意的商品，这些商品无疑都是存储在后台的管理系统中的。</p>
+<p>当用户寻找到自己中意的商品，可能会想要购买，将商品添加到购物车后发现需要登录，登录后对商品进行结算，这时候购物车的管理和商品订单信息的生成都会对业务数据库产生影响，会生成相应的订单数据和支付数据。</p>
+<p>订单正式生成之后，还会对订单进行跟踪处理，直到订单全部完成。</p>
+<p>电商的主要业务流程包括用户前台浏览商品时的商品详情的管理，用户商品加入购物车进行支付时用户个人中心&amp;支付服务的管理，用户支付完成后订单后台服务的管理，这些流程涉及到了十几个甚至几十个业务数据表，甚至更多。</p>
+<h4 id="2、常识概念"><a href="#2、常识概念" class="headerlink" title="2、常识概念"></a>2、常识概念</h4><p><strong>SKU</strong>（Stock Keeping Unit，库存量基本单位）：现在已经被引申为产品统一编号的简称，每种产品均对应有唯一的SKU号。</p>
+<p><strong>SPU</strong>（Standard Product Unit）：是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息集合。</p>
+<blockquote>
+<p>简单说明就是商品是SKU，商品含属性是SPU，例如一台iPhone是一个SKU，但是64G版本和128G版本的iPhone是两个不同的SPU。</p>
+</blockquote>
+<p><strong>平台属性：</strong>相当于过滤条件，方便用户定位想要的产品参数。</p>
+<p><strong>销售属性：</strong>相当于商品属性，代表一个商品SPU的参数。</p>
+<h4 id="3、业务数据关系图"><a href="#3、业务数据关系图" class="headerlink" title="3、业务数据关系图"></a>3、业务数据关系图</h4><p><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/2.png"></p>
+<h4 id="4、后台数据关系图"><a href="#4、后台数据关系图" class="headerlink" title="4、后台数据关系图"></a>4、后台数据关系图</h4><p><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/3.png"></p>
+<hr>
+<h2 id="第四章-数据同步策略"><a href="#第四章-数据同步策略" class="headerlink" title="第四章 数据同步策略"></a>第四章 数据同步策略</h2><table>
+<thead>
+<tr>
+<th>同步策略</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>全量同步</strong></td>
+<td>逻辑简单</td>
+<td>在某些情况下效率较低。例如某张表数据量较大，但是每天数据的变化比例很低，若对其采用每日全量同步，则会重复同步和存储大量相同的数据。</td>
+</tr>
+<tr>
+<td><strong>增量同步</strong></td>
+<td>效率高，无需同步和存储重复数据</td>
+<td>逻辑复杂，需要将每日的新增及变化数据同原来的数据进行整合，才能使用</td>
+</tr>
+</tbody></table>
+<p>通常情况，业务表数据量比较大，优先考虑增量，数据量比较小，优先考虑全量；具体选择由数仓模型决定。</p>
+<h4 id="0、同步工具"><a href="#0、同步工具" class="headerlink" title="0、同步工具"></a>0、同步工具</h4><p>数据同步工具种类繁多，大致可分为两类，一类是以DataX、Sqoop为代表的基于Select查询的离线、批量同步工具，另一类是以Maxwell、Canal为代表的基于数据库数据变更日志（例如MySQL的binlog，其会实时记录所有的insert、update以及delete操作）的实时流式同步工具。</p>
+<p>全量同步通常使用DataX、Sqoop等基于查询的离线同步工具。而增量同步既可以使用DataX、Sqoop等工具，也可使用Maxwell、Canal等工具，下面对增量同步不同方案进行简要对比。</p>
+<table>
+<thead>
+<tr>
+<th>增量同步方案</th>
+<th>DataX&#x2F;Sqoop</th>
+<th>Maxwell&#x2F;Canal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>对数据库的要求</strong></td>
+<td>原理是基于查询，故若想通过select查询获取新增及变化数据，就要求数据表中存在create_time、update_time等字段，然后根据这些字段获取变更数据。</td>
+<td>要求数据库记录变更操作，例如MySQL需开启binlog。</td>
+</tr>
+<tr>
+<td><strong>数据的中间状态</strong></td>
+<td>由于是离线批量同步，故若一条数据在一天中变化多次，该方案只能获取最后一个状态，中间状态无法获取。</td>
+<td>由于是实时获取所有的数据变更操作，所以可以获取变更数据的所有中间状态。</td>
+</tr>
+</tbody></table>
+<h4 id="1、全量同步"><a href="#1、全量同步" class="headerlink" title="1、全量同步"></a>1、全量同步</h4><p>全量同步是指将源端数据全部同步到目标端，而不管数据是否发生变化。全量同步的优点是可以保证目标端数据的完整性，缺点是同步时间长，占用带宽大。全量同步一般用于首次同步或者源端数据发生重大变化时。</p>
+<blockquote>
+<p>全量同步是对数据进行完整备份，一般消耗的资源大，速度慢。在没有建设数仓时，全量同步兼具了</p>
+<ul>
+<li>对变动较大的数据全量拷贝</li>
+<li>对建库前数据进行统计</li>
+</ul>
+<p>的功能，简单来说就是：我在2023&#x2F;3&#x2F;30创建数据仓库，但是我本地存储了2023&#x2F;3&#x2F;1到2023&#x2F;3&#x2F;30的数据，这时候就需要全量同步到HDFS。</p>
+<p>使用方式是使用DataX对需要进行全量同步的MySQL表进行拷贝到HDFS，DataX可以使用Reader&#x2F;Writer机制将不同数据源的数据读出&#x2F;写入，保证了格式的一致性。</p>
+</blockquote>
+<h4 id="2、增量同步"><a href="#2、增量同步" class="headerlink" title="2、增量同步"></a>2、增量同步</h4><p>增量同步是指在数据同步的过程中，只将新增或修改的数据进行同步。增量同步的优点是同步时间短，占用带宽小，缺点是需要保证全量同步已经完成，否则增量同步会出现数据不完整的情况。增量同步一般用于全量同步之后的增量更新。</p>
+<blockquote>
+<p>增量同步一般对新增数据进行同步，针对两种同步举个简单的例子：一个快产快销的商店拥有每天不同的商品种类和相对稳定的用户群体，那么针对商品我们采取全量同步来维持正在售卖的最新状态（变动大）；而对于用户我们采取增量同步的方式记录用户信息，因为不会出现一天时间大量的用户改名之类的操作。</p>
+<p>使用方式是Maxwell+Kafka+Flume的方式将数据从MySQL抽取到HDFS，简单讲述下就是：Maxwell伪装成MySQL的server从机使用主从复制的方式读取MySQL的binlog日志进行数据拷贝，同时在Kafka中注册topic监听Maxwell，Maxwell作为生产者发送数据给Kafka，在Flume中建立消费者程序消费这些数据到HDFS的inc增量表中。</p>
+</blockquote>
+<hr>
+<h2 id="第五章-数据仓库概述与建模"><a href="#第五章-数据仓库概述与建模" class="headerlink" title="第五章 数据仓库概述与建模"></a>第五章 数据仓库概述与建模</h2><h4 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h4><p>数据仓库是一个为数据分析而设计的企业级数据管理系统。数据仓库可集中、整合多个信息源的大量数据，借助数据仓库的分析能力，企业可从数据中获得宝贵的信息进而改进决策。同时，随着时间的推移，数据仓库中积累的大量历史数据对于数据科学家和业务分析师也是十分宝贵的。</p>
+<h4 id="2、核心架构"><a href="#2、核心架构" class="headerlink" title="2、核心架构"></a>2、核心架构</h4><p><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/4.png"></p>
+<h4 id="3、数据仓库建模方法论"><a href="#3、数据仓库建模方法论" class="headerlink" title="3、数据仓库建模方法论"></a>3、数据仓库建模方法论</h4><h6 id="（1）E-R模型"><a href="#（1）E-R模型" class="headerlink" title="（1）E-R模型"></a>（1）E-R模型</h6><p>数据仓库之父Bill Inmon提出的建模方法是从全企业的高度，用实体关系（Entity Relationship，ER）模型来描述企业业务，并用规范化的方式表示出来，在范式理论上符合3NF。</p>
+<ul>
+<li>实体关系模型</li>
+</ul>
+<p>实体关系模型将复杂的数据抽象为两个概念——实体和关系。实体表示一个对象，例如学生、班级，关系是指两个实体之间的关系，例如学生和班级之间的从属关系。</p>
+<ul>
+<li>数据库规范化</li>
+</ul>
+<p>数据库规范化是使用一系列范式设计数据库（通常是关系型数据库）的过程，其目的是减少数据冗余，增强数据的一致性。</p>
+<p>这一系列范式就是指在设计关系型数据库时，需要遵从的不同的规范。关系型数据库的范式一共有六种，分别是第一范式（1NF）、第二范式（2NF）、第三范式（3NF）、巴斯-科德范式（BCNF）、第四范式(4NF）和第五范式（5NF）。遵循的范式级别越高，数据冗余性就越低。</p>
+<ul>
+<li>三范式<ul>
+<li>函数依赖<ul>
+<li>完全函数依赖：通过AB能得出C，但是AB单独得不出C，那么C完全依赖于AB</li>
+<li>部分函数依赖：通过AB能得出C，通过A或B也能得出C，那么C部分依赖于AB</li>
+<li>传递函数依赖：通过A得到B，通过B得到C，但是通过C得不到A，那么C传递依赖于A</li>
+</ul>
+</li>
+<li>第一范式<ul>
+<li>属性不可切割</li>
+<li>例：5台电脑 –&gt; 5、电脑 -x-&gt;不可再分</li>
+</ul>
+</li>
+<li>第二范式<ul>
+<li>不能存在不分函数依赖</li>
+<li>（简单来说就是分拆主键）</li>
+</ul>
+</li>
+<li>第三范式<ul>
+<li>不能存在传递函数依赖</li>
+<li>（简单来说就是将具有两层关系【总三层+】的表分拆到不同表）</li>
+<li>例：学号=&#x3D;学院=&#x3D;院长，学号可以推出学院，学院可以推出院长，但是院长无法推出学生关系，所以应该分拆到两张表中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>这种建模方法的出发点是整合数据，其目的是将整个企业的数据进行组合和合并，并进行规范处理，减少数据冗余性，保证数据的一致性。这种模型并不适合直接用于分析统计。</strong></p>
+<h6 id="（2）维度模型"><a href="#（2）维度模型" class="headerlink" title="（2）维度模型"></a>（2）维度模型</h6><p>维度模型将复杂的业务通过事实和维度两个概念进行呈现。事实通常对应业务过程，而维度通常对应业务过程发生时所处的环境。</p>
+<p><strong>注：</strong>业务过程可以概括为一个个不可拆分的行为事件，例如电商交易中的下单，取消订单，付款，退单等，都是业务过程。</p>
+<p><strong>维度建模以数据分析作为出发点，为数据分析服务，因此它关注的重点的用户如何更快的完成需求分析以及如何实现较好的大规模复杂查询的响应性能。</strong></p>
+<p>因此，我们通常的数仓建模采用的是维度建模。</p>
+<h2 id="第六章-维度建模"><a href="#第六章-维度建模" class="headerlink" title="第六章 维度建模"></a>第六章 维度建模</h2><blockquote>
+<p>虽然尚硅谷的文档中将事实表放在了前面，但是不得不说，应该先介绍下维度表再讲解事实表，一方面是根据阿里系的《大数据之路》的介绍流程，另一方面是选用的五层建模中DIM层确实是在DWD层之前，因此更换下顺序方便阅读。</p>
+</blockquote>
+<h4 id="1、维度表"><a href="#1、维度表" class="headerlink" title="1、维度表"></a>1、维度表</h4><h6 id="（1）概述"><a href="#（1）概述" class="headerlink" title="（1）概述"></a>（1）概述</h6><p>维度表是维度建模的基础和灵魂。前文提到，事实表紧紧围绕业务过程进行设计，而维度表则围绕业务过程所处的环境进行设计。维度表主要包含一个主键和各种维度字段，维度字段称为维度属性。</p>
+<h6 id="（2）设计流程"><a href="#（2）设计流程" class="headerlink" title="（2）设计流程"></a>（2）设计流程</h6><ul>
+<li><p>确定维度（表）</p>
+<blockquote>
+<ul>
+<li>原文这里是从事实表中得到的维度，但是如果优先创建维度表的话那么我们应该怎么创建呢？个人认为是根据以下几种方式创建维度：<ul>
+<li>根据数据库表中的公有字段创建。例如：如果每张表中都有记录时间信息，那么一定会有时间维度。</li>
+<li>根据物理实体创建维度。例如：用户、商品是真实的实体，那么用户就有了用户维度、商品就有了商品维度。</li>
+<li>相似结果进行聚合。例如：一张表中同时具有几种语言、地区的编码格式，那么就可以将这几种编码进行聚合，形成地区维度&#x2F;编码维度。<strong>但是如果只有少量数据（比如一种编码），那么不必要单独创建一个维度，而是直接放进共用表&#x2F;融入部分维度字段传递给事实表部分。</strong></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>确定主维表和相关维表</p>
+<ul>
+<li>此处的主维表和相关维表均指<strong>业务系统</strong>中与某维度相关的表。维度表的粒度通常与主维表相同。</li>
+</ul>
+</li>
+<li><p>确定维度属性</p>
+<ul>
+<li>确定维度属性即确定维度表字段。维度属性主要来自于业务系统中与该维度对应的主维表和相关维表。维度属性可直接从主维表或相关维表中选择，也可通过进一步加工得到。<ul>
+<li>尽可能生成丰富的维度属性</li>
+<li>尽量不使用编码，而使用明确的文字说明，一般可以编码和文字共存</li>
+<li>尽量沉淀出通用的维度属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="（3）规范化和反规范化"><a href="#（3）规范化和反规范化" class="headerlink" title="（3）规范化和反规范化"></a>（3）规范化和反规范化</h6><p><strong>规范化</strong>是指使用一系列范式设计数据库的过程，其目的是减少数据冗余，增强数据的一致性。通常情况下，规范化之后，一张表的字段会拆分到多张表。</p>
+<p><strong>反规范化</strong>是指将多张表的数据冗余到一张表，其目的是减少join操作，提高查询性能。</p>
+<p>在设计维度表时，如果对其进行规范化，得到的维度模型称为雪花模型，如果对其进行反规范化，得到的模型称为星型模型。</p>
+<h6 id="（4）维度变化"><a href="#（4）维度变化" class="headerlink" title="（4）维度变化"></a>（4）维度变化</h6><p>维度属性通常不是静态的，而是会随时间变化的，数据仓库的一个重要特点就是反映历史的变化，所以如何保存维度的历史状态是维度设计的重要工作之一。保存维度数据的历史状态，通常有以下两种做法，分别是全量快照表和拉链表。</p>
+<ul>
+<li><p>全量快照表</p>
+<ul>
+<li><strong>优点</strong>是简单而有效，开发和维护成本低，且方便理解和使用。</li>
+<li><strong>缺点</strong>是浪费存储空间，尤其是当数据的变化比例比较低时。</li>
+</ul>
+</li>
+<li><p>拉链表</p>
+<ul>
+<li><p><strong>什么是拉链表？</strong>拉链表记录每一条数据的生命周期，一旦一条数据的生命周期结束，就重新开始一条新的记录，并把当前日期放入生效开始日期。</p>
+<p>例：以小艾改名小艾同学为例，在用户维度表中会有以下变化：</p>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>用户ID</th>
+<th>姓名</th>
+<th>开始日期</th>
+<th>结束日期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>小艾</td>
+<td>2020-06-18</td>
+<td>2023-03-30</td>
+</tr>
+<tr>
+<td>1</td>
+<td>小艾同学</td>
+<td>2023-03-30</td>
+<td>9999-12-31</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>可以看出，拉链表中ID不会作为主键，所有相同ID共同记录了一个用户的数据变更，不同于全量快照表，拉链表比较麻烦的是：</p>
+<ul>
+<li>需要对修改数据维护一个结束时间，并插入新状态和时间</li>
+<li>需要对新插入数据维护一个结束日期（一般采用单独缓存表&#x2F;固定字段维护）</li>
+</ul>
+</blockquote>
+<ul>
+<li>拉链表适合于：数据会发生变化，但是变化频率并不高的维度（缓慢变化维）</li>
+</ul>
+<h6 id="（5）多值维度-amp-amp-多值属性的解决"><a href="#（5）多值维度-amp-amp-多值属性的解决" class="headerlink" title="（5）多值维度 &amp;&amp; 多值属性的解决"></a>（5）多值维度 &amp;&amp; 多值属性的解决</h6><ul>
+<li><p>多值维度</p>
+<ul>
+<li>如果事实表中一条记录在某个维度表中有多条记录与之对应，称为多值维度。解决方案：<ul>
+<li>降低事实表的粒度，例如将订单事实表的粒度由一个订单降低为一个订单中的一个商品项。<strong>（建议）</strong></li>
+<li>在事实表中采用多字段保存多个维度值，每个字段保存一个维度id。这种方案只适用于多值维度个数固定的情况。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多值属性</p>
+<ul>
+<li>维表中的某个属性同时有多个值，称之为“多值属性”。解决方案：<ul>
+<li>将多值属性放到一个字段，该字段内容为key1:value1，key2:value2的形式，例如一个手机商品的平台属性值为“品牌:华为，系统:鸿蒙，CPU:麒麟990”。</li>
+<li>将多值属性放到多个字段，每个字段对应一个属性。这种方案只适用于多值属性个数固定的情况。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="2、事实表"><a href="#2、事实表" class="headerlink" title="2、事实表"></a>2、事实表</h4><h6 id="（1）概述-1"><a href="#（1）概述-1" class="headerlink" title="（1）概述"></a>（1）概述</h6><p>事实表作为数据仓库维度建模的核心，紧紧围绕着业务过程来设计。其包含与该业务过程有关的维度引用（维度表外键）以及该业务过程的度量（通常是可累加的数字类型字段）。事实表具有如下特点：</p>
+<ul>
+<li>事实表通常比较“细长”，即列较少，但行较多，且行的增速快。</li>
+</ul>
+<h6 id="（2）分类"><a href="#（2）分类" class="headerlink" title="（2）分类"></a>（2）分类</h6><ul>
+<li><p>事务型事实表</p>
+<ul>
+<li><p>事务型事实表用来记录各业务过程，它保存的是各业务过程的原子操作事件，即最细粒度的操作事件。粒度是指事实表中一行数据所表达的业务细节程度。</p>
+<p>事务型事实表可用于分析与各业务过程相关的各项统计指标，由于其保存了最细粒度的记录，可以提供最大限度的灵活性，可以支持无法预期的各种细节层次的统计需求。</p>
+</li>
+<li><p><strong>设计流程：</strong>选择业务过程→声明粒度→确认维度→确认事实</p>
+</li>
+<li><p><strong>不足：</strong>事务型事实表可以保存所有业务过程的最细粒度的操作事件，故理论上其可以支撑与各业务过程相关的各种统计粒度的需求。但对于某些特定类型的需求，其逻辑可能会比较复杂，或者效率会比较低下。</p>
+<ul>
+<li>存量型指标</li>
+<li>多事务关联统计</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>周期型快照事实表</p>
+<ul>
+<li>周期快照事实表以具有规律性的、可预见的时间间隔来记录事实，主要用于分析一些存量型（例如商品库存，账户余额）或者状态型（空气温度，行驶速度）指标。</li>
+<li><strong>设计流程</strong><ul>
+<li>确定粒度</li>
+<li>确定事实</li>
+</ul>
+</li>
+<li><strong>事实类型：</strong>事实类型是指度量值的类型<ul>
+<li>可加事实：可以按照与事实表相关的所有维度进行累加，例如事务型事实表中的事实</li>
+<li>半可加事实：只能按照与事实表相关的一部分维度进行累加，例如周期型快照事实表中的事实。</li>
+<li>不可加事实：完全不具备可加性，例如比率型事实。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>累积型快照事实表</p>
+<ul>
+<li>累计快照事实表是基于一个业务流程中的多个关键业务过程联合处理而构建的事实表，如交易流程中的下单、支付、发货、确认收货业务过程。累积型快照事实表主要用于分析业务过程（里程碑）之间的时间间隔等需求。</li>
+<li><strong>设计流程：</strong>选择业务过程→声明粒度→确认维度→确认事实</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="第七章-数据仓库设计与开发"><a href="#第七章-数据仓库设计与开发" class="headerlink" title="第七章 数据仓库设计与开发"></a>第七章 数据仓库设计与开发</h2><h4 id="1、构建流程"><a href="#1、构建流程" class="headerlink" title="1、构建流程"></a>1、构建流程</h4><p><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/5.png"></p>
+<h4 id="2、统计指标概述"><a href="#2、统计指标概述" class="headerlink" title="2、统计指标概述"></a>2、统计指标概述</h4><h6 id="（1）指标体系相关概念"><a href="#（1）指标体系相关概念" class="headerlink" title="（1）指标体系相关概念"></a>（1）指标体系相关概念</h6><ul>
+<li><p>原子指标：基于某一<strong>业务过程</strong>的<strong>度量值</strong>，是业务定义中不可再拆解的指标，原子指标的核心功能就是对指标的<strong>聚合逻辑</strong>进行了定义。我们可以得出结论，原子指标包含三要素，分别是业务过程、度量值和聚合逻辑。</p>
+</li>
+<li><p>派生指标</p>
+<ul>
+<li><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/6.png"></li>
+</ul>
+</li>
+<li><p>衍生指标：在一个或多个派生指标的基础上，通过各种逻辑运算复合而成的。例如比率、比例等类型的指标。衍生指标也会对应实际的统计需求。</p>
+<ul>
+<li><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/7.png"></li>
+</ul>
+</li>
+</ul>
+<h6 id="（2）指标体系对于数仓建模的意义"><a href="#（2）指标体系对于数仓建模的意义" class="headerlink" title="（2）指标体系对于数仓建模的意义"></a>（2）指标体系对于数仓建模的意义</h6><p>绝大多数的统计需求，都可以使用原子指标、派生指标以及衍生指标这套标准去定义。同时能够发现这些统计需求都直接的或间接的对应一个或者是多个派生指标。</p>
+<p>当统计需求足够多时，必然会出现部分统计需求对应的派生指标相同的情况。这种情况下，我们就可以考虑将这些公共的派生指标保存下来，这样做的主要目的就是减少重复计算，提高数据的复用性。</p>
+<p>这些公共的派生指标统一保存在数据仓库的DWS层。因此DWS层设计，就可以参考我们根据现有的统计需求整理出的派生指标。</p>
+<h4 id="3、数仓分层"><a href="#3、数仓分层" class="headerlink" title="3、数仓分层"></a>3、数仓分层</h4><blockquote>
+<p>下面给出数据流转的脚本图并进行简单讲解</p>
+<p><img src="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/9.png"></p>
+<ul>
+<li>ODS层是源数据的汇总，因此可以看到有HDFS中的业务数据（log）和后台数据（db）的集合，HDFS收集不同的数据来源&#x2F;全量与增量数据，在ODS中汇合。</li>
+<li>一般后台数据是持久化到数据库的，变动的数据量并不大且通常为物理实体，所以一般作为全量备份，满足我之前说的维度表设计方式，所以使用db中的数据作为DIM层。</li>
+<li>DWD作为明细数据，就是将业务数据进行“解包”操作，本来业务数据（log）是一块一块的，粒度比较高，这是时候就在DWD中拆分成粒度更小的数据库表，同样后台数据（db）也有部分数据是可以更好地描述数据状态（根据DWD需求，明细表最好是中文，能直接看懂的），所以同样将需要的DIM纳入DWD层。</li>
+<li>DWS汇总数据层则是将DIM和DWD的数据以主题的形式进行汇总，这个时候DWS层的数据就是ADS的大表形式，可以说是对于粒度相同、相似的ADS需求将DIM、DWD数据表进行聚合。</li>
+<li>ADS就是最终BI业务需求的展示表，表结构和形式不需要再修改（空值等之类的格式问题不在此列），能够实现导出之后一张表就是一个数据监控。</li>
+</ul>
+</blockquote>
+<p>之后会详细介绍每个表的建表格式和数据装载，每一层举一个例子。</p>
+<h6 id="（1）ODS层（Operation-Data-Store，原始数据层）"><a href="#（1）ODS层（Operation-Data-Store，原始数据层）" class="headerlink" title="（1）ODS层（Operation Data Store，原始数据层）"></a>（1）ODS层（Operation Data Store，原始数据层）</h6><p>存储未处理过的原始数据，结构上与源数据保持一致，是数据仓库的数据准备区。</p>
+<p>ODS层的设计要点如下：</p>
+<ul>
+<li>ODS层的表结构设计依托于从业务系统同步过来的数据结构。</li>
+<li>ODS层要保存全部历史数据，故其压缩格式应选择压缩比较高的，此处选择gzip。</li>
+<li>ODS层表名的命名规范为：ods_表名_单分区增量全量标识（inc&#x2F;full）。</li>
+</ul>
+<blockquote>
+<p>ODS层的数据就是增量&#x2F;全量同步过来的原生数据，并对格式进行统一。将全量表和增量表从HDFS转到Hive。</p>
+</blockquote>
+<p>【1】建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 活动信息表（全量表）</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> ods_activity_info_full;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> ods_activity_info_full</span><br><span class="line">(</span><br><span class="line">    `id`            STRING COMMENT <span class="string">&#x27;活动id&#x27;</span>,</span><br><span class="line">    `activity_name` STRING COMMENT <span class="string">&#x27;活动名称&#x27;</span>,</span><br><span class="line">    `activity_type` STRING COMMENT <span class="string">&#x27;活动类型&#x27;</span>,</span><br><span class="line">    `activity_desc` STRING COMMENT <span class="string">&#x27;活动描述&#x27;</span>,</span><br><span class="line">    `start_time`    STRING COMMENT <span class="string">&#x27;开始时间&#x27;</span>,</span><br><span class="line">    `end_time`      STRING COMMENT <span class="string">&#x27;结束时间&#x27;</span>,</span><br><span class="line">    `create_time`   STRING COMMENT <span class="string">&#x27;创建时间&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;活动信息表&#x27;</span></span><br><span class="line">    PARTITIONED <span class="keyword">BY</span> (`dt` STRING)</span><br><span class="line">    <span class="type">ROW</span> FORMAT DELIMITED FIELDS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;\t&#x27;</span></span><br><span class="line">    <span class="keyword">NULL</span> DEFINED <span class="keyword">AS</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">    LOCATION <span class="string">&#x27;/warehouse/gmall/ods/ods_activity_info_full/&#x27;</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">-- 第一部分是删除表的语句，如果表不存在则不执行删除操作。</span></span><br><span class="line"><span class="comment">-- 第二部分是创建一个外部表，名为ods_activity_info_full，包含id、activity_name、activity_type、activity_desc、start_time、end_time和create_time等字段。这个表的注释是“活动信息表”，按照dt字段进行分区。</span></span><br><span class="line"><span class="comment">-- 外部表是指在Hive中定义的表，但是数据并不存储在Hive中，而是存储在其他地方（如HDFS或HBase）中。外部表的数据可以被多个Hive表共享。</span></span><br><span class="line"><span class="comment">-- 分区是指将数据按照某个字段进行划分，以便更快地查询数据。在这个例子中，按照dt字段进行分区。</span></span><br><span class="line"><span class="comment">-- ROW FORMAT DELIMITED FIELDS TERMINATED BY &#x27;\t&#x27;是指使用制表符（\t）作为字段分隔符。在这个例子中，数据文件中的每一行都是一个记录，每个字段之间用制表符分隔。这个语句告诉Hive如何解析数据文件中的每一行。</span></span><br></pre></td></tr></table></figure>
+
+<p>【2】数据装载</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">load data inpath <span class="string">&#x27;/origin_data/gmall/db/activity_info_full/2023-03-30&#x27;</span> OVERWRITE <span class="keyword">into</span> <span class="keyword">table</span> gmall.ods_activity_info_full <span class="keyword">partition</span>(dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span>);</span><br><span class="line"><span class="comment">-- 将`/origin_data/gmall/db/activity_info_full/2023-03-30`目录下的数据加载到名为`gmall.ods_activity_info_full`的Hive表中，分区字段为`dt`，值为`2023-03-30`。如果表中已经存在相同分区的数据，则会覆盖原有数据。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（2）DIM层（Dimension，公共维度层）"><a href="#（2）DIM层（Dimension，公共维度层）" class="headerlink" title="（2）DIM层（Dimension，公共维度层）"></a>（2）DIM层（Dimension，公共维度层）</h6><p>基于维度建模理论进行构建，<strong>存放维度模型中的维度表</strong>，保持一致性维度信息。</p>
+<p>DIM层设计要点：</p>
+<ul>
+<li><p>DIM层的设计依据是维度建模理论，该层存储维度模型的维度表。</p>
+</li>
+<li><p>DIM层的数据存储格式为orc列式存储+snappy压缩。</p>
+</li>
+<li><p>DIM层表名的命名规范为dim_表名_全量表或者拉链表标识（full&#x2F;zip）</p>
+</li>
+</ul>
+<p>【1】建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 商品维度表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> dim_sku_full;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> dim_sku_full</span><br><span class="line">(</span><br><span class="line">    `id`                   STRING COMMENT <span class="string">&#x27;sku_id&#x27;</span>,</span><br><span class="line">    `price`                <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;商品价格&#x27;</span>,</span><br><span class="line">    `sku_name`             STRING COMMENT <span class="string">&#x27;商品名称&#x27;</span>,</span><br><span class="line">    `sku_desc`             STRING COMMENT <span class="string">&#x27;商品描述&#x27;</span>,</span><br><span class="line">    `weight`               <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;重量&#x27;</span>,</span><br><span class="line">    `is_sale`              <span class="type">BOOLEAN</span> COMMENT <span class="string">&#x27;是否在售&#x27;</span>,</span><br><span class="line">    `spu_id`               STRING COMMENT <span class="string">&#x27;spu编号&#x27;</span>,</span><br><span class="line">    `spu_name`             STRING COMMENT <span class="string">&#x27;spu名称&#x27;</span>,</span><br><span class="line">    `category3_id`         STRING COMMENT <span class="string">&#x27;三级分类id&#x27;</span>,</span><br><span class="line">    `category3_name`       STRING COMMENT <span class="string">&#x27;三级分类名称&#x27;</span>,</span><br><span class="line">    `category2_id`         STRING COMMENT <span class="string">&#x27;二级分类id&#x27;</span>,</span><br><span class="line">    `category2_name`       STRING COMMENT <span class="string">&#x27;二级分类名称&#x27;</span>,</span><br><span class="line">    `category1_id`         STRING COMMENT <span class="string">&#x27;一级分类id&#x27;</span>,</span><br><span class="line">    `category1_name`       STRING COMMENT <span class="string">&#x27;一级分类名称&#x27;</span>,</span><br><span class="line">    `tm_id`                STRING COMMENT <span class="string">&#x27;品牌id&#x27;</span>,</span><br><span class="line">    `tm_name`              STRING COMMENT <span class="string">&#x27;品牌名称&#x27;</span>,</span><br><span class="line">    `sku_attr_values`      <span class="keyword">ARRAY</span><span class="operator">&lt;</span>STRUCT<span class="operator">&lt;</span>attr_id :STRING,value_id :STRING,attr_name :STRING,value_name:STRING<span class="operator">&gt;&gt;</span> COMMENT <span class="string">&#x27;平台属性&#x27;</span>,</span><br><span class="line">    `sku_sale_attr_values` <span class="keyword">ARRAY</span><span class="operator">&lt;</span>STRUCT<span class="operator">&lt;</span>sale_attr_id :STRING,sale_attr_value_id :STRING,sale_attr_name :STRING,sale_attr_value_name:STRING<span class="operator">&gt;&gt;</span> COMMENT <span class="string">&#x27;销售属性&#x27;</span>,</span><br><span class="line">    `create_time`          STRING COMMENT <span class="string">&#x27;创建时间&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;商品维度表&#x27;</span></span><br><span class="line">    PARTITIONED <span class="keyword">BY</span> (`dt` STRING)</span><br><span class="line">    STORED <span class="keyword">AS</span> ORC</span><br><span class="line">    LOCATION <span class="string">&#x27;/warehouse/gmall/dim/dim_sku_full/&#x27;</span></span><br><span class="line">    TBLPROPERTIES (<span class="string">&#x27;orc.compress&#x27;</span> <span class="operator">=</span> <span class="string">&#x27;snappy&#x27;</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">-- 数据存储格式为orc列式存储+snappy压缩</span></span><br></pre></td></tr></table></figure>
+
+<p>【2】数据装载</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span></span><br><span class="line">sku <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        price,</span><br><span class="line">        sku_name,</span><br><span class="line">        sku_desc,</span><br><span class="line">        weight,</span><br><span class="line">        is_sale,</span><br><span class="line">        spu_id,</span><br><span class="line">        category3_id,</span><br><span class="line">        tm_id,</span><br><span class="line">        create_time</span><br><span class="line">    <span class="keyword">from</span> ods_sku_info_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">spu <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        spu_name</span><br><span class="line">    <span class="keyword">from</span> ods_spu_info_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">c3 <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        name,</span><br><span class="line">        category2_id</span><br><span class="line">    <span class="keyword">from</span> ods_base_category3_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">c2 <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        name,</span><br><span class="line">        category1_id</span><br><span class="line">    <span class="keyword">from</span> ods_base_category2_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">c1 <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        name</span><br><span class="line">    <span class="keyword">from</span> ods_base_category1_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">tm <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        tm_name</span><br><span class="line">    <span class="keyword">from</span> ods_base_trademark_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">),</span><br><span class="line">attr <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        sku_id,</span><br><span class="line">        collect_set(named_struct(<span class="string">&#x27;attr_id&#x27;</span>,attr_id,<span class="string">&#x27;value_id&#x27;</span>,value_id,<span class="string">&#x27;attr_name&#x27;</span>,attr_name,<span class="string">&#x27;value_name&#x27;</span>,value_name)) attrs</span><br><span class="line">    <span class="keyword">from</span> ods_sku_attr_value_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> sku_id</span><br><span class="line">),</span><br><span class="line">sale_attr <span class="keyword">as</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        sku_id,</span><br><span class="line">        collect_set(named_struct(<span class="string">&#x27;sale_attr_id&#x27;</span>,sale_attr_id,<span class="string">&#x27;sale_attr_value_id&#x27;</span>,sale_attr_value_id,<span class="string">&#x27;sale_attr_name&#x27;</span>,sale_attr_name,<span class="string">&#x27;sale_attr_value_name&#x27;</span>,sale_attr_value_name)) sale_attrs</span><br><span class="line">    <span class="keyword">from</span> ods_sku_sale_attr_value_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> sku_id</span><br><span class="line">)</span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> dim_sku_full <span class="keyword">partition</span>(dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span>)</span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    sku.id,</span><br><span class="line">    sku.price,</span><br><span class="line">    sku.sku_name,</span><br><span class="line">    sku.sku_desc,</span><br><span class="line">    sku.weight,</span><br><span class="line">    sku.is_sale,</span><br><span class="line">    sku.spu_id,</span><br><span class="line">    spu.spu_name,</span><br><span class="line">    sku.category3_id,</span><br><span class="line">    c3.name,</span><br><span class="line">    c3.category2_id,</span><br><span class="line">    c2.name,</span><br><span class="line">    c2.category1_id,</span><br><span class="line">    c1.name,</span><br><span class="line">    sku.tm_id,</span><br><span class="line">    tm.tm_name,</span><br><span class="line">    attr.attrs,</span><br><span class="line">    sale_attr.sale_attrs,</span><br><span class="line">    sku.create_time</span><br><span class="line"><span class="keyword">from</span> sku</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> spu <span class="keyword">on</span> sku.spu_id<span class="operator">=</span>spu.id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> c3 <span class="keyword">on</span> sku.category3_id<span class="operator">=</span>c3.id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> c2 <span class="keyword">on</span> c3.category2_id<span class="operator">=</span>c2.id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> c1 <span class="keyword">on</span> c2.category1_id<span class="operator">=</span>c1.id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> tm <span class="keyword">on</span> sku.tm_id<span class="operator">=</span>tm.id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> attr <span class="keyword">on</span> sku.id<span class="operator">=</span>attr.sku_id</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> sale_attr <span class="keyword">on</span> sku.id<span class="operator">=</span>sale_attr.sku_id;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（3）DWD层（Data-Warehouse-Detail，明细数据层）"><a href="#（3）DWD层（Data-Warehouse-Detail，明细数据层）" class="headerlink" title="（3）DWD层（Data Warehouse Detail，明细数据层）"></a>（3）DWD层（Data Warehouse Detail，明细数据层）</h6><p>基于维度建模理论进行构建，<strong>存放维度模型中的事实表</strong>，保存各业务过程中最小粒度的操作记录。</p>
+<p>DWD层设计要点：</p>
+<ul>
+<li>DWD层的设计依据是维度建模理论，该层存储维度模型的事实表。</li>
+<li>DWD层的数据存储格式为orc列式存储+snappy压缩。</li>
+<li>DWD层表名的命名规范为dwd_数据域_表名_单分区增量全量标识（inc&#x2F;full）</li>
+</ul>
+<p>【1】建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 交易域加购事务事实表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> dwd_trade_cart_add_inc;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> dwd_trade_cart_add_inc</span><br><span class="line">(</span><br><span class="line">    `id`               STRING COMMENT <span class="string">&#x27;编号&#x27;</span>,</span><br><span class="line">    `user_id`          STRING COMMENT <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">    `sku_id`           STRING COMMENT <span class="string">&#x27;商品id&#x27;</span>,</span><br><span class="line">    `date_id`          STRING COMMENT <span class="string">&#x27;时间id&#x27;</span>,</span><br><span class="line">    `create_time`      STRING COMMENT <span class="string">&#x27;加购时间&#x27;</span>,</span><br><span class="line">    `source_id`        STRING COMMENT <span class="string">&#x27;来源类型ID&#x27;</span>,</span><br><span class="line">    `source_type_code` STRING COMMENT <span class="string">&#x27;来源类型编码&#x27;</span>,</span><br><span class="line">    `source_type_name` STRING COMMENT <span class="string">&#x27;来源类型名称&#x27;</span>,</span><br><span class="line">    `sku_num`          <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;加购物车件数&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;交易域加购物车事务事实表&#x27;</span></span><br><span class="line">    PARTITIONED <span class="keyword">BY</span> (`dt` STRING)</span><br><span class="line">    <span class="type">ROW</span> FORMAT DELIMITED FIELDS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;\t&#x27;</span></span><br><span class="line">    STORED <span class="keyword">AS</span> ORC</span><br><span class="line">    LOCATION <span class="string">&#x27;/warehouse/gmall/dwd/dwd_trade_cart_add_inc/&#x27;</span></span><br><span class="line">    TBLPROPERTIES (<span class="string">&#x27;orc.compress&#x27;</span> <span class="operator">=</span> <span class="string">&#x27;snappy&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>【2】数据装载</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 设置Hive分区模式为不严格</span></span><br><span class="line"><span class="keyword">set</span> hive.exec.dynamic.partition.mode<span class="operator">=</span>nonstrict;</span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> dwd_trade_cart_add_inc <span class="keyword">partition</span> (dt)</span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    id,</span><br><span class="line">    user_id,</span><br><span class="line">    sku_id,</span><br><span class="line">    date_format(create_time,<span class="string">&#x27;yyyy-MM-dd&#x27;</span>) date_id,</span><br><span class="line">    create_time,</span><br><span class="line">    source_id,</span><br><span class="line">    source_type,</span><br><span class="line">    dic.dic_name,</span><br><span class="line">    sku_num,</span><br><span class="line">    date_format(create_time, <span class="string">&#x27;yyyy-MM-dd&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        data.id,</span><br><span class="line">        data.user_id,</span><br><span class="line">        data.sku_id,</span><br><span class="line">        data.create_time,</span><br><span class="line">        data.source_id,</span><br><span class="line">        data.source_type,</span><br><span class="line">        data.sku_num</span><br><span class="line">    <span class="keyword">from</span> ods_cart_info_inc</span><br><span class="line">    <span class="keyword">where</span> dt <span class="operator">=</span> <span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">    <span class="keyword">and</span> type <span class="operator">=</span> <span class="string">&#x27;bootstrap-insert&#x27;</span>  <span class="comment">-- 设置类型为“全量插入” </span></span><br><span class="line">)ci</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        dic_code,</span><br><span class="line">        dic_name</span><br><span class="line">    <span class="keyword">from</span> ods_base_dic_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2023-03-30&#x27;</span></span><br><span class="line">    <span class="keyword">and</span> parent_code<span class="operator">=</span><span class="string">&#x27;24&#x27;</span></span><br><span class="line">)dic</span><br><span class="line"><span class="keyword">on</span> ci.source_type<span class="operator">=</span>dic.dic_code;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（4）DWS层（Data-Warehouse-Summary，汇总数据层）"><a href="#（4）DWS层（Data-Warehouse-Summary，汇总数据层）" class="headerlink" title="（4）DWS层（Data Warehouse Summary，汇总数据层）"></a>（4）DWS层（Data Warehouse Summary，汇总数据层）</h6><p>基于上层的指标需求，以分析的主题对象作为建模驱动，构建公共统计粒度的汇总表。</p>
+<p>设计要点：</p>
+<ul>
+<li><p>DWS层的设计参考指标体系。</p>
+</li>
+<li><p>DWS层的数据存储格式为ORC列式存储 + snappy压缩。</p>
+</li>
+<li><p>DWS层表名的命名规范为dws_数据域_统计粒_业务过程_统计周期（1d&#x2F;nd&#x2F;td）</p>
+</li>
+</ul>
+<p>注：1d表示最近1日，nd表示最近n日，td表示历史至今。</p>
+<p>【1】建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 交易域用户商品粒度订单最近1日汇总表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> dws_trade_user_sku_order_1d;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> dws_trade_user_sku_order_1d</span><br><span class="line">(</span><br><span class="line">    `user_id`                   STRING COMMENT <span class="string">&#x27;用户id&#x27;</span>,</span><br><span class="line">    `sku_id`                    STRING COMMENT <span class="string">&#x27;sku_id&#x27;</span>,</span><br><span class="line">    `sku_name`                  STRING COMMENT <span class="string">&#x27;sku名称&#x27;</span>,</span><br><span class="line">    `category1_id`              STRING COMMENT <span class="string">&#x27;一级分类id&#x27;</span>,</span><br><span class="line">    `category1_name`            STRING COMMENT <span class="string">&#x27;一级分类名称&#x27;</span>,</span><br><span class="line">    `category2_id`              STRING COMMENT <span class="string">&#x27;一级分类id&#x27;</span>,</span><br><span class="line">    `category2_name`            STRING COMMENT <span class="string">&#x27;一级分类名称&#x27;</span>,</span><br><span class="line">    `category3_id`              STRING COMMENT <span class="string">&#x27;一级分类id&#x27;</span>,</span><br><span class="line">    `category3_name`            STRING COMMENT <span class="string">&#x27;一级分类名称&#x27;</span>,</span><br><span class="line">    `tm_id`                     STRING COMMENT <span class="string">&#x27;品牌id&#x27;</span>,</span><br><span class="line">    `tm_name`                   STRING COMMENT <span class="string">&#x27;品牌名称&#x27;</span>,</span><br><span class="line">    `order_count_1d`            <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;最近1日下单次数&#x27;</span>,</span><br><span class="line">    `order_num_1d`              <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;最近1日下单件数&#x27;</span>,</span><br><span class="line">    `order_original_amount_1d`  <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;最近1日下单原始金额&#x27;</span>,</span><br><span class="line">    `activity_reduce_amount_1d` <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;最近1日活动优惠金额&#x27;</span>,</span><br><span class="line">    `coupon_reduce_amount_1d`   <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;最近1日优惠券优惠金额&#x27;</span>,</span><br><span class="line">    `order_total_amount_1d`     <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;最近1日下单最终金额&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;交易域用户商品粒度订单最近1日汇总事实表&#x27;</span></span><br><span class="line">    PARTITIONED <span class="keyword">BY</span> (`dt` STRING)</span><br><span class="line">    STORED <span class="keyword">AS</span> ORC</span><br><span class="line">    LOCATION <span class="string">&#x27;/warehouse/gmall/dws/dws_trade_user_sku_order_1d&#x27;</span></span><br><span class="line">    TBLPROPERTIES (<span class="string">&#x27;orc.compress&#x27;</span> <span class="operator">=</span> <span class="string">&#x27;snappy&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>【2】数据装载</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> hive.exec.dynamic.partition.mode<span class="operator">=</span>nonstrict;</span><br><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> dws_trade_user_sku_order_1d <span class="keyword">partition</span>(dt)</span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    user_id,</span><br><span class="line">    id,</span><br><span class="line">    sku_name,</span><br><span class="line">    category1_id,</span><br><span class="line">    category1_name,</span><br><span class="line">    category2_id,</span><br><span class="line">    category2_name,</span><br><span class="line">    category3_id,</span><br><span class="line">    category3_name,</span><br><span class="line">    tm_id,</span><br><span class="line">    tm_name,</span><br><span class="line">    order_count_1d,</span><br><span class="line">    order_num_1d,</span><br><span class="line">    order_original_amount_1d,</span><br><span class="line">    activity_reduce_amount_1d,</span><br><span class="line">    coupon_reduce_amount_1d,</span><br><span class="line">    order_total_amount_1d,</span><br><span class="line">    dt</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        dt,</span><br><span class="line">        user_id,</span><br><span class="line">        sku_id,</span><br><span class="line">        <span class="built_in">count</span>(<span class="operator">*</span>) order_count_1d,</span><br><span class="line">        <span class="built_in">sum</span>(sku_num) order_num_1d,</span><br><span class="line">        <span class="built_in">sum</span>(split_original_amount) order_original_amount_1d,</span><br><span class="line">        <span class="built_in">sum</span>(nvl(split_activity_amount,<span class="number">0.0</span>)) activity_reduce_amount_1d,</span><br><span class="line">        <span class="built_in">sum</span>(nvl(split_coupon_amount,<span class="number">0.0</span>)) coupon_reduce_amount_1d,</span><br><span class="line">        <span class="built_in">sum</span>(split_total_amount) order_total_amount_1d</span><br><span class="line">    <span class="keyword">from</span> dwd_trade_order_detail_inc</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> dt,user_id,sku_id</span><br><span class="line">)od</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        id,</span><br><span class="line">        sku_name,</span><br><span class="line">        category1_id,</span><br><span class="line">        category1_name,</span><br><span class="line">        category2_id,</span><br><span class="line">        category2_name,</span><br><span class="line">        category3_id,</span><br><span class="line">        category3_name,</span><br><span class="line">        tm_id,</span><br><span class="line">        tm_name</span><br><span class="line">    <span class="keyword">from</span> dim_sku_full</span><br><span class="line">    <span class="keyword">where</span> dt<span class="operator">=</span><span class="string">&#x27;2020-06-14&#x27;</span></span><br><span class="line">)sku</span><br><span class="line"><span class="keyword">on</span> od.sku_id<span class="operator">=</span>sku.id;</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（5）ADS层（Application-Data-Service，数据应用层）"><a href="#（5）ADS层（Application-Data-Service，数据应用层）" class="headerlink" title="（5）ADS层（Application Data Service，数据应用层）"></a>（5）ADS层（Application Data Service，数据应用层）</h6><table>
+<thead>
+<tr>
+<th>统计周期</th>
+<th>统计粒度</th>
+<th>指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最近1&#x2F;7&#x2F;30日</td>
+<td>渠道</td>
+<td>访客数</td>
+<td>统计访问人数</td>
+</tr>
+<tr>
+<td>最近1&#x2F;7&#x2F;30日</td>
+<td>渠道</td>
+<td>会话平均停留时长</td>
+<td>统计每个会话平均停留时长</td>
+</tr>
+<tr>
+<td>最近1&#x2F;7&#x2F;30日</td>
+<td>渠道</td>
+<td>会话平均浏览页面数</td>
+<td>统计每个会话平均浏览页面数</td>
+</tr>
+<tr>
+<td>最近1&#x2F;7&#x2F;30日</td>
+<td>渠道</td>
+<td>会话总数</td>
+<td>统计会话总数</td>
+</tr>
+<tr>
+<td>最近1&#x2F;7&#x2F;30日</td>
+<td>渠道</td>
+<td>跳出率</td>
+<td>只有一个页面的会话的比例</td>
+</tr>
+</tbody></table>
+<p>【1】建表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 各渠道流量统计</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> ads_traffic_stats_by_channel;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> ads_traffic_stats_by_channel</span><br><span class="line">(</span><br><span class="line">    `dt`               STRING COMMENT <span class="string">&#x27;统计日期&#x27;</span>,</span><br><span class="line">    `recent_days`      <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;最近天数,1:最近1天,7:最近7天,30:最近30天&#x27;</span>,</span><br><span class="line">    `channel`          STRING COMMENT <span class="string">&#x27;渠道&#x27;</span>,</span><br><span class="line">    `uv_count`         <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;访客人数&#x27;</span>,</span><br><span class="line">    `avg_duration_sec` <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;会话平均停留时长，单位为秒&#x27;</span>,</span><br><span class="line">    `avg_page_count`   <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;会话平均浏览页面数&#x27;</span>,</span><br><span class="line">    `sv_count`         <span class="type">BIGINT</span> COMMENT <span class="string">&#x27;会话数&#x27;</span>,</span><br><span class="line">    `bounce_rate`      <span class="type">DECIMAL</span>(<span class="number">16</span>, <span class="number">2</span>) COMMENT <span class="string">&#x27;跳出率&#x27;</span></span><br><span class="line">) COMMENT <span class="string">&#x27;各渠道流量统计&#x27;</span></span><br><span class="line">    <span class="type">ROW</span> FORMAT DELIMITED FIELDS TERMINATED <span class="keyword">BY</span> <span class="string">&#x27;\t&#x27;</span></span><br><span class="line">    LOCATION <span class="string">&#x27;/warehouse/gmall/ads/ads_traffic_stats_by_channel/&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>【2】数据装载</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> overwrite <span class="keyword">table</span> ads_traffic_stats_by_channel</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> ads_traffic_stats_by_channel</span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="string">&#x27;2020-06-14&#x27;</span> dt,</span><br><span class="line">    recent_days,</span><br><span class="line">    channel,</span><br><span class="line">    <span class="built_in">cast</span>(<span class="built_in">count</span>(<span class="keyword">distinct</span>(mid_id)) <span class="keyword">as</span> <span class="type">bigint</span>) uv_count,</span><br><span class="line">    <span class="built_in">cast</span>(<span class="built_in">avg</span>(during_time_1d)<span class="operator">/</span><span class="number">1000</span> <span class="keyword">as</span> <span class="type">bigint</span>) avg_duration_sec,</span><br><span class="line">    <span class="built_in">cast</span>(<span class="built_in">avg</span>(page_count_1d) <span class="keyword">as</span> <span class="type">bigint</span>) avg_page_count,</span><br><span class="line">    <span class="built_in">cast</span>(<span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> <span class="type">bigint</span>) sv_count,</span><br><span class="line">    <span class="built_in">cast</span>(<span class="built_in">sum</span>(if(page_count_1d<span class="operator">=</span><span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>))<span class="operator">/</span><span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> <span class="type">decimal</span>(<span class="number">16</span>,<span class="number">2</span>)) bounce_rate</span><br><span class="line"><span class="keyword">from</span> dws_traffic_session_page_view_1d <span class="keyword">lateral</span> <span class="keyword">view</span> explode(<span class="keyword">array</span>(<span class="number">1</span>,<span class="number">7</span>,<span class="number">30</span>)) tmp <span class="keyword">as</span> recent_days</span><br><span class="line"><span class="keyword">where</span> dt<span class="operator">&gt;=</span>date_add(<span class="string">&#x27;2023-03-30&#x27;</span>,<span class="operator">-</span>recent_days<span class="operator">+</span><span class="number">1</span>)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> recent_days,channel;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu">Alexie-Z-Yevich</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/">https://www.fenrisx.icu/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fenrisx.icu" target="_blank">New Try && New Life</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%84%E4%BB%B6/">大数据组件</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">数据仓库</a></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/03/29/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8A/" title="离线数仓总结（上）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-29</div><div class="title">离线数仓总结（上）</div></div></a></div><div><a href="/2023/04/15/Flume%E4%BB%8E0%E5%88%B01/" title="Flume从0到1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-15</div><div class="title">Flume从0到1</div></div></a></div><div><a href="/2023/03/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%85%A5%E9%97%A8%E3%80%8A%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF%EF%BC%9A%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E8%B7%B5%E3%80%8B/" title="大数据入门《大数据之路：阿里巴巴大数据实践》"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-20</div><div class="title">大数据入门《大数据之路：阿里巴巴大数据实践》</div></div></a></div><div><a href="/2023/03/05/Java%E6%B7%B7%E5%90%88Scala/" title="Java混合Scala"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-05</div><div class="title">Java混合Scala</div></div></a></div><div><a href="/2022/11/16/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%9F%BA%E7%A1%80%E5%A4%87%E8%80%83/" title="大数据平台基础（《Hadoop大数据原理与应用》）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-16</div><div class="title">大数据平台基础（《Hadoop大数据原理与应用》）</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Alexie-Z-Yevich</div><div class="author-info__description">hello</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alexie-Z-Yevich"><i></i><span>前往我的Github...</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Alexie-Z-Yevich" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1213791406@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名：<br><a href="https://www.fenrisx.icu"><b><font color="#5ea6e5">fenrisx.icu</font></b></a><br>其他项目：<br><a target="_blank" rel="noopener" href="http://www.fenrisx.top"><b><font color="#5ea6e5">fenrisx.top</font></b></a><br>📬：<b><font color="#a591e0">1213791406@qq.com</font></b></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%94%B5%E5%95%86%E4%B8%9A%E5%8A%A1%E4%BB%8B%E7%BB%8D"><span class="toc-text">第三章 电商业务介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%B8%B8%E8%AF%86%E6%A6%82%E5%BF%B5"><span class="toc-text">2、常识概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE%E5%85%B3%E7%B3%BB%E5%9B%BE"><span class="toc-text">3、业务数据关系图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E5%90%8E%E5%8F%B0%E6%95%B0%E6%8D%AE%E5%85%B3%E7%B3%BB%E5%9B%BE"><span class="toc-text">4、后台数据关系图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E7%AD%96%E7%95%A5"><span class="toc-text">第四章 数据同步策略</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0%E3%80%81%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7"><span class="toc-text">0、同步工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5"><span class="toc-text">1、全量同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5"><span class="toc-text">2、增量同步</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%BB%BA%E6%A8%A1"><span class="toc-text">第五章 数据仓库概述与建模</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5"><span class="toc-text">1、概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84"><span class="toc-text">2、核心架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%BB%BA%E6%A8%A1%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="toc-text">3、数据仓库建模方法论</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89E-R%E6%A8%A1%E5%9E%8B"><span class="toc-text">（1）E-R模型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%BB%B4%E5%BA%A6%E6%A8%A1%E5%9E%8B"><span class="toc-text">（2）维度模型</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%BB%B4%E5%BA%A6%E5%BB%BA%E6%A8%A1"><span class="toc-text">第六章 维度建模</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E7%BB%B4%E5%BA%A6%E8%A1%A8"><span class="toc-text">1、维度表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%A6%82%E8%BF%B0"><span class="toc-text">（1）概述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B"><span class="toc-text">（2）设计流程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%A7%84%E8%8C%83%E5%8C%96%E5%92%8C%E5%8F%8D%E8%A7%84%E8%8C%83%E5%8C%96"><span class="toc-text">（3）规范化和反规范化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E7%BB%B4%E5%BA%A6%E5%8F%98%E5%8C%96"><span class="toc-text">（4）维度变化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E5%A4%9A%E5%80%BC%E7%BB%B4%E5%BA%A6-amp-amp-%E5%A4%9A%E5%80%BC%E5%B1%9E%E6%80%A7%E7%9A%84%E8%A7%A3%E5%86%B3"><span class="toc-text">（5）多值维度 &amp;&amp; 多值属性的解决</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E4%BA%8B%E5%AE%9E%E8%A1%A8"><span class="toc-text">2、事实表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%A6%82%E8%BF%B0-1"><span class="toc-text">（1）概述</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%88%86%E7%B1%BB"><span class="toc-text">（2）分类</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91"><span class="toc-text">第七章 数据仓库设计与开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B"><span class="toc-text">1、构建流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E7%BB%9F%E8%AE%A1%E6%8C%87%E6%A0%87%E6%A6%82%E8%BF%B0"><span class="toc-text">2、统计指标概述</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-text">（1）指标体系相关概念</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%8C%87%E6%A0%87%E4%BD%93%E7%B3%BB%E5%AF%B9%E4%BA%8E%E6%95%B0%E4%BB%93%E5%BB%BA%E6%A8%A1%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-text">（2）指标体系对于数仓建模的意义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82"><span class="toc-text">3、数仓分层</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89ODS%E5%B1%82%EF%BC%88Operation-Data-Store%EF%BC%8C%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E5%B1%82%EF%BC%89"><span class="toc-text">（1）ODS层（Operation Data Store，原始数据层）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89DIM%E5%B1%82%EF%BC%88Dimension%EF%BC%8C%E5%85%AC%E5%85%B1%E7%BB%B4%E5%BA%A6%E5%B1%82%EF%BC%89"><span class="toc-text">（2）DIM层（Dimension，公共维度层）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89DWD%E5%B1%82%EF%BC%88Data-Warehouse-Detail%EF%BC%8C%E6%98%8E%E7%BB%86%E6%95%B0%E6%8D%AE%E5%B1%82%EF%BC%89"><span class="toc-text">（3）DWD层（Data Warehouse Detail，明细数据层）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%884%EF%BC%89DWS%E5%B1%82%EF%BC%88Data-Warehouse-Summary%EF%BC%8C%E6%B1%87%E6%80%BB%E6%95%B0%E6%8D%AE%E5%B1%82%EF%BC%89"><span class="toc-text">（4）DWS层（Data Warehouse Summary，汇总数据层）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89ADS%E5%B1%82%EF%BC%88Application-Data-Service%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%89"><span class="toc-text">（5）ADS层（Application Data Service，数据应用层）</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0.7)"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Alexie-Z-Yevich</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async src="/js/title.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
