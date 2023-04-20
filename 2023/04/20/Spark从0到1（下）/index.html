@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Spark从0到1（下） | New Try &amp;&amp; New Life</title><meta name="author" content="Alexie-Z-Yevich"><meta name="copyright" content="Alexie-Z-Yevich"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第四章 Spark Streaming：流计算1、概述（1）流计算流数据是一组顺序、大量、快速、连续可达的数据序列，可被视为一个随时间延续而不断增长的动态数据集合。具有以下特点：  数据实时到达 数据到达次序独立，不受应用系统控制 数据规模宏大且不能预知其最大值 数据一经处理，除非特意保存，否则不能被再次取出处理，如果再次提取数据则代价昂贵  （2）批处理与流处理根据数据处理的时效性，大数据处理系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark从0到1（下）">
+<meta property="og:url" content="https://www.fenrisx.icu/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/index.html">
+<meta property="og:site_name" content="New Try &amp;&amp; New Life">
+<meta property="og:description" content="第四章 Spark Streaming：流计算1、概述（1）流计算流数据是一组顺序、大量、快速、连续可达的数据序列，可被视为一个随时间延续而不断增长的动态数据集合。具有以下特点：  数据实时到达 数据到达次序独立，不受应用系统控制 数据规模宏大且不能预知其最大值 数据一经处理，除非特意保存，否则不能被再次取出处理，如果再次提取数据则代价昂贵  （2）批处理与流处理根据数据处理的时效性，大数据处理系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.fenrisx.icu/images/head.jpg">
+<meta property="article:published_time" content="2023-04-20T13:39:40.000Z">
+<meta property="article:modified_time" content="2023-04-20T13:42:59.097Z">
+<meta property="article:author" content="Alexie-Z-Yevich">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="大数据组件">
+<meta property="article:tag" content="从零到一系列">
+<meta property="article:tag" content="Spark">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.fenrisx.icu/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.fenrisx.icu/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alexie-Z-Yevich","link":"链接: ","source":"来源: New Try && New Life","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Spark从0到1（下）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-20 21:42:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="New Try &amp;&amp; New Life"><span class="site-name">New Try &amp;&amp; New Life</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Spark从0到1（下）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-20T13:39:40.000Z" title="发表于 2023-04-20 21:39:40">2023-04-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-20T13:42:59.097Z" title="更新于 2023-04-20 21:42:59">2023-04-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6/">我的大学</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6/%E5%A4%A7%E4%B8%89%E4%B8%8B%E5%AD%A6%E6%9C%9F/">大三下学期</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Spark从0到1（下）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="第四章-Spark-Streaming：流计算"><a href="#第四章-Spark-Streaming：流计算" class="headerlink" title="第四章 Spark Streaming：流计算"></a>第四章 Spark Streaming：流计算</h2><h4 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h4><h6 id="（1）流计算"><a href="#（1）流计算" class="headerlink" title="（1）流计算"></a>（1）流计算</h6><p>流数据是一组顺序、大量、快速、连续可达的数据序列，可被视为一个随时间延续而不断增长的动态数据集合。具有以下特点：</p>
+<ul>
+<li>数据实时到达</li>
+<li>数据到达次序独立，不受应用系统控制</li>
+<li>数据规模宏大且不能预知其最大值</li>
+<li>数据一经处理，除非特意保存，否则不能被再次取出处理，如果再次提取数据则代价昂贵</li>
+</ul>
+<h6 id="（2）批处理与流处理"><a href="#（2）批处理与流处理" class="headerlink" title="（2）批处理与流处理"></a>（2）批处理与流处理</h6><p>根据数据处理的时效性，大数据处理系统可分为批大数据处理系统和流大数据处理系统两类。</p>
+<ul>
+<li>批处理<ul>
+<li>批处理主要操作大容量静态数据集，并在计算过程完成后返回结果。批处理模式中使用的数据集通常符合下列特征：<ul>
+<li>有界，批处理数据集代表数据的有限集合</li>
+<li>持久，数据通常始终存储在某种类型的持久存储位置中。</li>
+<li>量大，批处理操作通常是处理极为海量的数据集的唯一方法。</li>
+</ul>
+</li>
+<li>批处理非常适合需要访问全套记录才能完成的计算工作，例如在计算总数和平均数时，必须将数据集作为一个整体加以处理。</li>
+</ul>
+</li>
+<li>流处理<ul>
+<li>流处理系统会对随时进入系统的数据进行计算。相比批处理模式，这是一种截然不同的处理方式。流处理方式无须针对整个数据集执行操作，而是对系统传输的每个数据项执行操作。</li>
+<li>流处理中的数据集是“无边界”的，完整数据集只能代表截至目前已经进入到系统中的数据总量；流处理工作是基于事件的，除非明确停止否则没有“尽头”；流处理结果立即可用；并会随着新数据的抵达持续更新。</li>
+<li>流处理很适合用来处理必须对变动或者峰值做出响应，并且关注一段时间的变化趋势的数据。</li>
+</ul>
+</li>
+</ul>
+<h6 id="（3）Spark-Sreaming"><a href="#（3）Spark-Sreaming" class="headerlink" title="（3）Spark Sreaming"></a>（3）Spark Sreaming</h6><p>Spark Streaming 用于流式数据的处理。Spark Streaming 支持的数据输入源很多，例如：Kafka、 Flume、Twitter、ZeroMQ 和简单的 TCP 套接字等等。数据输入后可以用 Spark 的高度抽象原语 如：map、reduce、join、window 等进行运算。而结果也能保存在很多地方，如 HDFS，数据库等。</p>
+<p>和 Spark 基于 RDD 的概念很相似，Spark Streaming 使用离散化流(discretized stream)作为抽象表示，叫作 DStream。DStream 是随时间推移而收到的数据的序列。在内部，每个时间区间收到的数据都作为 RDD 存在，而 DStream 是由这些 RDD 所组成的序列（因此得名“离散化”）。所以 简单来讲，DStream 就是对 RDD 在实时数据处理场景的一种封装。</p>
+<h4 id="2、Spark-Streaming架构"><a href="#2、Spark-Streaming架构" class="headerlink" title="2、Spark Streaming架构"></a>2、Spark Streaming架构</h4><h6 id="（1）架构图"><a href="#（1）架构图" class="headerlink" title="（1）架构图"></a>（1）架构图</h6><p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/4.1.png"></p>
+<h6 id="（2）背压机制"><a href="#（2）背压机制" class="headerlink" title="（2）背压机制"></a>（2）背压机制</h6><p>Spark 1.5 以前版本，用户如果要限制 Receiver 的数据接收速率，可以通过设置静态配制参数“spark.streaming.receiver.maxRate”的值来实现，此举虽然可以通过限制接收速率，来适配当前的处理能力，防止内存溢出，但也会引入其它问题。比如：producer 数据生产高于 maxRate，当 前集群处理能力也高于 maxRate，这就会造成资源利用率下降等问题。</p>
+<p>为了更好的协调数据接收速率与资源处理能力，1.5 版本开始 Spark Streaming 可以动态控制 数据接收速率来适配集群数据处理能力。<strong>背压机制（即 Spark Streaming Backpressure）: 根据 JobScheduler 反馈作业的执行信息来动态调整 Receiver 数据接收率。</strong></p>
+<p>通过属性“spark.streaming.backpressure.enabled”来控制是否启用 backpressure 机制，默认值 false，即不启用。</p>
+<h4 id="3、运行原理"><a href="#3、运行原理" class="headerlink" title="3、运行原理"></a>3、运行原理</h4><p>Spark Streaming是构建在Spark Core上的实时流计算框架，扩展了Spark Core处理流式大数据的能力。Spark Streaming将数据流以时间片为单位分割形成一系列RDD（一个RDD对应一块分割数据），这些RDD在Spark Streaming中用一个抽象数据模型DStream（Discretized Stream，离散流）来描述，DStream表示从数据源获取的持续性数据流和经过转换后的数据流。</p>
+<h6 id="DStream和RDD的对应关系"><a href="#DStream和RDD的对应关系" class="headerlink" title="DStream和RDD的对应关系"></a>DStream和RDD的对应关系</h6><p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/4.2.png"></p>
+<p>DStream可以通过输入数据源来创建，比如Kafka、Flume和Kinesis；也可以通过对其他DStream应用进行map、reduce、join等操作来创建。使用RDD操作处理DStream中的每一个RDD，每个RDD都会生成一个Spark job，然后提交给Spark集群进行计算，批量生成最终的结果，最后将结果批量输出到HDFS或者数据库以及前端页面展示等。</p>
+<h6 id="基本工作原理"><a href="#基本工作原理" class="headerlink" title="基本工作原理"></a>基本工作原理</h6><p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/4.3.png"></p>
+<p>Spark Streaming使用“微批次”的架构，即把流式计算当作一系列连续的小规模批处理来对待。Spark Streaming从输入源中读取数据，并把数据分组为小的批次。新的批次按均匀的时间间隔被创建出来，即在每个时间区间开始时，一个新的批次被创建出来，并且在该区间内收到的数据都会被添加到这个批次中；在时间区间结束时，批次停止增长。其中，时间区间的长短是由批处理间隔决定的，批处理间隔一般设为500ms到几秒，由应用开发者配置。每次输入批次都会生成一个RDD，Spark以作业的方式处理和生成其他的RDD，然后就可以对其他的RDD进行转换操作，最后将RDD经过行动操作生成的中间结果保存在内存中。整个流式计算根据业务的需求可以对中间的结果进行叠加，最后形成“批”形式的结果流给外部系统。</p>
+<h4 id="4、以WordCount入门DStream"><a href="#4、以WordCount入门DStream" class="headerlink" title="4、以WordCount入门DStream"></a>4、以WordCount入门DStream</h4><blockquote>
+<p>需求：使用 netcat 工具向 9999 端口不断的发送数据，通过 SparkStreaming 读取端口数据并统计不同单词出现的次数</p>
+</blockquote>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StreamWordCount</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"> 		<span class="comment">//1.初始化 Spark 配置信息</span></span><br><span class="line"> 		<span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">&quot;local[*]&quot;</span>).setAppName(<span class="string">&quot;StreamWordCount&quot;</span>)</span><br><span class="line"> 		<span class="comment">//2.初始化 SparkStreamingContext</span></span><br><span class="line"> 		<span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf, <span class="type">Seconds</span>(<span class="number">3</span>))</span><br><span class="line"> 		<span class="comment">//3.通过监控端口创建 DStream，读进来的数据为一行行</span></span><br><span class="line"> 		<span class="keyword">val</span> lineStreams = ssc.socketTextStream(<span class="string">&quot;linux1&quot;</span>, <span class="number">9999</span>)</span><br><span class="line"> 		<span class="comment">//将每一行数据做切分，形成一个个单词</span></span><br><span class="line"> 		<span class="keyword">val</span> wordStreams = lineStreams.flatMap(_.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line"> 		<span class="comment">//将单词映射成元组（word,1）</span></span><br><span class="line">		 <span class="keyword">val</span> wordAndOneStreams = wordStreams.map((_, <span class="number">1</span>))</span><br><span class="line"> 		<span class="comment">//将相同的单词次数做统计</span></span><br><span class="line"> 		<span class="keyword">val</span> wordAndCountStreams = wordAndOneStreams.reduceByKey(_+_)</span><br><span class="line"> 		<span class="comment">//打印</span></span><br><span class="line"> 		wordAndCountStreams.print()</span><br><span class="line">	 	<span class="comment">//启动 SparkStreamingContext</span></span><br><span class="line"> 		ssc.start()</span><br><span class="line"> 		ssc.awaitTermination()</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h6><p>Discretized Stream 是 Spark Streaming 的基础抽象，代表持续性的数据流和经过各种 Spark 原语操作后的结果数据流。在内部实现上，DStream 是一系列连续的 RDD 来表示。每个 RDD 含有 一段时间间隔内的数据。</p>
+<blockquote>
+<p>因此，实际上可以将一段时间内的处理当成一个完整的RDD执行，以上述例子为例，Streaming监听3秒一打印，那么在这3秒内读取到的数据就是一个完整的RDD，各批次之间的数据互不干涉。比如你在前3秒发送了两个hello spark，一个hello streaming，第四秒发送了一个hello spark，那么实际上的输出是两个批次，第一批次为(hello, 3) (spark, 2) (streaming, 1)；第二批次为(hello, 1) (streaming, 1)。批次之间不会累计，但是我们任能通过构建RDD对各批次结果进行聚合。</p>
+</blockquote>
+<h4 id="5、不同数据源"><a href="#5、不同数据源" class="headerlink" title="5、不同数据源"></a>5、不同数据源</h4><h6 id="（1）自定义数据源"><a href="#（1）自定义数据源" class="headerlink" title="（1）自定义数据源"></a>（1）自定义数据源</h6><p>需求：自定义数据源，实现监控某个端口号，获取该端口号内容。</p>
+<p>提示：需要继承 Receiver，并实现 onStart、onStop 方法来自定义数据源采集。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomerReceiver</span>(<span class="params">host: <span class="type">String</span>, port: <span class="type">Int</span></span>) <span class="keyword">extends</span> <span class="title">Receiver</span>[<span class="type">String</span>](<span class="params"><span class="type">StorageLevel</span>.<span class="type">MEMORY_ONLY</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//最初启动的时候，调用该方法，作用为：读数据并将数据发送给 Spark</span></span><br><span class="line"> 	<span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onStart</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line"> 		<span class="keyword">new</span> <span class="type">Thread</span>(<span class="string">&quot;Socket Receiver&quot;</span>) &#123;</span><br><span class="line"> 			<span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span></span>() &#123;</span><br><span class="line"> 				receive()</span><br><span class="line"> 			&#125;</span><br><span class="line"> 		&#125;.start()</span><br><span class="line"> 	&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//读数据并将数据发送给 Spark</span></span><br><span class="line"> 	<span class="function"><span class="keyword">def</span> <span class="title">receive</span></span>(): <span class="type">Unit</span> = &#123;</span><br><span class="line"> 		<span class="comment">//创建一个 Socket</span></span><br><span class="line"> 		<span class="keyword">var</span> socket: <span class="type">Socket</span> = <span class="keyword">new</span> <span class="type">Socket</span>(host, port)</span><br><span class="line"> 		<span class="comment">//定义一个变量，用来接收端口传过来的数据</span></span><br><span class="line"> 		<span class="keyword">var</span> input: <span class="type">String</span> = <span class="literal">null</span></span><br><span class="line"> 		<span class="comment">//创建一个 BufferedReader 用于读取端口传来的数据</span></span><br><span class="line"> 		<span class="keyword">val</span> reader = <span class="keyword">new</span> <span class="type">BufferedReader</span>(<span class="keyword">new</span> <span class="type">InputStreamReader</span>(socket.getInputStream, </span><br><span class="line">								<span class="type">StandardCharsets</span>.<span class="type">UTF_8</span>))</span><br><span class="line"> 		<span class="comment">//读取数据</span></span><br><span class="line"> 		input = reader.readLine()</span><br><span class="line"> 		<span class="comment">//当 receiver 没有关闭并且输入数据不为空，则循环发送数据给 Spark</span></span><br><span class="line"> 		<span class="keyword">while</span> (!isStopped() &amp;&amp; input != <span class="literal">null</span>) &#123;</span><br><span class="line"> 			store(input)</span><br><span class="line"> 			input = reader.readLine()</span><br><span class="line"> 		&#125;</span><br><span class="line"> 		<span class="comment">//跳出循环则关闭资源</span></span><br><span class="line"> 		reader.close()</span><br><span class="line"> 		socket.close()</span><br><span class="line"> 		<span class="comment">//重启任务</span></span><br><span class="line"> 		restart(<span class="string">&quot;restart&quot;</span>)</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onStop</span></span>(): <span class="type">Unit</span> = &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3.创建自定义 receiver 的 Streaming</span></span><br><span class="line"><span class="keyword">val</span> lineStream = ssc.receiverStream(<span class="keyword">new</span> <span class="type">CustomerReceiver</span>(<span class="string">&quot;hadoop102&quot;</span>, <span class="number">9999</span>))</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="（2）Kafka数据源（重点）"><a href="#（2）Kafka数据源（重点）" class="headerlink" title="（2）Kafka数据源（重点）"></a>（2）Kafka数据源（重点）</h6><p><strong>Kafka 0-10 Direct 模式</strong></p>
+<p>需求：通过 SparkStreaming 从 Kafka 读取数据，并将读取过来的数据做简单计算，最终打印到控制台。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.consumer.&#123;<span class="type">ConsumerConfig</span>, <span class="type">ConsumerRecord</span>&#125;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.dstream.&#123;<span class="type">DStream</span>, <span class="type">InputDStream</span>&#125;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.kafka010.&#123;<span class="type">ConsumerStrategies</span>, <span class="type">KafkaUtils</span>, <span class="type">LocationStrategies</span>&#125;</span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.&#123;<span class="type">Seconds</span>, <span class="type">StreamingContext</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DirectAPI</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"> 		<span class="comment">//1.创建 SparkConf</span></span><br><span class="line"> 		<span class="keyword">val</span> sparkConf: <span class="type">SparkConf</span> = <span class="keyword">new</span> <span class="type">SparkConf</span>().setAppName(<span class="string">&quot;ReceiverWordCount&quot;</span>).setMaster(<span class="string">&quot;local[*]&quot;</span>)</span><br><span class="line"> 		<span class="comment">//2.创建 StreamingContext</span></span><br><span class="line"> 		<span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf, <span class="type">Seconds</span>(<span class="number">3</span>))</span><br><span class="line"> 		<span class="comment">//3.定义 Kafka 参数</span></span><br><span class="line"> 		<span class="keyword">val</span> kafkaPara: <span class="type">Map</span>[<span class="type">String</span>, <span class="type">Object</span>] = <span class="type">Map</span>[<span class="type">String</span>, <span class="type">Object</span>](</span><br><span class="line"> 			<span class="type">ConsumerConfig</span>.<span class="type">BOOTSTRAP_SERVERS_CONFIG</span> -&gt; </span><br><span class="line">								<span class="string">&quot;linux1:9092,linux2:9092,linux3:9092&quot;</span>,</span><br><span class="line"> 			<span class="type">ConsumerConfig</span>.<span class="type">GROUP_ID_CONFIG</span> -&gt; <span class="string">&quot;atguigu&quot;</span>,</span><br><span class="line"> 								<span class="string">&quot;key.deserializer&quot;</span> -&gt; </span><br><span class="line">									<span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span>,</span><br><span class="line"> 								<span class="string">&quot;value.deserializer&quot;</span> -&gt; </span><br><span class="line">									<span class="string">&quot;org.apache.kafka.common.serialization.StringDeserializer&quot;</span></span><br><span class="line"> 			)</span><br><span class="line"> 		<span class="comment">//4.读取 Kafka 数据创建 DStream</span></span><br><span class="line"> 		<span class="keyword">val</span> kafkaDStream: <span class="type">InputDStream</span>[<span class="type">ConsumerRecord</span>[<span class="type">String</span>, <span class="type">String</span>]] = </span><br><span class="line">								<span class="type">KafkaUtils</span>.createDirectStream[<span class="type">String</span>, <span class="type">String</span>](ssc,</span><br><span class="line"> 								<span class="type">LocationStrategies</span>.<span class="type">PreferConsistent</span>,</span><br><span class="line"> 								<span class="type">ConsumerStrategies</span>.<span class="type">Subscribe</span>[<span class="type">String</span>, <span class="type">String</span>](<span class="type">Set</span>(<span class="string">&quot;atguigu&quot;</span>), kafkaPara))</span><br><span class="line"> 		<span class="comment">//5.将每条消息的 KV 取出</span></span><br><span class="line"> 		<span class="keyword">val</span> valueDStream: <span class="type">DStream</span>[<span class="type">String</span>] = kafkaDStream.map(record =&gt; record.value())</span><br><span class="line"> 		<span class="comment">//6.计算 WordCount</span></span><br><span class="line"> 		valueDStream.flatMap(_.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line"> 											.map((_, <span class="number">1</span>))</span><br><span class="line"> 											.reduceByKey(_ + _)</span><br><span class="line"> 											.print()</span><br><span class="line"> 		<span class="comment">//7.开启任务</span></span><br><span class="line"> 		ssc.start()</span><br><span class="line"> 		ssc.awaitTermination()</span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="6、操作DStream"><a href="#6、操作DStream" class="headerlink" title="6、操作DStream"></a>6、操作DStream</h4><p>DStream 上的操作与 RDD 的类似，分为 Transformations（转换）和 Output Operations（输 出）两种，此外转换操作中还有一些比较特殊的原语，如：updateStateByKey()、transform()以及 各种 Window 相关的原语。</p>
+<blockquote>
+<p>可以简单分为三类：无状态转换操作、有状态转换操作、输出操作</p>
+</blockquote>
+<p>这里只对各种操作进行一个简单的概述，并不对其中的代码做过多分析，开发环境中需要的时候可以针对性查找。</p>
+<h6 id="（1）无状态转换操作"><a href="#（1）无状态转换操作" class="headerlink" title="（1）无状态转换操作"></a>（1）无状态转换操作</h6><p>无状态转化操作就是把简单的 RDD 转化操作应用到每个批次上，也就是转化 DStream 中的每 一个 RDD。注意，<strong>针对键值对的 DStream 转化操作(比如 reduceByKey())要添加 import StreamingContext._才能在 Scala 中使用。</strong></p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/4.4.png"></p>
+<p>需要记住的是，尽管这些函数看起来像作用在整个流上一样，但事实上每个 DStream 在内部是由许多 RDD（批次）组成，且无状态转化操作是分别应用到每个 RDD 上的。</p>
+<p><strong>Transform</strong></p>
+<p>Transform 允许 DStream 上执行任意的 RDD-to-RDD 函数。即使这些函数并没有在 DStream 的 API 中暴露出来，通过该函数可以方便的扩展 Spark API。该函数每一批次调度一次。其实也就是对 DStream 中的 RDD 应用转换。</p>
+<p><strong>join</strong></p>
+<p>两个流之间的 join 需要两个流的批次大小一致，这样才能做到同时触发计算。计算过程就是 对当前批次的两个流中各自的 RDD 进行 join，与两个 RDD 的 join 效果相同。</p>
+<h6 id="（2）有状态转换操作"><a href="#（2）有状态转换操作" class="headerlink" title="（2）有状态转换操作"></a>（2）有状态转换操作</h6><p><strong>UpdateStateByKey</strong></p>
+<p>UpdateStateByKey 原语用于记录历史记录，有时，我们需要在 DStream 中跨批次维护状态(例 如流计算中累加 wordcount)。针对这种情况，updateStateByKey()为我们提供了对一个状态变量的访问，用于键值对形式的 DStream。给定一个由(键，事件)对构成的 DStream，并传递一个指 定如何根据新的事件更新每个键对应状态的函数，它可以构建出一个新的 DStream，其内部数据为(键，状态) 对。</p>
+<p>updateStateByKey() 的结果会是一个新的 DStream，其内部的 RDD 序列是由每个时间区间对应的(键，状态)对组成的。</p>
+<p><strong>WindowOperations</strong></p>
+<p>Window Operations 可以设置窗口的大小和滑动窗口的间隔来动态的获取当前 Steaming 的允许状态。所有基于窗口的操作都需要两个参数，分别为窗口时长以及滑动步长。</p>
+<h6 id="（3）输出"><a href="#（3）输出" class="headerlink" title="（3）输出"></a>（3）输出</h6><p>输出操作指定了对流数据经转化操作得到的数据所要执行的操作(例如把结果推入外部数据库 或输出到屏幕上)。与 RDD 中的惰性求值类似，如果一个 DStream 及其派生出的 DStream 都没 有被执行输出操作，那么这些 DStream 就都不会被求值。如果 StreamingContext 中没有设定输出 操作，整个 context 就都不会启动。</p>
+<hr>
+<h2 id="第五章-Spark-GraphX：图计算-amp-amp-Spark-MLlib：机器学习"><a href="#第五章-Spark-GraphX：图计算-amp-amp-Spark-MLlib：机器学习" class="headerlink" title="第五章 Spark GraphX：图计算 &amp;&amp; Spark MLlib：机器学习"></a>第五章 Spark GraphX：图计算 &amp;&amp; Spark MLlib：机器学习</h2><h4 id="1、Spark-GraphX"><a href="#1、Spark-GraphX" class="headerlink" title="1、Spark GraphX"></a>1、Spark GraphX</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6926541204372848654">大数据开发-Spark-初识Spark-Graph &amp;&amp; 快速入门</a></p>
+<h4 id="2、Spark-MLlib"><a href="#2、Spark-MLlib" class="headerlink" title="2、Spark MLlib"></a>2、Spark MLlib</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7069390174437769246">初识 Spark MLlib 机器学习</a></p>
+<hr>
+<blockquote>
+<p>以下内容为进阶知识咯！虽说考试是考一点点的GraphX和MLlib，但是拜托，这是Spark从0到1，不是考试从0到100哦！所以后续重点介绍Spark内核和最最最常见的灵魂发问：数据倾斜的解决办法。</p>
+<p>Spark内核会省略掉一些比较底层的调度策略（虽然确实很重要），主要从Shuffle和底层执行原理以及内存管理进行介绍。</p>
+</blockquote>
+<h2 id="第六章-Spark-Shuffle解析"><a href="#第六章-Spark-Shuffle解析" class="headerlink" title="第六章 Spark Shuffle解析"></a>第六章 Spark Shuffle解析</h2><p>在 MapReduce 框架中，Shuffle 阶段是连接 Map 与 Reduce 之间的桥梁，Map 阶段通过 Shuffle 过程将数据输出到 Reduce 阶段中。由<strong>于 Shuffle 涉及磁盘的读写和网络 I&#x2F;O，因此 Shuffle 性能的高低直接影响整个程序的性能。</strong> Spark 也有 Map 阶段和 Reduce 阶段，因此也会出现 Shuffle 。</p>
+<h4 id="1、Shuffle-的核心要点"><a href="#1、Shuffle-的核心要点" class="headerlink" title="1、Shuffle 的核心要点"></a>1、Shuffle 的核心要点</h4><p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/6.1.png"></p>
+<p>在划分 stage 时，最后一个 stage 称为 finalStage，它本质上是一个 ResultStage 对象，前面的所有 stage 被称为 ShuffleMapStage。</p>
+<p>ShuffleMapStage 的结束伴随着 shuffle 文件的写磁盘。</p>
+<p>ResultStage 基本上对应代码中的 action 算子，即将一个函数应用在 RDD 的各个 partition 的数据集上，意味着一个 job 的运行结束。</p>
+<h4 id="2、HashShuffle解析"><a href="#2、HashShuffle解析" class="headerlink" title="2、HashShuffle解析"></a>2、HashShuffle解析</h4><h6 id="（1）未优化的HashShuffle"><a href="#（1）未优化的HashShuffle" class="headerlink" title="（1）未优化的HashShuffle"></a>（1）未优化的HashShuffle</h6><p>这里我们先明确一个假设前提：每个 Executor 只有 1 个 CPU core，也就是说，无论这 个 Executor 上分配多少个 task 线程，同一时间都只能执行一个 task 线程。</p>
+<p>有 3 个 Reducer，从 Task 开始那边各自把自己进行 Hash 计算(分区器： hash&#x2F;numreduce 取模)，分类出 3 个不同的类别，每个 Task 都分成 3 种类别的数据，想把不 同的数据汇聚然后计算出最终的结果，所以 Reducer 会在每个 Task 中把属于自己类别的数 据收集过来，汇聚成一个同类别的大集合，每 1 个 Task 输出 3 份本地文件，这里有 4 个 Mapper Tasks，所以总共输出了 4 个 Tasks x 3 个分类文件 &#x3D; 12 个本地小文件。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/6.2.png"></p>
+<h6 id="（2）优化后的HashShuffle"><a href="#（2）优化后的HashShuffle" class="headerlink" title="（2）优化后的HashShuffle"></a>（2）优化后的HashShuffle</h6><p>优化的 HashShuffle 过程就是启用合并机制，合并机制就是复用 buffer，开启合并机制 的配置是 spark.shuffle.consolidateFiles。该参数默认值为 false，将其设置为 true 即可开启优化机制。通常来说，如果我们使用 HashShuffleManager，那么都建议开启这个选项。</p>
+<p>这里还是有 4 个 Tasks，数据类别还是分成 3 种类型，因为 Hash 算法会根据你的 Key  进行分类，在同一个进程中，无论是有多少过 Task，都会把同样的 Key 放在同一个 Buffer 里，然后把 Buffer 中的数据写入以 Core 数量为单位的本地文件中，(一个 Core 只有一种类 型的 Key 的数据)，每 1 个 Task 所在的进程中，分别写入共同进程中的 3 份本地文件，这里 有 4 个 Mapper Tasks，所以总共输出是 2 个 Cores x 3 个分类文件 &#x3D; 6 个本地小文件。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/6.3.png"></p>
+<blockquote>
+<p>简单来说优化后的HashShuffle通过复用Buffer，减小了生成的文件数量，加快了后续的ReduceTask。</p>
+</blockquote>
+<p><strong>在 Spark 2.0 版本中， Hash Shuffle 方式己经不再使用。</strong></p>
+<h4 id="3、基于HashShuffle机制的优缺点"><a href="#3、基于HashShuffle机制的优缺点" class="headerlink" title="3、基于HashShuffle机制的优缺点"></a>3、基于HashShuffle机制的优缺点</h4><p><strong>优点</strong></p>
+<ul>
+<li>可以省略不必要的排序开销。</li>
+<li>避免了排序所需的内存开销。</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>生产的文件过多，会对文件系统造成压力。</li>
+<li>大量小文件的随机读写带来一定的磁盘开销。</li>
+<li>数据块写入时所需的缓存空间也会随之增加，对内存造成压力。</li>
+</ul>
+<h4 id="4、SortShuffle解析"><a href="#4、SortShuffle解析" class="headerlink" title="4、SortShuffle解析"></a>4、SortShuffle解析</h4><h6 id="（1）普通SortShuffle"><a href="#（1）普通SortShuffle" class="headerlink" title="（1）普通SortShuffle"></a>（1）普通SortShuffle</h6><p>在该模式下，数据会先写入一个数据结构，reduceByKey 写入 Map，一边通过 Map 局部聚合，一遍写入内存。Join 算子写入 ArrayList 直接写入内存中。然后需要判断是否达到阈值，如果达到就会将内存数据结构的数据写入到磁盘，清空内存数据结构。</p>
+<p>在溢写磁盘前，先根据 key 进行排序，排序过后的数据，会分批写入到磁盘文件中。默认批次为 10000 条，数据会以每批一万条写入到磁盘文件。写入磁盘文件通过缓冲区溢写的方式，每次溢写都会产生一个磁盘文件，也就是说一个 Task 过程会产生多个临时文件。</p>
+<p><strong>最后在每个 Task 中，将所有的临时文件合并，这就是 merge 过程，此过程将所有临时文件读取出来，一次写入到最终文件。</strong>意味着一个 Task 的所有数据都在这一个文件中。同时单独写一份索引文件，标识下游各个Task的数据在文件中的索引，start offset和end offset。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/6.4.png"></p>
+<h6 id="（2）bypass-SortShuffle"><a href="#（2）bypass-SortShuffle" class="headerlink" title="（2）bypass SortShuffle"></a>（2）bypass SortShuffle</h6><p>bypass 运行机制的触发条件如下：</p>
+<ul>
+<li>shuffle reduce task 数量小于等于 <strong>spark.shuffle.sort.bypassMergeThreshold</strong> 参数的值，默认为 200。</li>
+<li>不是聚合类的 shuffle 算子（比如 reduceByKey）。</li>
+</ul>
+<p>此时 task 会为每个 reduce 端的 task 都创建一个临时磁盘文件，并将数据按 key 进行 hash 然后根据 key 的 hash 值，将 key 写入对应的磁盘文件之中。当然，写入磁盘文件时也是先写入内存缓冲，缓冲写满之后再溢写到磁盘文件的。最后，同样会将所有临时磁盘文件都合并成一个磁盘文件，并创建一个单独的索引文件。</p>
+<p>该过程的磁盘写机制其实跟未经优化的 HashShuffleManager 是一模一样的，因为都要创建数量惊人的磁盘文件，只是在最后会做一个磁盘文件的合并而已。因此少量的最终磁盘文件，也让该机制相对未经优化的 HashShuffleManager 来说，shuffle read 的性能会更好。</p>
+<p>而该机制与普通 SortShuffleManager 运行机制的不同在于：<strong>不会进行排序</strong>。也就是说， 启用该机制的最大好处在于，shuffle write 过程中，不需要进行数据的排序操作，也就节省掉了这部分的性能开销。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/6.5.png"></p>
+<h4 id="5、基于Sort-的-Shuffle-机制的优缺点"><a href="#5、基于Sort-的-Shuffle-机制的优缺点" class="headerlink" title="5、基于Sort 的 Shuffle 机制的优缺点"></a>5、基于Sort 的 Shuffle 机制的优缺点</h4><p><strong>优点</strong></p>
+<ul>
+<li>小文件的数量大量减少，Mapper 端的内存占用变少</li>
+<li>Spark 不仅可以处理小规模的数据，即使处理大规模的数据，也不会很容易达到性能瓶颈。</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>如果 Mapper 中 Task 的数量过大，依旧会产生很多小文件，此时在 Shuffle 传数据的过程中到 Reducer 端，Reducer 会需要同时大量地记 录进行反序列化，导致大量内存消耗和 GC 负担巨大，造成系统缓慢，甚至崩溃</li>
+<li>强制了在 Mapper 端必须要排序，即使数据本身并不需要排序</li>
+<li>它要基于记录本身进行排序，这就是 Sort-Based Shuffle 最致命的性能 消耗。</li>
+</ul>
+<hr>
+<h2 id="第七章-Spark内存管理"><a href="#第七章-Spark内存管理" class="headerlink" title="第七章 Spark内存管理"></a>第七章 Spark内存管理</h2><h4 id="1、堆内和堆外内存规划"><a href="#1、堆内和堆外内存规划" class="headerlink" title="1、堆内和堆外内存规划"></a>1、堆内和堆外内存规划</h4><p>作为一个 JVM 进程，Executor 的内存管理建立在 JVM 的内存管理之上，Spark 对 JVM 的堆内（On-heap）空间进行了更为详细的分配，以充分利用内存。同时，Spark 引入了堆外 （Off-heap）内存，使之可以直接在工作节点的系统内存中开辟空间，进一步优化了内存的使用。堆内内存受到 JVM 统一管理，堆外内存是直接向操作系统进行内存的申请和释放。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/7.1.png"></p>
+<h4 id="2、内存空间分配"><a href="#2、内存空间分配" class="headerlink" title="2、内存空间分配"></a>2、内存空间分配</h4><h6 id="（1）静态内存分配"><a href="#（1）静态内存分配" class="headerlink" title="（1）静态内存分配"></a>（1）静态内存分配</h6><p>在 Spark 最初采用的静态内存管理机制下，存储内存、执行内存和其他内存的大小在 Spark 应用程序运行期间均为固定的，但用户可以应用程序启动前进行配置。</p>
+<p>Storage 内存和 Execution 内存都有预留空间，目的是防止 OOM，因为 Spark 堆内内存大小 的记录是不准确的，需要留出保险区域。</p>
+<p>堆外的空间分配较为简单，只有存储内存和执行内存，如下图所示。可用的执行内存和存储 内存占用的空间大小直接由参数 spark.memory.storageFraction 决定，由于堆外内存占用的空 间可以被精确计算，所以无需再设定保险区域。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/7.2.png"></p>
+<h6 id="（2）统一内存管理"><a href="#（2）统一内存管理" class="headerlink" title="（2）统一内存管理"></a>（2）统一内存管理</h6><p>Spark1.6 之后引入的统一内存管理机制，与静态内存管理的区别在于存储内存和执行内存共享同一块空间，可以动态占用对方的空闲区域。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/7.3.png"></p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/7.4.png"></p>
+<p><strong>动态占用机制规则</strong></p>
+<ul>
+<li>设定基本的存储内存和执行内存区域（spark.storage.storageFraction 参数），该设定确定了双方各自拥有的空间的范围；</li>
+<li>双方的空间都不足时，则存储到硬盘；若己方空间不足而对方空余时，可借用对方的空间;（存储空间不足是指不足以放下一个完整的 Block）</li>
+<li>执行内存的空间被对方占用后，可让对方将占用的部分转存到硬盘，然后”归还”借用的空间；</li>
+<li>存储内存的空间被对方占用后，无法让对方”归还”，因为需要考虑 Shuffle 过程中的很多因素，实现起来较为复杂。</li>
+</ul>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/7.5.png"></p>
+<h4 id="3、存储内存管理"><a href="#3、存储内存管理" class="headerlink" title="3、存储内存管理"></a>3、存储内存管理</h4><h6 id="（1）RDD的持久化机制"><a href="#（1）RDD的持久化机制" class="headerlink" title="（1）RDD的持久化机制"></a>（1）RDD的持久化机制</h6><p>弹性分布式数据集（RDD）作为 Spark 最根本的数据抽象，是只读的分区记录（Partition）的集合，只能基于在稳定物理存储中的数据集上创建，或者在其他已有的 RDD 上执行转换（Transformation）操作产生一个新的 RDD。转换后的 RDD 与原始的 RDD 之间产生的依赖关系，构成了血统（Lineage）。凭借血统，Spark 保证了每一个 RDD 都可以被重新恢复。但 RDD 的所有转换都是惰性的，即只有当一个返回结果给 Driver 的行动（Action）发生时， Spark 才会创建任务读取 RDD，然后真正触发转换的执行。</p>
+<p>RDD 的持久化由 Spark 的 Storage 模块负责，实现了 RDD 与物理存储的解耦合。Storage 模块负责管理 Spark 在计算过程中产生的数据，将那些在内存或磁盘、在本地或远程存取数据的功能封装了起来。在具体实现时 Driver 端和 Executor 端的 Storage 模块构成了主从式的架构，即 Driver 端的 BlockManager 为 Master，Executor 端的 BlockManager 为 Slave。 Storage 模块在逻辑上以 Block 为基本存储单位，RDD 的每个 Partition 经过处理后唯一对应 一个 Block（BlockId 的格式为 rdd_RDD-ID_PARTITION-ID ）。Driver 端的 Master 负责整个 Spark 应用程序的 Block 的元数据信息的管理和维护，而 Executor 端的 Slave 需要将 Block 的更新等状态上报到 Master，同时接收 Master 的命令，例如新增或删除一个 RDD。</p>
+<h6 id="（2）RDD的缓存过程"><a href="#（2）RDD的缓存过程" class="headerlink" title="（2）RDD的缓存过程"></a>（2）RDD的缓存过程</h6><p>RDD 在缓存到存储内存之前，Partition 中的数据一般以迭代器（Iterator）的数据结构来访问，这是 Scala 语言中一种遍历数据集合的方法。通过 Iterator 可以获取分区中每一条序 列化或者非序列化的数据项(Record)，这些 Record 的对象实例在逻辑上占用了 JVM 堆内内 存的 other 部分的空间，同一 Partition 的不同 Record 的存储空间并不连续。</p>
+<p>RDD 在缓存到存储内存之后，Partition 被转换成 Block，Record 在堆内或堆外存储内存中占用一块连续的空间。将 Partition 由不连续的存储空间转换为连续存储空间的过程，Spark 称之为”展开”（Unroll）。</p>
+<p>采样估算其所需的 Unroll 空间并进行申请，空间不足时可以中断，释放已占用的 Unroll 空间。 如果最终 Unroll 成功，当前 Partition 所占用的 Unroll 空间被转换为正常的缓存 RDD 的存储空间。</p>
+<h6 id="（3）淘汰与落盘"><a href="#（3）淘汰与落盘" class="headerlink" title="（3）淘汰与落盘"></a>（3）淘汰与落盘</h6><p>由于同一个 Executor 的所有的计算任务共享有限的存储内存空间，当有新的 Block 需 要缓存但是剩余空间不足且无法动态占用时，就要对 LinkedHashMap 中的旧 Block 进行淘 汰（Eviction），而被淘汰的 Block 如果其存储级别中同时包含存储到磁盘的要求，则要对其 进行落盘（Drop），否则直接删除该 Block。</p>
+<p><strong>存储内存的淘汰规则</strong></p>
+<ul>
+<li>被淘汰的旧 Block 要与新 Block 的 MemoryMode 相同，即同属于堆外或堆内内存；</li>
+<li>新旧 Block 不能属于同一个 RDD，避免循环淘汰；</li>
+<li>旧 Block 所属 RDD 不能处于被读状态，避免引发一致性问题；</li>
+<li>遍历 LinkedHashMap 中 Block，按照最近最少使用（LRU）的顺序淘汰，直到满足新 Block 所需的空间。其中 LRU 是 LinkedHashMap 的特性。</li>
+</ul>
+<p>落盘的流程则比较简单，如果其存储级别符合_useDisk 为 true 的条件，再根据其_deserialized 判断是否是非序列化的形式，若是则对其进行序列化，最后将数据存储到磁盘，在 Storage 模块中更新其信息</p>
+<h4 id="4、执行内存管理"><a href="#4、执行内存管理" class="headerlink" title="4、执行内存管理"></a>4、执行内存管理</h4><p>执行内存主要用来存储任务在执行 Shuffle 时占用的内存，Shuffle 是按照一定规则对 RDD 数据重新分区的过程。</p>
+<h6 id="（1）Shuffle-Writer"><a href="#（1）Shuffle-Writer" class="headerlink" title="（1）Shuffle Writer"></a>（1）Shuffle Writer</h6><p>若在 map 端选择普通的排序方式，会采用 ExternalSorter 进行外排，在内存中存储数据时主要占用堆内执行空间。</p>
+<p>若在 map 端选择 Tungsten 的排序方式，则采用 ShuffleExternalSorter 直接对以序列化形式存储的数据排序，在内存中存储数据时可以占用堆外或堆内执行空间，取决于用户是否开启 了堆外内存以及堆外执行内存是否足够。</p>
+<h6 id="（2）Shuffle-Read"><a href="#（2）Shuffle-Read" class="headerlink" title="（2）Shuffle Read"></a>（2）Shuffle Read</h6><p>在对 reduce 端的数据进行聚合时，要将数据交给 Aggregator 处理，在内存中存储数据时占用堆内执行空间。</p>
+<p>如果需要进行最终结果排序，则要将再次将数据交给 ExternalSorter 处理，占用堆内执行空间。</p>
+<p>在 ExternalSorter 和 Aggregator 中，Spark 会使用一种叫 AppendOnlyMap 的哈希表在堆内执 行内存中存储数据，但在 Shuffle 过程中所有数据并不能都保存到该哈希表中，当这个哈希表占用的内存会进行周期性地采样估算，当其大到一定程度，无法再从 MemoryManager 申请到新的执行内存时，Spark 就会将其全部内容存储到磁盘文件中，这个过程被称为溢存 (Spill)，溢存到磁盘的文件最后会被归并(Merge)。</p>
+<h6 id="（3）总结"><a href="#（3）总结" class="headerlink" title="（3）总结"></a>（3）总结</h6><p>Spark 的存储内存和执行内存有着截然不同的管理方式：对于存储内存来说，Spark 用一个 LinkedHashMap 来集中管理所有的 Block，Block 由需要缓存的 RDD 的 Partition 转化而成； 而对于执行内存，Spark 用 AppendOnlyMap 来存储 Shuffle 过程中的数据，在 Tungsten 排序中甚至抽象成为页式内存管理，开辟了全新的 JVM 内存管理机制。</p>
+<hr>
+<h2 id="第八章-数据倾斜"><a href="#第八章-数据倾斜" class="headerlink" title="第八章 数据倾斜"></a>第八章 数据倾斜</h2><p>数据倾斜就是数据分到各个区的数量不太均匀，可以自定义分区器,想怎么分就怎么分。</p>
+<p><strong>Spark 中的数据倾斜问题主要指 shuffle 过程中出现的数据倾斜问题，是由于不同的 key 对应的数据量不同导致的不同 task 所处理的数据量不同的问题。</strong></p>
+<p>注意，要区分开<strong>数据倾斜与数据过量</strong>这两种情况，数据倾斜是指少数 task 被分配了绝大多数的数据，因此少数 task 运行缓慢；数据过量是指所有 task 被分配的数据量都很大，相差不多，所有 task 都运行缓慢。</p>
+<h4 id="1、数据倾斜的表现"><a href="#1、数据倾斜的表现" class="headerlink" title="1、数据倾斜的表现"></a>1、数据倾斜的表现</h4><ul>
+<li>Spark 作业的大部分 task 都执行迅速，只有有限的几个 task 执行的非常慢，此时可能出现了数据倾斜，作业可以运行，但是运行得非常慢；</li>
+<li>Spark 作业的大部分 task 都执行迅速，但是有的 task 在运行过程中会突然报出 OOM，反复执行几次都在某一个 task 报出 OOM 错误，此时可能出现了数据倾斜，作业无法正常运行。</li>
+<li>定位数据倾斜问题：查阅代码中的 shuffle 算子，例如 reduceByKey、countByKey、groupByKey、 join 等算子，根据代码逻辑判断此处是否会出现数据倾斜；</li>
+<li>查看 Spark 作业的 log 文件，log 文件对于错误的记录会精确到代码的某一行，可以根据异常定位到的代码位置来明确错误发生在第几个 stage， 对应的 shuffle算子是哪一个。</li>
+</ul>
+<h4 id="2、方案一：预聚合原始数据"><a href="#2、方案一：预聚合原始数据" class="headerlink" title="2、方案一：预聚合原始数据"></a>2、方案一：预聚合原始数据</h4><h6 id="（1）避免shuffle过程"><a href="#（1）避免shuffle过程" class="headerlink" title="（1）避免shuffle过程"></a>（1）避免shuffle过程</h6><p>绝大多数情况下，Spark 作业的数据来源都是 Hive 表，这些 Hive 表基本都是经过 ETL 之后的昨天的数据。 为了避免数据倾斜，我们可以考虑避免 shuffle 过程，如果避免了 shuffle 过程，那么从根本上就消除了发生数据倾斜问题的可能。 如果 Spark 作业的数据来源于 Hive 表，那么可以先在 Hive 表中对数据进行聚合， 例如按照 key 进行分组，将同一 key 对应的所有 value 用一种特殊的格式拼接到 一个字符串里去，这样，一个 key 就只有一条数据了；之后，对一个 key 的所有 value 进行处理时，只需要进行 map 操作即可，无需再进行任何的 shuffle 操作。</p>
+<p>通过上述方式就避免了执行 shuffle 操作，也就不可能会发生任何的数据倾斜问题。 对于 Hive 表中数据的操作，不一定是拼接成一个字符串，也可以是直接对 key 的每一条数据进行累计计算。 <strong>要区分开，处理的数据量大和数据倾斜的区别。</strong></p>
+<h6 id="（2）增大Key粒度（减小数据倾斜的可能性，增大每个Task的数据量）"><a href="#（2）增大Key粒度（减小数据倾斜的可能性，增大每个Task的数据量）" class="headerlink" title="（2）增大Key粒度（减小数据倾斜的可能性，增大每个Task的数据量）"></a>（2）增大Key粒度（减小数据倾斜的可能性，增大每个Task的数据量）</h6><p>如果没有办法对每个 key 聚合出来一条数据，在特定场景下，可以考虑扩大 key 的聚合粒度。</p>
+<p>例如，目前有 10 万条用户数据，当前 key 的粒度是（省，城市，区，日期）， 现在我们考虑扩大粒度，将 key 的粒度扩大为（省，城市，日期），这样的话， key 的数量会减少，key 之间的数据量差异也有可能会减少，由此可以减轻数据倾斜的现象和问题。（此方法只针对特定类型的数据有效，当应用场景不适宜时， 会加重数据倾斜）</p>
+<h4 id="3、方案二：预处理导致倾斜的Key"><a href="#3、方案二：预处理导致倾斜的Key" class="headerlink" title="3、方案二：预处理导致倾斜的Key"></a>3、方案二：预处理导致倾斜的Key</h4><h6 id="（1）过滤"><a href="#（1）过滤" class="headerlink" title="（1）过滤"></a>（1）过滤</h6><p>如果在 Spark 作业中允许丢弃某些数据，那么可以考虑将可能导致数据倾斜的 key 进行过滤，滤除可能导致数据倾斜的 key 对应的数据，这样，在 Spark 作业中就不会发生数据倾斜了。</p>
+<h6 id="（2）使用随机Key"><a href="#（2）使用随机Key" class="headerlink" title="（2）使用随机Key"></a>（2）使用随机Key</h6><p>当使用了类似于 groupByKey、reduceByKey 这样的算子时，可以考虑使用随机 key 实现双重聚合。</p>
+<p>此方法对于由 groupByKey、reduceByKey 这类算子造成的数据倾斜有比较好的效果，仅仅适用于聚合类的 shuffle 操作，适用范围相对较窄。如果是 join 类的 shuffle 操作，还得用其他的解决方案。</p>
+<h6 id="（3）sample-采样对倾斜-key-单独进行-join"><a href="#（3）sample-采样对倾斜-key-单独进行-join" class="headerlink" title="（3）sample 采样对倾斜 key 单独进行 join"></a>（3）sample 采样对倾斜 key 单独进行 join</h6><p>在 Spark 中，<strong>如果某个 RDD 只有一个 key，那么在 shuffle 过程中会默认将此 key 对应的数据打散，由不同的 reduce 端 task 进行处理。</strong></p>
+<p>所以当由单个 key 导致数据倾斜时，可有将发生数据倾斜的 key 单独提取出来， 组成一个RDD，然后用这个原本会导致倾斜的key组成的RDD和其他RDD单独join， 此时，根据 Spark 的运行机制，此 RDD 中的数据会在 shuffle 阶段被分散到多个 task 。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/8.1.png"></p>
+<h4 id="4、方案三：提高reduce并行度"><a href="#4、方案三：提高reduce并行度" class="headerlink" title="4、方案三：提高reduce并行度"></a>4、方案三：提高reduce并行度</h4><p>当方案一和方案二对于数据倾斜的处理没有很好的效果时，可以考虑提高 shuffle 过程中的 reduce 端并行度，reduce 端并行度的提高就增加了 reduce 端 task 的数量，那么每个 task 分配到的数据量就会相应减少，由此缓解数据倾斜问题。</p>
+<p><strong>缺陷</strong></p>
+<p><strong>提高 reduce 端并行度并没有从根本上改变数据倾斜的本质和问题（方案一和方 案二从根本上避免了数据倾斜的发生）</strong>，只是尽可能地去缓解和减轻 shuffle reduce task 的数据压力，以及数据倾斜的问题，适用于有较多 key 对应的数据量都比较大的情况。</p>
+<h4 id="5、方案四：使用map-join"><a href="#5、方案四：使用map-join" class="headerlink" title="5、方案四：使用map join"></a>5、方案四：使用map join</h4><p>正常情况下，join 操作都会执行 shuffle 过程，并且执行的是 reduce join，也就是先将所有相同的 key 和对应的 value 汇聚到一个 reduce task 中，然后再进行 join。</p>
+<p><img src="/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/8.2.png"></p>
+<p>普通的 join 是会走 shuffle 过程的，而一旦 shuffle，就相当于会将相同 key 的数据拉取到一个 shuffle read task 中再进行 join，此时就是 reduce join。 但是如果一个 RDD 是比较小的，则可以采用广播小 RDD 全量数据+map 算子来实现与 join 同样的效果，也就是 map join，此时就不会发生 shuffle 操作，也就不会发生数据倾斜。</p>
+<p><strong>注意：RDD 是并不能直接进行广播的，只能将 RDD 内部的数据通过 collect 拉取到 Driver 内存然后再进行广播。</strong></p>
+<blockquote>
+<p>简单来说就是将少且散的数据全局到Driver端，直接消费到其他比较大的数据集中。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>应该不会有人真的看到这里吧~~</p>
+<p>其实文档还有Spark调优没有写，但是碍于篇幅和我的精神状态，暂时就不准备夹在这个文档中间了。毕竟这也只是从0到1嘛，不是从1到1.5。</p>
+<p>理论固然是重要的，但是千万别忘了代码实践。如果你想在简历上写了解Spark的话，上面这些基础基本上是吃透了的，同时还要熟读Spark的八股面经（认真脸）。当然，个人认为最好的提升方式就是直接写个项目，找找网上的Spark Streaming项目做一下，能够更加方便你了解Spark的工作原理。</p>
+<p>如果你能在这学得比任课老师教的还好，那么我觉得该文档就有了它的价值。——Alexie-Z-Yevich 2023.4.20</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu">Alexie-Z-Yevich</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/">https://www.fenrisx.icu/2023/04/20/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8B%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fenrisx.icu" target="_blank">New Try && New Life</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%BB%84%E4%BB%B6/">大数据组件</a><a class="post-meta__tags" href="/tags/%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E7%B3%BB%E5%88%97/">从零到一系列</a><a class="post-meta__tags" href="/tags/Spark/">Spark</a></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/04/19/Spark%E4%BB%8E0%E5%88%B01%EF%BC%88%E4%B8%8A%EF%BC%89/" title="Spark从0到1（上）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-19</div><div class="title">Spark从0到1（上）</div></div></a></div><div><a href="/2023/04/15/Flume%E4%BB%8E0%E5%88%B01/" title="Flume从0到1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-04-15</div><div class="title">Flume从0到1</div></div></a></div><div><a href="/2023/03/29/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8A/" title="离线数仓总结（上）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-29</div><div class="title">离线数仓总结（上）</div></div></a></div><div><a href="/2023/03/30/%E7%A6%BB%E7%BA%BF%E6%95%B0%E4%BB%93%E6%80%BB%E7%BB%93%E4%B8%8B/" title="离线数仓总结（下）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-30</div><div class="title">离线数仓总结（下）</div></div></a></div><div><a href="/2023/03/05/Java%E6%B7%B7%E5%90%88Scala/" title="Java混合Scala"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-05</div><div class="title">Java混合Scala</div></div></a></div><div><a href="/2023/03/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%85%A5%E9%97%A8%E3%80%8A%E5%A4%A7%E6%95%B0%E6%8D%AE%E4%B9%8B%E8%B7%AF%EF%BC%9A%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E8%B7%B5%E3%80%8B/" title="大数据入门《大数据之路：阿里巴巴大数据实践》"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-03-20</div><div class="title">大数据入门《大数据之路：阿里巴巴大数据实践》</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Alexie-Z-Yevich</div><div class="author-info__description">hello</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alexie-Z-Yevich"><i></i><span>前往我的Github...</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Alexie-Z-Yevich" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1213791406@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名：<br><a href="https://www.fenrisx.icu"><b><font color="#5ea6e5">fenrisx.icu</font></b></a><br>其他项目：<br><a target="_blank" rel="noopener" href="http://www.fenrisx.top"><b><font color="#5ea6e5">fenrisx.top</font></b></a><br>📬：<b><font color="#a591e0">1213791406@qq.com</font></b></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-Spark-Streaming%EF%BC%9A%E6%B5%81%E8%AE%A1%E7%AE%97"><span class="toc-text">第四章 Spark Streaming：流计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E8%BF%B0"><span class="toc-text">1、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%B5%81%E8%AE%A1%E7%AE%97"><span class="toc-text">（1）流计算</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%89%B9%E5%A4%84%E7%90%86%E4%B8%8E%E6%B5%81%E5%A4%84%E7%90%86"><span class="toc-text">（2）批处理与流处理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89Spark-Sreaming"><span class="toc-text">（3）Spark Sreaming</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81Spark-Streaming%E6%9E%B6%E6%9E%84"><span class="toc-text">2、Spark Streaming架构</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="toc-text">（1）架构图</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E8%83%8C%E5%8E%8B%E6%9C%BA%E5%88%B6"><span class="toc-text">（2）背压机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="toc-text">3、运行原理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#DStream%E5%92%8CRDD%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="toc-text">DStream和RDD的对应关系</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">基本工作原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E4%BB%A5WordCount%E5%85%A5%E9%97%A8DStream"><span class="toc-text">4、以WordCount入门DStream</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-text">解析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E4%B8%8D%E5%90%8C%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">5、不同数据源</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">（1）自定义数据源</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Kafka%E6%95%B0%E6%8D%AE%E6%BA%90%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="toc-text">（2）Kafka数据源（重点）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6%E3%80%81%E6%93%8D%E4%BD%9CDStream"><span class="toc-text">6、操作DStream</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%97%A0%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">（1）无状态转换操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%9C%89%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E6%93%8D%E4%BD%9C"><span class="toc-text">（2）有状态转换操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E8%BE%93%E5%87%BA"><span class="toc-text">（3）输出</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-Spark-GraphX%EF%BC%9A%E5%9B%BE%E8%AE%A1%E7%AE%97-amp-amp-Spark-MLlib%EF%BC%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-text">第五章 Spark GraphX：图计算 &amp;&amp; Spark MLlib：机器学习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81Spark-GraphX"><span class="toc-text">1、Spark GraphX</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81Spark-MLlib"><span class="toc-text">2、Spark MLlib</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-Spark-Shuffle%E8%A7%A3%E6%9E%90"><span class="toc-text">第六章 Spark Shuffle解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81Shuffle-%E7%9A%84%E6%A0%B8%E5%BF%83%E8%A6%81%E7%82%B9"><span class="toc-text">1、Shuffle 的核心要点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81HashShuffle%E8%A7%A3%E6%9E%90"><span class="toc-text">2、HashShuffle解析</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%9C%AA%E4%BC%98%E5%8C%96%E7%9A%84HashShuffle"><span class="toc-text">（1）未优化的HashShuffle</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BC%98%E5%8C%96%E5%90%8E%E7%9A%84HashShuffle"><span class="toc-text">（2）优化后的HashShuffle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%9F%BA%E4%BA%8EHashShuffle%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">3、基于HashShuffle机制的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81SortShuffle%E8%A7%A3%E6%9E%90"><span class="toc-text">4、SortShuffle解析</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%99%AE%E9%80%9ASortShuffle"><span class="toc-text">（1）普通SortShuffle</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89bypass-SortShuffle"><span class="toc-text">（2）bypass SortShuffle</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E5%9F%BA%E4%BA%8ESort-%E7%9A%84-Shuffle-%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">5、基于Sort 的 Shuffle 机制的优缺点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-Spark%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">第七章 Spark内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%A0%86%E5%86%85%E5%92%8C%E5%A0%86%E5%A4%96%E5%86%85%E5%AD%98%E8%A7%84%E5%88%92"><span class="toc-text">1、堆内和堆外内存规划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E5%88%86%E9%85%8D"><span class="toc-text">2、内存空间分配</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%9D%99%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-text">（1）静态内存分配</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E7%BB%9F%E4%B8%80%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">（2）统一内存管理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%AD%98%E5%82%A8%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">3、存储内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89RDD%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6"><span class="toc-text">（1）RDD的持久化机制</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89RDD%E7%9A%84%E7%BC%93%E5%AD%98%E8%BF%87%E7%A8%8B"><span class="toc-text">（2）RDD的缓存过程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%B7%98%E6%B1%B0%E4%B8%8E%E8%90%BD%E7%9B%98"><span class="toc-text">（3）淘汰与落盘</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%89%A7%E8%A1%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">4、执行内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89Shuffle-Writer"><span class="toc-text">（1）Shuffle Writer</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89Shuffle-Read"><span class="toc-text">（2）Shuffle Read</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E6%80%BB%E7%BB%93"><span class="toc-text">（3）总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C"><span class="toc-text">第八章 数据倾斜</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="toc-text">1、数据倾斜的表现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E9%A2%84%E8%81%9A%E5%90%88%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE"><span class="toc-text">2、方案一：预聚合原始数据</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E9%81%BF%E5%85%8Dshuffle%E8%BF%87%E7%A8%8B"><span class="toc-text">（1）避免shuffle过程</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%A2%9E%E5%A4%A7Key%E7%B2%92%E5%BA%A6%EF%BC%88%E5%87%8F%E5%B0%8F%E6%95%B0%E6%8D%AE%E5%80%BE%E6%96%9C%E7%9A%84%E5%8F%AF%E8%83%BD%E6%80%A7%EF%BC%8C%E5%A2%9E%E5%A4%A7%E6%AF%8F%E4%B8%AATask%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%EF%BC%89"><span class="toc-text">（2）增大Key粒度（减小数据倾斜的可能性，增大每个Task的数据量）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E9%A2%84%E5%A4%84%E7%90%86%E5%AF%BC%E8%87%B4%E5%80%BE%E6%96%9C%E7%9A%84Key"><span class="toc-text">3、方案二：预处理导致倾斜的Key</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%BF%87%E6%BB%A4"><span class="toc-text">（1）过滤</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BD%BF%E7%94%A8%E9%9A%8F%E6%9C%BAKey"><span class="toc-text">（2）使用随机Key</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89sample-%E9%87%87%E6%A0%B7%E5%AF%B9%E5%80%BE%E6%96%9C-key-%E5%8D%95%E7%8B%AC%E8%BF%9B%E8%A1%8C-join"><span class="toc-text">（3）sample 采样对倾斜 key 单独进行 join</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E6%96%B9%E6%A1%88%E4%B8%89%EF%BC%9A%E6%8F%90%E9%AB%98reduce%E5%B9%B6%E8%A1%8C%E5%BA%A6"><span class="toc-text">4、方案三：提高reduce并行度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E3%80%81%E6%96%B9%E6%A1%88%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8map-join"><span class="toc-text">5、方案四：使用map join</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0.7)"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Alexie-Z-Yevich</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async src="/js/title.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
