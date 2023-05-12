@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>从ResNet入门卷积神经网络 | New Try &amp;&amp; New Life</title><meta name="author" content="Alexie-Z-Yevich"><meta name="copyright" content="Alexie-Z-Yevich"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="众所周知数据科学与大数据技术实际上是以科研性质的的数据科学和纯技术力的大数据技术组成，学一半尚且非常吃力，而我又偏偏选了大数据技术方向。但是学历太低了，大数据技术也找不到工作，刚巧老师布置了个小论文的作业，趁着五一假期，从零点一（毕竟就算有意不学，但多少还是耳目渲染了点）开始恶补数据科学部分。 拿到选题之前，我连ResNet是什么都不清楚，放以前应该是照着书猛看，但是现在有ChatGPT和NewB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从ResNet入门卷积神经网络">
+<meta property="og:url" content="https://www.fenrisx.icu/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="New Try &amp;&amp; New Life">
+<meta property="og:description" content="众所周知数据科学与大数据技术实际上是以科研性质的的数据科学和纯技术力的大数据技术组成，学一半尚且非常吃力，而我又偏偏选了大数据技术方向。但是学历太低了，大数据技术也找不到工作，刚巧老师布置了个小论文的作业，趁着五一假期，从零点一（毕竟就算有意不学，但多少还是耳目渲染了点）开始恶补数据科学部分。 拿到选题之前，我连ResNet是什么都不清楚，放以前应该是照着书猛看，但是现在有ChatGPT和NewB">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.fenrisx.icu/images/head.jpg">
+<meta property="article:published_time" content="2023-05-07T14:21:03.000Z">
+<meta property="article:modified_time" content="2023-05-12T13:48:32.247Z">
+<meta property="article:author" content="Alexie-Z-Yevich">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="卷积神经网络">
+<meta property="article:tag" content="残差网络">
+<meta property="article:tag" content="ResNet">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.fenrisx.icu/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.fenrisx.icu/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Alexie-Z-Yevich","link":"链接: ","source":"来源: New Try && New Life","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从ResNet入门卷积神经网络',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-12 21:48:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="New Try &amp;&amp; New Life"><span class="site-name">New Try &amp;&amp; New Life</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 哒咩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/dream/"><i class="fa-fw fas fa-music"></i><span> 小小梦想（未完成）</span></a></li><li><a class="site-page child" href="/attack/"><i class="fa-fw fas fa-images"></i><span> 发病</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从ResNet入门卷积神经网络</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-07T14:21:03.000Z" title="发表于 2023-05-07 22:21:03">2023-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-12T13:48:32.247Z" title="更新于 2023-05-12 21:48:32">2023-05-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Little-Tips/">Little Tips</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从ResNet入门卷积神经网络"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>众所周知数据科学与大数据技术实际上是以科研性质的的数据科学和纯技术力的大数据技术组成，学一半尚且非常吃力，而我又偏偏选了大数据技术方向。但是学历太低了，大数据技术也找不到工作，刚巧老师布置了个小论文的作业，趁着五一假期，从零点一（毕竟就算有意不学，但多少还是耳目渲染了点）开始恶补数据科学部分。</p>
+<p>拿到选题之前，我连ResNet是什么都不清楚，放以前应该是照着书猛看，但是现在有ChatGPT和NewBing等人工智能了，所以优先找它了解一些情况比较迅速。事实证明我是对的，我让NewBing给我列了个论文提纲和目录，一下子就把学习方向明了了。回答如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 摘要</span></span><br><span class="line">深度神经网络在图像分类等任务上取得了显著的效果，但是随着网络层数的增加，训练和优化变得越来越困难。为了解决这个问题，本文介绍了一种深度残差网络（ResNet），它通过引入残差学习的机制，使得网络可以更容易地拟合恒等映射，从而避免了梯度消失和退化问题。本文详细分析了ResNet的原理和结构，并在CIFAR-10数据集上进行了实验，结果表明，ResNet可以有效地提高分类准确率，并且具有较低的参数量和计算复杂度。</span><br><span class="line"><span class="section">## 目录</span></span><br><span class="line"><span class="bullet">1.</span> 引言</span><br><span class="line"><span class="bullet">2.</span> 深度神经网络的挑战</span><br><span class="line">   2.1 梯度消失和爆炸</span><br><span class="line">   2.2 退化问题</span><br><span class="line"><span class="bullet">3.</span> 深度残差网络</span><br><span class="line">   3.1 残差学习</span><br><span class="line">   3.2 网络结构</span><br><span class="line">   3.3 短路连接</span><br><span class="line"><span class="bullet">4.</span> 实验与结果</span><br><span class="line">   4.1 数据集和实验设置</span><br><span class="line">   4.2 分类准确率</span><br><span class="line">   4.3 参数量和计算复杂度</span><br><span class="line"><span class="bullet">5.</span> 结论与展望</span><br></pre></td></tr></table></figure>
+
+
+
+<p>第二步是针对每个小节让NewBing进行回答，虽然看上去它能直接把小论文写完了，但是事实并非一帆风顺。NewBing的上下文连贯性并不算特别好，前面几个小点还能连贯，后面就转向科普了，而且一旦一次线程爆了，一切就得重来。为了保持一致性，最终我还是选择采用他的目录内容，先学习再自己写写。（毕竟它要是真的全能写好养成习惯后我也就废了）</p>
+<p>可能有人觉得ChatGPT会在回答上优于NewBing，让它写效果和作用会好很多。不过我个人并不建议这样，一是因为ChatGPT太优秀了，并非阻挡了自身的进步，而是它是给出的答案但凡有一句假话，给人带来的成本都是巨大的，科研是严谨的，不应该在自己不擅长的领域随意采用别人的观点；二是NewBing本质上还是一个搜索引擎，它未必能给我非常好的答案，但它能给我很多非常好的作者的博客链接，能够让我自己动手去找答案。</p>
+<p>第三步我也没有急于直接去学习ResNet，短时间学会本来就很难，花大量时间莽撞的学习效率会很低。我先去了解了下小论文的书写格式，毕竟最终应该出来的是一篇像模像样的论文，而不是东拼西凑的文段。</p>
+<p>参照文章《[知网查重入口教您论文写作的字体格式规范](<a target="_blank" rel="noopener" href="https://www.cnki.ac.cn/write/294.html#:~:text=%E7%9F%A5%E7%BD%91%E6%9F%A5%E9%87%8D%E5%85%A5%E5%8F%A3%E6%95%99%E6%82%A8%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C%E7%9A%84%E5%AD%97%E4%BD%93%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83">https://www.cnki.ac.cn/write/294.html#:~:text=知网查重入口教您论文写作的字体格式规范</a> 1 1、论文标题 使用2号黑体加粗、居中。 2 2、论文副标题 使用小2号的字体，紧挨正标题下居中，文字前加破折号。 3,另起一页开始，标题使用4号黑体，内容使用5号宋体。 7 8、附录 标题使用4号黑体，内容使用5号宋体。 8 9、注释 标题使用4号黑体，内容使用5号宋体。 )》最终将格式确定如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1、论文标题</span><br><span class="line"><span class="code">	使用2号黑体加粗、居中。</span></span><br><span class="line"><span class="code">2、论文副标题</span></span><br><span class="line"><span class="code">	使用小2号的字体，紧挨正标题下居中，文字前加破折号。</span></span><br><span class="line"><span class="code">3、个人信息</span></span><br><span class="line"><span class="code">	填写姓名、专业、学号等项目时用3号楷体。</span></span><br><span class="line"><span class="code">4、目录</span></span><br><span class="line"><span class="code">	目录要另起一页开始写作，标题为3号黑体，内容使用小4号仿宋，并且要罗列出页码。</span></span><br><span class="line"><span class="code">5、正文部分</span></span><br><span class="line"><span class="code">	要保证另起一页，开始写作，论文的标题使用3号黑体完成；而主体的文字部分，一般采用用小4号宋体；并且还要注意，每段要空两个字的距离再开始写作，行距也需要保持一致。</span></span><br><span class="line"><span class="code">6、正文中不同等级的标题格式要求</span></span><br><span class="line"><span class="code">	一级标题：标题前的序号为“一、”，4号黑体；独占一行；注意末尾不加标点符号。</span></span><br><span class="line"><span class="code">	二级标题：标题前的序号为“(一)”同正文部分的字体大小相同；独占一行；注意末尾不加标点符号。</span></span><br><span class="line"><span class="code">	三级标题：标题前的序号为“1.”同正文部分的字体大小、字体类型相同。</span></span><br><span class="line"><span class="code">	四级标题：标题前的序号为“(1)”同正文部分的字体大小、字体类型相同。</span></span><br><span class="line"><span class="code">	五级标题：标题前的序号为“①”同正文部分的字体大小、字体类型相同。</span></span><br><span class="line"><span class="code">7、参考文献</span></span><br><span class="line"><span class="code">	另起一页开始，标题使用4号黑体，内容使用5号宋体。</span></span><br><span class="line"><span class="code">8、注释</span></span><br><span class="line"><span class="code">	标题使用4号黑体，内容使用5号宋体。</span></span><br></pre></td></tr></table></figure>
+
+<p>同样，我也找了两篇知网上的论文进行参照，不过ResNet科普的论文并不存在，大部分是使用其进行调优的，这里只是用作格式的参考。</p>
+<p>第四步就比较枯燥无味了，主打一个查资料学习，在这里先吐槽一下我们组的选题人（虽然我不知道是谁），ResNet的前置知识有VGG使用块的网络，而想知道VGG就得去看看AlexNet，而学AlexNet就需要明白CNN到底想干嘛，而CNN是卷积神经网络的起点，也就是说你得先明白神经网络是什么，为什么要卷积。也就是说：如果这篇ResNet小论文能顺利写出来，那么写个VGG、AlexNet的问题也不大，这些是其他组的选题。回归正题，下面会记录下我在查资料过程中碰到的一些专业词汇（一般是你不知道干啥就会影响观感的），方便到时候写小论文的时候啪啪啪往上放。</p>
+<p>那么，我最终决定以《<a target="_blank" rel="noopener" href="https://zh.d2l.ai/index.html">动手学深度学习</a>》这本书的第六章卷积神经网络和第七章现代循环神经网络为起点，加上一些个博客（会在最后标注出来），开始我这从ResNet入门神经网络的文档。</p>
+<h4 id="从全连接到卷积"><a href="#从全连接到卷积" class="headerlink" title="从全连接到卷积"></a>从全连接到卷积</h4><h6 id="（1）设计适合于计算机视觉的神经网络架构"><a href="#（1）设计适合于计算机视觉的神经网络架构" class="headerlink" title="（1）设计适合于计算机视觉的神经网络架构"></a>（1）设计适合于计算机视觉的神经网络架构</h6><ul>
+<li>平移不变性（translation invariance）：不管检测对象出现在图像中的哪个位置，神经网络的前面几层应该对相同的图像区域具有相似的反应，即为“平移不变性”。</li>
+<li>局部性（locality）：神经网络的前面几层应该只探索输入图像中的局部区域，而不过度在意图像中相隔较远区域的关系，这就是“局部性”原则。最终，可以聚合这些局部特征，以在整个图像级别进行预测。</li>
+</ul>
+<blockquote>
+<p>如果你不能很好的理解这两句话的内涵，我建议作为科普看看我喜欢的一个UP主林亦LYi的《<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19P4y1q7GD/?spm_id_from=333.999.0.0&vd_source=a81ef8427e696b92de364d833142bd10">【亦】手机杀死了摄影？</a>》，6分28秒开始讲解经典的人脸检测算法，很好的诠释了这两句话。</p>
+</blockquote>
+<h6 id="（2）【古早】全连接的多层感知机"><a href="#（2）【古早】全连接的多层感知机" class="headerlink" title="（2）【古早】全连接的多层感知机"></a>（2）【古早】全连接的多层感知机</h6><p>我不是很能很好的陈述数学上的表现形式，但书上大部分以公式来进行讲解，所以在这我用自己的口语化表达简单介绍下这些流程。</p>
+<p>首先是多层感知机：以图像为例，在计算机处理中我们可以将一张图看成是二维矩阵。这里需要了解权重张量的概念，还记得在最优化&#x2F;计算智能学的梯度下降吗？简而言之，权重张量就是使用梯度下降之类算法得到的两组数据之间的关联性，比如一个红色向蓝色渐变的过程，只关注首尾（输入&#x2F;输出）的话你是只能看到红色和蓝色的，但是微观上来说，如果这两个颜色存在关联，那么就必然会有一个红色衰减、蓝色增强的过程，嗯，我认为叫做趋势&#x2F;极限可能比较合适，而这个变化的幅度，也就是数学上常说的斜率，就是权重张量。</p>
+<blockquote>
+<p>权重张量是神经网络中的一个重要概念。它是一个多维数组，用于存储神经网络中每个连接的权重。在神经网络的前向传播过程中，输入数据会与权重张量相乘，然后通过激活函数进行非线性变换，最终得到输出结果。在训练过程中，权重张量会不断更新，以便更好地拟合训练数据。</p>
+</blockquote>
+<p>那么再来看它的数学公式：</p>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/7.png"></p>
+<p>其实你很难想象他到底是想干什么，貌似这些参数该训练的都训练了，最终得到的也并不是有意义的结果。我在这里也纠结了很久，最终还是有了点头绪，别急，听我细细道来。</p>
+<p>还是以红蓝渐变这个例子为中心，当你训练完成后，上面的每个参数应该都是已知的。这个时候我又来了一个白红蓝三色渐变的图片（不考虑缩放），你把上面训练好的二维数据往上面一贴，在误差范围内的，能够完全贴合的部分就能被“找到”，这就是识别出来了。</p>
+<p>不过这个过程会比较漫长，因为公式中的（i，j）表示输出坐标，（k，l）表示输入坐标，四个自变量会导致计算过程指数级增长，而匹配过程又需要将输入的图从头扫到尾（极端情况下还需要反转、倒置），这种全扫描的方式就是全连接。</p>
+<blockquote>
+<p>我并不知道我讲的对不对，反正我也就学了一个下午，讲错了大家会见谅的吧！</p>
+</blockquote>
+<h6 id="（3）卷积"><a href="#（3）卷积" class="headerlink" title="（3）卷积"></a>（3）卷积</h6><p>关于卷积，我们让NewBing通俗易懂的讲讲？</p>
+<blockquote>
+<p>卷积是一种数学运算，它在图像处理和计算机视觉中非常常用。可以把它看作是一种“滤波器”，它能够提取图像中的某些特定特征。</p>
+<p>举个例子，假设我们有一张数字图像，它由许多像素点组成。我们可以定义一个卷积核，它是一个小矩阵，包含一些数字。然后，我们将卷积核放在图像的左上角，将卷积核中的每个数字与其下方的像素值相乘，然后将所有乘积相加，得到一个新的数字。这个新数字就是卷积的结果。</p>
+<p>接下来，我们将卷积核向右移动一个像素，重复上述过程，再得到一个新数字。我们继续这样做，直到卷积核移动到图像的右下角。最终，我们会得到一个新的矩阵，它包含了原图像经过卷积后的结果。</p>
+<p>不同的卷积核能够提取不同的特征。例如，有些卷积核能够检测边缘，有些能够模糊图像，有些能够锐化图像等等。在卷积神经网络中，卷积核通常是通过训练学习得到的，能够自动提取图像中最有用的特征。</p>
+</blockquote>
+<blockquote>
+<p>卷积是一种数学运算，它在信号处理和图像处理中非常常用。在数学上，卷积被定义为两个函数f和g的卷积，记为f∗g，其定义为：</p>
+<p>(f∗g)(t) &#x3D; ∫f(τ)g(t-τ)dτ</p>
+<p>在离散情况下，卷积可以表示为：</p>
+<p>(f∗g)[n] &#x3D; ∑f[k]g[n-k]</p>
+<p>在神经网络中，卷积通常用于处理图像数据。假设我们有一个图像I和一个卷积核K，它们的卷积可以表示为：</p>
+<p>S[i,j] &#x3D; (I∗K)[i,j] &#x3D; ∑m∑nI[m,n]K[i-m,j-n]</p>
+<p>其中S是卷积的结果。可以看到，卷积的过程就是将卷积核在图像上滑动，并计算每个位置上的加权和。</p>
+<p>在卷积神经网络中，卷积层通常包含多个卷积核，每个卷积核都能够提取图像中的一种特定特征。通过堆叠多个卷积层，网络能够学习到越来越复杂的特征表示。</p>
+</blockquote>
+<p>看了NewBing说的你可能更加迷糊了，这仿佛和全连接没有区别啊？我们通过公式可以看出权重张量参数从4个下降到了两个，这代表了稳定性显著下降，但是训练时间也会下降。我们以一个人的头像来举例：如果我需要用全连接的方式来识别，那么我就需要知道两个眼睛之间的比例、眼睛和鼻子的比例等等各种比例，但是不同部位的比例越多，其实越不利于人脸的识别，因为不同部位的误差势必会被放大。这个时候卷积就发挥它的作用了：虽然单个卷积结果的精度会下降，但是如果将其用来表示更小的窗口，实际上精度是提升了的。还是这个例子：如果一个卷积只处理鼻子的比例，一个卷积只处理眼睛的比例，最后将其综合起来，那么关于单个部位的精度实际上是提升了。同样，因为窗口更小，训练集也能更小，时间和成本都能一定程度下降（我猜的），最关键的是根据优先级可以大幅减少无用计算：比如一个合格的人像一定要露出眼睛，那如果我检测不到眼睛的图像就可以直接抛弃了，并不需要去检测鼻子，但是全连接就做不到。</p>
+<p>这个时候我们再回来看这个数学公式：</p>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/8.png"></p>
+<p>这时候卷积神经网络的雏形就出现了。</p>
+<h6 id="（4）通道"><a href="#（4）通道" class="headerlink" title="（4）通道"></a>（4）通道</h6><p>书上虽然叫通道，但其实我更想将其称之为维度。还是以上面提到的红蓝渐变为例，我们都知道三原色红黄蓝在计算机中为RGB三个参数，那么图像其实就不只表示为二维，按书上说的至少是三维（长、宽、颜色），当然，不勉强的来说用长、宽、深举例更方便理解：比如一个红色的球在一个蓝色的幕布前面，那么“前面”就是图像的深度。既然如此，那多出来的维度怎么表示？</p>
+<p>答案是回到全连接。当然并不是指全部回到从前，而是参数类似于全连接。我们知道全连接的权重张量会包含两点间的长、宽作为变量，一共是4个参数。通过卷积，我们可以将两点之间的关联交给其他卷积，只处理两个变量。会有两个变量是因为需要以一个坐标作为参照，即只取一点的长、宽。那么三维呢？每个点就有了长、宽、高的变量，全连接下两点之间的权重张量就有6个参数。之后在进行卷积，就能有效地减少参数。</p>
+<blockquote>
+<p>我猜理论上如果卷积分的足够多的话，那么最终就只剩下维度&#x2F;通道个参数了。</p>
+</blockquote>
+<h6 id="（5）卷积神经网络【LeNet】"><a href="#（5）卷积神经网络【LeNet】" class="headerlink" title="（5）卷积神经网络【LeNet】"></a>（5）卷积神经网络【LeNet】</h6><p>总体来看，LeNet（LeNet-5）由两个部分组成：</p>
+<ul>
+<li>卷积编码器：由两个卷积层组成;</li>
+<li>全连接层密集块：由三个全连接层组成。</li>
+</ul>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/9.png"></p>
+<h6 id="（5）总结"><a href="#（5）总结" class="headerlink" title="（5）总结"></a>（5）总结</h6><ul>
+<li><p>图像的平移不变性使我们以相同的方式处理局部图像，而不在乎它的位置。</p>
+</li>
+<li><p>局部性意味着计算相应的隐藏表示只需一小部分局部图像像素。</p>
+</li>
+<li><p>在图像处理中，卷积层通常比全连接层需要更少的参数，但依旧获得高效用的模型。</p>
+</li>
+<li><p>卷积神经网络（CNN）是一类特殊的神经网络，它可以包含多个卷积层。</p>
+</li>
+<li><p>多个输入和输出通道使模型在每个空间位置可以获取图像的多方面特征。</p>
+</li>
+<li><p>在卷积神经网络中，我们组合使用卷积层、非线性激活函数和汇聚层。</p>
+</li>
+<li><p>为了构造高性能的卷积神经网络，我们通常对卷积层进行排列，逐渐降低其表示的空间分辨率，同时增加通道数。</p>
+</li>
+<li><p>在传统的卷积神经网络中，卷积块编码得到的表征在输出之前需由一个或多个全连接层进行处理。</p>
+</li>
+<li><p>LeNet是最早发布的卷积神经网络之一。</p>
+</li>
+</ul>
+<hr>
+<h2 id="小论文部分"><a href="#小论文部分" class="headerlink" title="小论文部分"></a>小论文部分</h2><blockquote>
+<p>有了如上的基础，加上大量的查阅数据，最终得到小论文如下：</p>
+</blockquote>
+<h4 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h4><p>深度神经网络（DNN）是一种模仿生物神经系统的计算模型，它由多层非线性单元组成，能够从数据中学习抽象和复杂的特征表示。DNN在图像分类、语音识别、自然语言处理、计算机视觉等领域取得了令人瞩目的成果，成为人工智能的重要技术之一。</p>
+<p>然而，DNN也面临着许多挑战，其中之一就是如何有效地训练和部署深层的网络结构。随着网络层数的增加，DNN往往会遇到梯度消失或爆炸、退化问题、过拟合问题等，导致训练困难和性能下降。此外，DNN也需要大量的计算资源和存储空间，给硬件平台和系统架构带来了巨大的压力和挑战。</p>
+<p>为了解决这些问题，研究者们提出了许多有效的方法，其中最具代表性的就是残差网络（ResNet）。ResNet是由何恺明等人于2015年提出的一种创新的网络结构，它通过引入残差学习的机制，使得网络可以更容易地拟合恒等映射，从而避免了梯度消失和退化问题。ResNet在ILSVRC 2015图像分类比赛中获得了冠军，并在其他许多任务上也取得了优异的表现⁴。</p>
+<p>本文旨在对ResNet进行全面的介绍和分析，主要包括以下几个方面：</p>
+<p>第二部分介绍深度神经网络面临的主要挑战，包括梯度消失和爆炸、退化问题等，并分析其原因和影响。</p>
+<p>第三部分介绍残差网络的原理和结构，包括残差学习、短路连接、网络设计等，并分析其优势和局限性。</p>
+<p>第四部分介绍残差网络在CIFAR-10数据集上的实验结果，包括分类准确率、参数量和计算复杂度等，并与其他网络进行对比和分析。</p>
+<p>第五部分总结本文的主要内容，并展望残差网络的未来发展方向和应用领域。</p>
+<h4 id="二、深度神经网络的挑战"><a href="#二、深度神经网络的挑战" class="headerlink" title="二、深度神经网络的挑战"></a>二、深度神经网络的挑战</h4><h6 id="（一）梯度消失和爆炸"><a href="#（一）梯度消失和爆炸" class="headerlink" title="（一）梯度消失和爆炸"></a>（一）梯度消失和爆炸</h6><p>随着现代卷积神经网络的发展，各种网络卷积层次不断提高。在VGG中，卷积网络达到了19层，在GoogLeNet中，网络史无前例的达到了22层。在深度学习中，网络层数增多一般会伴着以下问题：计算资源的消耗、模型容易过拟合、梯度消失&#x2F;梯度爆炸问题的产生。</p>
+<p>前两者分别可以通过GPU集群提高资源、配合Dropout正则化方法等方式解决。而对于第三者，在深度神经网络中，当网络的层数增加时，反向传播算法计算出来的梯度会不断缩小，甚至趋近于零，这就是所谓的“梯度消失”问题。当梯度接近于零时，权重更新变得非常缓慢，导致模型无法学习到正确的特征表示。与梯度消失相反，梯度爆炸是指在深度神经网络中，梯度变得非常大的情况。当梯度变得太大时，权重更新可能会变得非常剧烈，导致模型出现不稳定的训练行为。</p>
+<h6 id="（二）退化问题"><a href="#（二）退化问题" class="headerlink" title="（二）退化问题"></a>（二）退化问题</h6><p>退化问题指的是深度神经网络的精度随着层数的增加而出现下降的情况。当网络的层数较浅时，网络可以通过学习简单的特征表示来实现分类或回归等任务。但当网络的层数增加时，由于输入输出的分布变得复杂，模型需要学习更多的特征表示才能够提高模型的性能。然而，当网络的层数增加到一定程度时，网络的性能反而开始下降，这就是所谓的“退化”问题。</p>
+<p>造成退化问题的原因主要包括两个方面：（1）梯度消失和爆炸；（2）网络权重的预训练效果不佳。</p>
+<p>解决方式之一就是使用残差网络的来解决。残差网络(ResNet)通过增加跨层连接来解决退化问题，使得网络可以学习到更复杂的特征表示。ResNet中使用了残差块(Residual Block)，在网络中添加跨层连接，可以使得信息在网络中更加流畅地传递，避免梯度消失和退化问题。</p>
+<h4 id="三、深度残差网络"><a href="#三、深度残差网络" class="headerlink" title="三、深度残差网络"></a>三、深度残差网络</h4><h6 id="（一）理论研究"><a href="#（一）理论研究" class="headerlink" title="（一）理论研究"></a>（一）理论研究</h6><p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/1.jpg" alt="图1.1 函数类"></p>
+<p>在没有残差的网络中，随着网络层数加深，网络的表征能力越来越强，但是网络表征能够学习到的最优点与实际中的最优点（图中的星号）往往是越来越远的，如上图中左边部分所示。</p>
+<p>残差网络的目的是使得，随着网络深度的加深，模型的能够表征的最优点至少是不比浅层网络表征的最优点差，如上图中右边部分所示。</p>
+<p>在实际的经验中，在神经网络的训练结果上体现为：随着搭建神经网络的层数的增加，错误率一开始下降，后来反而上升。上升的错误率不仅是在测试集上，同样也在训练集上，因此这种错误和过拟合无关。</p>
+<h6 id="（二）网络结构"><a href="#（二）网络结构" class="headerlink" title="（二）网络结构"></a>（二）网络结构</h6><p>残差网络是由一系列残差块组成的（图1）。一个残差块可以用表示为：</p>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/2.png" alt="img"></p>
+<p>残差块分成两部分直接映射部分和残差部分。<img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/3.png" alt="img">是直接映射，反应在图1中是左边的曲线；<img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/4.png" alt="img">是残差部分，一般由两个或者三个卷积操作构成，即下图中右侧包含卷积的部分。</p>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.jpg" alt="图1.2 残差块"></p>
+<p>ResNet采用了非常深的网络结构，其中包括多个残差块。每个残差块都由两个卷积层和一个跨层连接组成，如图所示。</p>
+<p><img src="/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/6.jpg" alt="图1.2 残差网络激活函数"></p>
+<p>在传统的卷积神经网络中，每个卷积层都会对输入进行变换，从而得到新的特征表示。而在ResNet中，每个残差块通过跨层连接将输入的信息直接传递到输出中。这使得网络可以学习到更加复杂的特征表示，从而提高了模型的性能。</p>
+<h6 id="（三）短路连接"><a href="#（三）短路连接" class="headerlink" title="（三）短路连接"></a>（三）短路连接</h6><p>短路连接（shortcut connections）是ResNet中非常重要的一部分。短路连接可以将输入的信息直接传递到输出中，从而避免了信息在网络中的损失。具体来说，在残差块中，短路连接可以让输入的信息直接绕过卷积层，并加到输出上。这样可以保留原始输入的信息，同时也增加了网络的深度。</p>
+<p>除了在第一层和最后一层之外，ResNet中的每个卷积层都包含了短路连接。这种结构可以让信息在网络中更加流畅地传递，解决了传统卷积神经网络中的退化问题。同时，短路连接还可以使得网络更加容易优化，加快网络的收敛速度。</p>
+<h4 id="四、实验与结果"><a href="#四、实验与结果" class="headerlink" title="四、实验与结果"></a>四、实验与结果</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义残差块</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ResidualBlock</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, in_channels, out_channels, stride=<span class="number">1</span></span>):</span><br><span class="line">		<span class="built_in">super</span>(ResidualBlock, self).__init__()</span><br><span class="line">		<span class="comment"># 第一个卷积层</span></span><br><span class="line">		self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=<span class="number">3</span>, stride=stride, padding=<span class="number">1</span>, bias=<span class="literal">False</span>)</span><br><span class="line">		self.bn1 = nn.BatchNorm2d(out_channels)</span><br><span class="line">		self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">		<span class="comment"># 第二个卷积层</span></span><br><span class="line">		self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>)</span><br><span class="line">		self.bn2 = nn.BatchNorm2d(out_channels)</span><br><span class="line">		<span class="comment"># 短路连接</span></span><br><span class="line">		self.shortcut = nn.Sequential()</span><br><span class="line">		<span class="keyword">if</span> stride != <span class="number">1</span> <span class="keyword">or</span> in_channels != out_channels:</span><br><span class="line">			self.shortcut = nn.Sequential(</span><br><span class="line">			nn.Conv2d(in_channels, out_channels, kernel_size=<span class="number">1</span>, stride=stride, bias=<span class="literal">False</span>),</span><br><span class="line">			nn.BatchNorm2d(out_channels)</span><br><span class="line">		)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">		identity = x</span><br><span class="line">		out = self.conv1(x)</span><br><span class="line">		out = self.bn1(out)</span><br><span class="line">		out = self.relu(out)</span><br><span class="line">		out = self.conv2(out)</span><br><span class="line">		out = self.bn2(out)</span><br><span class="line">		out += self.shortcut(identity)   <span class="comment"># 短路连接</span></span><br><span class="line">		out = self.relu(out)</span><br><span class="line">		<span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义残差网络</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ResNet</span>(nn.Module):</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, block, num_blocks, num_classes=<span class="number">10</span></span>):</span><br><span class="line">		<span class="built_in">super</span>(ResNet, self).__init__()</span><br><span class="line">		self.in_channels = <span class="number">16</span></span><br><span class="line">		<span class="comment"># 第一层卷积层</span></span><br><span class="line">		self.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">16</span>, kernel_size=<span class="number">3</span>, stride=<span class="number">1</span>, padding=<span class="number">1</span>, bias=<span class="literal">False</span>)</span><br><span class="line">		self.bn1 = nn.BatchNorm2d(<span class="number">16</span>)</span><br><span class="line">		self.relu = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">		<span class="comment"># 残差块</span></span><br><span class="line">		self.layer1 = self.make_layer(block, <span class="number">16</span>, num_blocks[<span class="number">0</span>], stride=<span class="number">1</span>)</span><br><span class="line">		self.layer2 = self.make_layer(block, <span class="number">32</span>, num_blocks[<span class="number">1</span>], stride=<span class="number">2</span>)</span><br><span class="line">		self.layer3 = self.make_layer(block, <span class="number">64</span>, num_blocks[<span class="number">2</span>], stride=<span class="number">2</span>)</span><br><span class="line">		<span class="comment"># 全局平均池化层和全连接层</span></span><br><span class="line">		self.avg_pool = nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">		self.fc = nn.Linear(<span class="number">64</span>, num_classes)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">make_layer</span>(<span class="params">self, block, out_channels, num_blocks, stride</span>):</span><br><span class="line">		strides = [stride] + [<span class="number">1</span>] * (num_blocks - <span class="number">1</span>)   <span class="comment"># 下采样的步长只在第一个残差块中使用</span></span><br><span class="line">		layers = []</span><br><span class="line">		<span class="keyword">for</span> stride <span class="keyword">in</span> strides:</span><br><span class="line">			layers.append(block(self.in_channels, out_channels, stride))</span><br><span class="line">			self.in_channels = out_channels</span><br><span class="line">		<span class="keyword">return</span> nn.Sequential(*layers)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">		out = self.conv1(x)</span><br><span class="line">		out = self.bn1(out)</span><br><span class="line">		out = self.relu(out)</span><br><span class="line">		out = self.layer1(out)</span><br><span class="line">		out = self.layer2(out)</span><br><span class="line">		out = self.layer3(out)</span><br><span class="line">		out = self.avg_pool(out)</span><br><span class="line">		out = out.view(out.size(<span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">		out = self.fc(out)</span><br><span class="line">		<span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建ResNet-18模型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">resnet18</span>():</span><br><span class="line">	<span class="keyword">return</span> ResNet(ResidualBlock, [<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试模型</span></span><br><span class="line">model = resnet18()</span><br><span class="line"><span class="built_in">print</span>(model)</span><br><span class="line">x = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>)</span><br><span class="line">y = model(x)</span><br><span class="line"><span class="built_in">print</span>(y.size())</span><br></pre></td></tr></table></figure>
+
+<p>ResidualBlock类中定义了一个ResNet的残差块，这里实现的是基本的残差块结构，由两个卷积层和一个短路连接组成。其中，第一个卷积层使用3x3的卷积核，stride&#x3D;1，padding&#x3D;1；第二个卷积层也使用3x3的卷积核，stride&#x3D;1，padding&#x3D;1。如果输入和输出维度不一致，则通过1x1的卷积操作（即短路连接）将输入调整为与输出维度相同。</p>
+<p>ResNet类中定义了整个ResNet网络模型。该模型中包含了多个残差块层，并通过全局平均池化层和全连接层进行分类。<code>make_layer</code>函数用于构建多个残差块，并通过for循环来重复调用残差块，形成一个完整的残差块层。在训练过程中，可以根据需求修改残差块层数目或者变换每个残差块中的卷积核大小等参数。</p>
+<p>对于正向计算，首先对输入数据进行预处理（即conv1和bn1），然后依次执行多个残差块层，最后通过全局平均池化层将输出转换为一维向量，并通过全连接层进行分类。</p>
+<p>该代码的训练过程通常包括以下几个步骤：定义损失函数和优化器；设置超参数，如学习率、迭代次数等；对训练集进行数据增强操作；开始训练模型，并在每个epoch结束后对验证集进行测试并计算准确率。可以根据训练过程中的验证集精度调整模型的超参数。</p>
+<h4 id="五、结论与展望"><a href="#五、结论与展望" class="headerlink" title="五、结论与展望"></a>五、结论与展望</h4><p>该代码实现了一个ResNet-18模型，并通过CIFAR10数据集对其进行了测试。该模型具有较强的分类能力和泛化能力，且训练过程中的收敛速度较快。从代码实现的角度来看，该模型的关键部分包括残差块和残差网络。残差块使用了短路连接的方法，在保证网络深度增加的同时避免了梯度消失问题，有效提高了模型性能。而残差网络则通过多个残差块层的组合，进一步增加了网络的深度和复杂度，使得模型在图像分类等任务中表现出色。</p>
+<p>当前，ResNet已经成为了深度学习领域中广泛应用的模型之一，并在许多计算机视觉任务中取得了不俗的表现。未来，可以考虑利用ResNet的设计思想，进一步深化网络架构，提高模型的性能和效率。其中，可能的方向包括：</p>
+<p>模型小型化：针对移动设备等资源受限的场景，可以尝试对ResNet进行精简，减少参数量和计算复杂度，提高模型的部署效率和速度。</p>
+<p>跨域学习：将ResNet应用于不同领域的任务中，如语音识别、自然语言处理等，探索其在多个领域中的适用性和迁移性。</p>
+<p>模型优化：通过集成学习、超参调优、模型剪枝等方法，进一步提高ResNet的性能和泛化能力。此外，也可以考虑结合其他深度学习模型或传统机器学习方法，以达到更好的效果。</p>
+<h4 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h4><p>[1] 阿斯顿·张,李沐.动手学深度学习[M].人民邮电出版社.2023</p>
+<p>[2] 张贤同学.PyTorch ResNet 使用与源码解析[EB&#x2F;OL].<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/225597229,2021-11-28">https://zhuanlan.zhihu.com/p/225597229,2021-11-28</a>.</p>
+<p>[3] 罗夏-felix.深度学习：残差网络（ResNet），理论及代码结构[EB&#x2F;OL].<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/455442102.2022-01-14">https://zhuanlan.zhihu.com/p/455442102.2022-01-14</a></p>
+<p>[4] 大师兄.详解残差网络[EB&#x2F;OL].<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/42706477.2018-08-22">https://zhuanlan.zhihu.com/p/42706477.2018-08-22</a></p>
+<p>[5] 晚饭吃什么.超级详细的ResNet代码解读（Pytorch）[EB&#x2F;OL].<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/474790387.2023-01-14">https://zhuanlan.zhihu.com/p/474790387.2023-01-14</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu">Alexie-Z-Yevich</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.fenrisx.icu/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">https://www.fenrisx.icu/2023/05/07/%E4%BB%8EResNet%E5%85%A5%E9%97%A8%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.fenrisx.icu" target="_blank">New Try && New Life</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><a class="post-meta__tags" href="/tags/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">卷积神经网络</a><a class="post-meta__tags" href="/tags/%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C/">残差网络</a><a class="post-meta__tags" href="/tags/ResNet/">ResNet</a></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Alexie-Z-Yevich</div><div class="author-info__description">hello</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Alexie-Z-Yevich"><i></i><span>前往我的Github...</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Alexie-Z-Yevich" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1213791406@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><center>主域名：<br><a href="https://www.fenrisx.icu"><b><font color="#5ea6e5">fenrisx.icu</font></b></a><br>其他项目：<br><a target="_blank" rel="noopener" href="http://www.fenrisx.top"><b><font color="#5ea6e5">fenrisx.top</font></b></a><br>📬：<b><font color="#a591e0">1213791406@qq.com</font></b></a></center></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%8D%B7%E7%A7%AF"><span class="toc-text">从全连接到卷积</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E8%AE%BE%E8%AE%A1%E9%80%82%E5%90%88%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="toc-text">（1）设计适合于计算机视觉的神经网络架构</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E3%80%90%E5%8F%A4%E6%97%A9%E3%80%91%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%9A%84%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="toc-text">（2）【古早】全连接的多层感知机</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E5%8D%B7%E7%A7%AF"><span class="toc-text">（3）卷积</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%884%EF%BC%89%E9%80%9A%E9%81%93"><span class="toc-text">（4）通道</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E3%80%90LeNet%E3%80%91"><span class="toc-text">（5）卷积神经网络【LeNet】</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%885%EF%BC%89%E6%80%BB%E7%BB%93"><span class="toc-text">（5）总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%AE%BA%E6%96%87%E9%83%A8%E5%88%86"><span class="toc-text">小论文部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80"><span class="toc-text">一、引言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-text">二、深度神经网络的挑战</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1%E5%92%8C%E7%88%86%E7%82%B8"><span class="toc-text">（一）梯度消失和爆炸</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E9%80%80%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-text">（二）退化问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C"><span class="toc-text">三、深度残差网络</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E7%90%86%E8%AE%BA%E7%A0%94%E7%A9%B6"><span class="toc-text">（一）理论研究</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-text">（二）网络结构</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E7%9F%AD%E8%B7%AF%E8%BF%9E%E6%8E%A5"><span class="toc-text">（三）短路连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E9%AA%8C%E4%B8%8E%E7%BB%93%E6%9E%9C"><span class="toc-text">四、实验与结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%BB%93%E8%AE%BA%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="toc-text">五、结论与展望</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background: rgba(255,255,255,0.7)"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Alexie-Z-Yevich</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async src="/js/title.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
